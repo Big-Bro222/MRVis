@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="AnchorC10" size="0.100000 0.100000" />
+    <ImageTarget name="AnchorB10" size="0.100000 0.100000" />
+    <ImageTarget name="AnchorA10" size="0.100000 0.100000" />
+    <ImageTarget name="AnchorC" size="0.075000 0.075000" />
+    <ImageTarget name="AnchorB" size="0.075000 0.075000" />
+    <ImageTarget name="AnchorA" size="0.075000 0.075000" />
+  </Tracking>
+</QCARConfig>
