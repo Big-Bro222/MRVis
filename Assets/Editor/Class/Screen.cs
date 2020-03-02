@@ -101,7 +101,7 @@ public class Screen
 
             string resolArgs = "-popupwindow -screen-fullscreen 0 -screen-width " + screen_width + " -screen-height " + screen_height;
             string args = " -l " + local_lurd.x + " " + local_lurd.y + " " + local_lurd.z + " " + local_lurd.w + " -g " + global_lurd.x + " " + global_lurd.y + " " + global_lurd.z + " " + global_lurd.w;
-            Debug.Log(sshclient.CreateCommand("DISPLAY=:0 /home2/rjames/Wall/WallApp.x86_64 " + resolArgs + args).Execute());            
+            Debug.Log(sshclient.CreateCommand("DISPLAY=:0 /home2/qi/Wall/WallApp.x86_64 " + resolArgs + args).Execute());            
             sshclient.Disconnect();
             sshclient.Dispose();
         }

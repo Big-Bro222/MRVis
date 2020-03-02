@@ -38,7 +38,7 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
     {
         if (mTrackableBehaviour)
             mTrackableBehaviour.UnregisterTrackableEventHandler(this);
-    }    
+    }
 
     #endregion // UNITY_MONOBEHAVIOUR_METHODS
 

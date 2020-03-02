@@ -13,5 +13,4 @@ public class MultiBuild : ScriptableObject
     [SerializeField]
     public List<SceneAsset> sceneHL = new List<SceneAsset>();
 
-
 }
