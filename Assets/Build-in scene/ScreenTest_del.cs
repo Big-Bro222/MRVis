@@ -16,7 +16,7 @@ public class ScreenTest_del : MonoBehaviour
         w += speed * Time.deltaTime;
         x = Mathf.Cos(w) * r;
         y = Mathf.Sin(w) * r;
-        transform.position=new Vector3(x,y,transform.position.z);
+        transform.localPosition=new Vector3(x,y,transform.localPosition.z);
 
     }
 }

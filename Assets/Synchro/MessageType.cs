@@ -411,4 +411,71 @@ namespace Synchro
             
         }
     }
+
+    
+    //Upwards are originally Raphael's work.
+
+    [MessagePackObject]
+    public class ColorUpdate : ISynchroCommand
+    {
+        [Key(0)] public string owner;
+        [Key(1)] public List<string> names { get; set; } = new List<string>();
+        [Key(2)] public List<Color> colors { get; set; } = new List<Color>();
+
+
+        public ColorUpdate()
+        {
+        }
+
+        public ColorUpdate(string owner, List<string> names, List<Color> colors)
+        {
+            this.owner = owner;
+            this.names = names;
+            this.colors = colors;
+        }
+
+        public void AddChange(string name, Color color)
+        {
+            names.Add(name);
+            colors.Add(color);
+        }
+
+        public void Apply()
+        {
+            for (int i = 0; i < names.Count; i++)
+            {
+                GameObject current = SynchroManager.Instance.GetObject(names[i]);
+               if (SynchroManager.Instance.IsLocked(names[i]))
+                    continue;
+
+
+                if (current == null)
+                {
+                    Debug.LogError("Can't find " + names[i]);
+                    continue;
+                }
+
+                //bool changeMemory = current.transform.hasChanged;
+                current.GetComponent<MeshRenderer>().material.color = colors[i];
+                //current.transform.hasChanged = changeMemory;
+            }
+        }
+
+    //public override string ToString()
+    //{
+    //    string totalMov = "";
+    //    for (int i = 0; i < names.Count; i++)
+    //    {
+    //        totalMov += Time.time + " " + owner + " TransformStatusUpdate " + names[i] + " " + poses[i].ToString("F3").Replace(" ", "") + " " + rots[i].ToString().Replace(" ", "") + " " + scales[i].ToString().Replace(" ", "");
+    //        if (i != names.Count - 1) totalMov += System.Environment.NewLine;
+    //    }
+    //    return totalMov;
+    //}
+
+        public void Reset()
+        {
+            names.Clear();
+            colors.Clear();
+        }
+    }
 }
