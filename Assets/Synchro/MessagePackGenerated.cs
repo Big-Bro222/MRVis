@@ -43,7 +43,7 @@ namespace MessagePack.Resolvers
 
         static GeneratedResolverGetFormatterHelper()
         {
-            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(15)
+            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(16)
             {
                 {typeof(global::System.Collections.Generic.List<string>), 0 },
                 {typeof(global::System.Collections.Generic.List<global::UnityEngine.Vector3>), 1 },
@@ -59,7 +59,8 @@ namespace MessagePack.Resolvers
                 {typeof(global::Synchro.ChangePermission), 11 },
                 {typeof(global::Synchro.ReCalibrate), 12 },
                 {typeof(global::Synchro.Ping), 13 },
-                {typeof(global::Synchro.Test.TestCommand), 14 },
+                {typeof(global::Synchro.InteractionCommand), 14 },
+                {typeof(global::Synchro.Test.TestCommand), 15 },
             };
         }
 
@@ -84,7 +85,8 @@ namespace MessagePack.Resolvers
                 case 11: return new MessagePack.Formatters.Synchro.ChangePermissionFormatter();
                 case 12: return new MessagePack.Formatters.Synchro.ReCalibrateFormatter();
                 case 13: return new MessagePack.Formatters.Synchro.PingFormatter();
-                case 14: return new MessagePack.Formatters.Synchro.Test.TestCommandFormatter();
+                case 14: return new MessagePack.Formatters.Synchro.InteractionCommandFormatter();
+                case 15: return new MessagePack.Formatters.Synchro.Test.TestCommandFormatter();
                 default: return null;
             }
         }
@@ -115,7 +117,7 @@ namespace MessagePack.Formatters.Synchro
 
         public ISynchroCommandFormatter()
         {
-            this.typeToKeyAndJumpMap = new Dictionary<RuntimeTypeHandle, KeyValuePair<int, int>>(10, global::MessagePack.Internal.RuntimeTypeHandleEqualityComparer.Default)
+            this.typeToKeyAndJumpMap = new Dictionary<RuntimeTypeHandle, KeyValuePair<int, int>>(11, global::MessagePack.Internal.RuntimeTypeHandleEqualityComparer.Default)
             {
                 { typeof(global::Synchro.Test.TestCommand).TypeHandle, new KeyValuePair<int, int>(0, 0) },
                 { typeof(global::Synchro.SpatialStatus).TypeHandle, new KeyValuePair<int, int>(1, 1) },
@@ -127,8 +129,9 @@ namespace MessagePack.Formatters.Synchro
                 { typeof(global::Synchro.ChangePermission).TypeHandle, new KeyValuePair<int, int>(7, 7) },
                 { typeof(global::Synchro.ReCalibrate).TypeHandle, new KeyValuePair<int, int>(8, 8) },
                 { typeof(global::Synchro.Ping).TypeHandle, new KeyValuePair<int, int>(9, 9) },
+                { typeof(global::Synchro.InteractionCommand).TypeHandle, new KeyValuePair<int, int>(10, 10) },
             };
-            this.keyToJumpMap = new Dictionary<int, int>(10)
+            this.keyToJumpMap = new Dictionary<int, int>(11)
             {
                 { 0, 0 },
                 { 1, 1 },
@@ -140,6 +143,7 @@ namespace MessagePack.Formatters.Synchro
                 { 7, 7 },
                 { 8, 8 },
                 { 9, 9 },
+                { 10, 10 },
             };
         }
 
@@ -182,6 +186,9 @@ namespace MessagePack.Formatters.Synchro
                         break;
                     case 9:
                         offset += formatterResolver.GetFormatterWithVerify<global::Synchro.Ping>().Serialize(ref bytes, offset, (global::Synchro.Ping)value, formatterResolver);
+                        break;
+                    case 10:
+                        offset += formatterResolver.GetFormatterWithVerify<global::Synchro.InteractionCommand>().Serialize(ref bytes, offset, (global::Synchro.InteractionCommand)value, formatterResolver);
                         break;
                     default:
                         break;
@@ -258,6 +265,10 @@ namespace MessagePack.Formatters.Synchro
                     break;
                 case 9:
                     result = (global::Synchro.ISynchroCommand)formatterResolver.GetFormatterWithVerify<global::Synchro.Ping>().Deserialize(bytes, offset, formatterResolver, out readSize);
+                    offset += readSize;
+                    break;
+                case 10:
+                    result = (global::Synchro.ISynchroCommand)formatterResolver.GetFormatterWithVerify<global::Synchro.InteractionCommand>().Deserialize(bytes, offset, formatterResolver, out readSize);
                     offset += readSize;
                     break;
                 default:
@@ -1230,6 +1241,107 @@ namespace MessagePack.Formatters.Synchro
 
             var ____result = new global::Synchro.Ping();
             ____result.owner = __owner__;
+            return ____result;
+        }
+    }
+
+
+    public sealed class InteractionCommandFormatter : global::MessagePack.Formatters.IMessagePackFormatter<global::Synchro.InteractionCommand>
+    {
+
+        readonly global::MessagePack.Internal.AutomataDictionary ____keyMapping;
+        readonly byte[][] ____stringByteKeys;
+
+        public InteractionCommandFormatter()
+        {
+            this.____keyMapping = new global::MessagePack.Internal.AutomataDictionary()
+            {
+                { "owner", 0},
+                { "name", 1},
+                { "command", 2},
+            };
+
+            this.____stringByteKeys = new byte[][]
+            {
+                global::MessagePack.MessagePackBinary.GetEncodedStringBytes("owner"),
+                global::MessagePack.MessagePackBinary.GetEncodedStringBytes("name"),
+                global::MessagePack.MessagePackBinary.GetEncodedStringBytes("command"),
+                
+            };
+        }
+
+
+        public int Serialize(ref byte[] bytes, int offset, global::Synchro.InteractionCommand value, global::MessagePack.IFormatterResolver formatterResolver)
+        {
+            if (value == null)
+            {
+                return global::MessagePack.MessagePackBinary.WriteNil(ref bytes, offset);
+            }
+            
+            var startOffset = offset;
+            offset += global::MessagePack.MessagePackBinary.WriteFixedMapHeaderUnsafe(ref bytes, offset, 3);
+            offset += global::MessagePack.MessagePackBinary.WriteRaw(ref bytes, offset, this.____stringByteKeys[0]);
+            offset += formatterResolver.GetFormatterWithVerify<string>().Serialize(ref bytes, offset, value.owner, formatterResolver);
+            offset += global::MessagePack.MessagePackBinary.WriteRaw(ref bytes, offset, this.____stringByteKeys[1]);
+            offset += formatterResolver.GetFormatterWithVerify<string[]>().Serialize(ref bytes, offset, value.name, formatterResolver);
+            offset += global::MessagePack.MessagePackBinary.WriteRaw(ref bytes, offset, this.____stringByteKeys[2]);
+            offset += formatterResolver.GetFormatterWithVerify<string>().Serialize(ref bytes, offset, value.command, formatterResolver);
+            return offset - startOffset;
+        }
+
+        public global::Synchro.InteractionCommand Deserialize(byte[] bytes, int offset, global::MessagePack.IFormatterResolver formatterResolver, out int readSize)
+        {
+            if (global::MessagePack.MessagePackBinary.IsNil(bytes, offset))
+            {
+                readSize = 1;
+                return null;
+            }
+
+            var startOffset = offset;
+            var length = global::MessagePack.MessagePackBinary.ReadMapHeader(bytes, offset, out readSize);
+            offset += readSize;
+
+            var __owner__ = default(string);
+            var __name__ = default(string[]);
+            var __command__ = default(string);
+
+            for (int i = 0; i < length; i++)
+            {
+                var stringKey = global::MessagePack.MessagePackBinary.ReadStringSegment(bytes, offset, out readSize);
+                offset += readSize;
+                int key;
+                if (!____keyMapping.TryGetValueSafe(stringKey, out key))
+                {
+                    readSize = global::MessagePack.MessagePackBinary.ReadNextBlock(bytes, offset);
+                    goto NEXT_LOOP;
+                }
+
+                switch (key)
+                {
+                    case 0:
+                        __owner__ = formatterResolver.GetFormatterWithVerify<string>().Deserialize(bytes, offset, formatterResolver, out readSize);
+                        break;
+                    case 1:
+                        __name__ = formatterResolver.GetFormatterWithVerify<string[]>().Deserialize(bytes, offset, formatterResolver, out readSize);
+                        break;
+                    case 2:
+                        __command__ = formatterResolver.GetFormatterWithVerify<string>().Deserialize(bytes, offset, formatterResolver, out readSize);
+                        break;
+                    default:
+                        readSize = global::MessagePack.MessagePackBinary.ReadNextBlock(bytes, offset);
+                        break;
+                }
+                
+                NEXT_LOOP:
+                offset += readSize;
+            }
+
+            readSize = offset - startOffset;
+
+            var ____result = new global::Synchro.InteractionCommand();
+            ____result.owner = __owner__;
+            ____result.name = __name__;
+            ____result.command = __command__;
             return ____result;
         }
     }

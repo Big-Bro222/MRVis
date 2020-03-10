@@ -13,7 +13,7 @@ namespace Synchro
     [MessagePack.Union(7, typeof(ChangePermission))]
     [MessagePack.Union(8, typeof(ReCalibrate))]
     [MessagePack.Union(9, typeof(Ping))]
-    [MessagePack.Union(10,typeof(ColorUpdate))]
+    [MessagePack.Union(10,typeof(InteractionCommand))]
 
     public interface ISynchroCommand
     {

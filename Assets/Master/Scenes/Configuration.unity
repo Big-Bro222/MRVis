@@ -156,8 +156,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   default_wall_config: wilder3
-  startin_wall_scene: {fileID: 102900000, guid: 9e267eff8282bff43813e1b4657bd394,
-    type: 3}
   hololenses: []
   wall:
     screenList: []

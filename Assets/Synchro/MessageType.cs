@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MessagePack;
 
+
 namespace Synchro
 {
     public class MessageType
@@ -92,10 +93,10 @@ namespace Synchro
         {
             for (int i = 0; i < names.Count; i++)
             {
-                GameObject current = SynchroManager.Instance.GetObject(names[i]);
+                
                 if (SynchroManager.Instance.IsLocked(names[i]))
                     continue;
-
+                GameObject current = SynchroManager.Instance.GetObject(names[i]);
 
                 if (current == null)
                 {
@@ -412,70 +413,84 @@ namespace Synchro
         }
     }
 
-    
-    //Upwards are originally Raphael's work.
 
+    //Upwards are originally Raphael's work.
     [MessagePackObject]
-    public class ColorUpdate : ISynchroCommand
+    public class InteractionCommand : ISynchroCommand
     {
         [Key(0)] public string owner;
-        [Key(1)] public List<string> names { get; set; } = new List<string>();
-        [Key(2)] public List<Color> colors { get; set; } = new List<Color>();
+        [Key(1)] public string[] name=new string[2];
+        [Key(2)] public string command;
 
 
-        public ColorUpdate()
+        public InteractionCommand()
         {
         }
 
-        public ColorUpdate(string owner, List<string> names, List<Color> colors)
+        public InteractionCommand(string owner, string[] name, string command )
         {
             this.owner = owner;
-            this.names = names;
-            this.colors = colors;
+            this.name = name;
+            this.command = command;
         }
 
-        public void AddChange(string name, Color color)
+        public void AddChange(string[] name, string command)
         {
-            names.Add(name);
-            colors.Add(color);
+            this.name = name;
+            this.command=command;
+
         }
 
         public void Apply()
         {
-            for (int i = 0; i < names.Count; i++)
-            {
-                GameObject current = SynchroManager.Instance.GetObject(names[i]);
-               if (SynchroManager.Instance.IsLocked(names[i]))
-                    continue;
-
-
-                if (current == null)
-                {
-                    Debug.LogError("Can't find " + names[i]);
-                    continue;
-                }
-
-                //bool changeMemory = current.transform.hasChanged;
-                current.GetComponent<MeshRenderer>().material.color = colors[i];
-                //current.transform.hasChanged = changeMemory;
+            for(int i = 0; i < name.Length; i++) {
+                if (SynchroManager.Instance.IsLocked(name[i]))
+                    return;
             }
+            GameObject current = new GameObject();
+            if (!name[0].Equals("null"))
+            {
+                current = SynchroManager.Instance.GetObject(name[0]);
+                if (current.GetComponent<InteractableReceiver>() == null)
+                {
+                    Debug.Log("Can't interact with" + current.name);
+                }
+                current.GetComponent<InteractableReceiver>().interact(true);
+
+            }
+            else if (!name[1].Equals("null"))
+            {
+                current = SynchroManager.Instance.GetObject(name[1]);
+                if (current.GetComponent<InteractableReceiver>() == null)
+                {
+                    Debug.Log("Can't interact with" + current.name);
+                    return;
+                }
+                current.GetComponent<InteractableReceiver>().interact(false);
+            }
+
+                
+                
+                
+            
         }
 
-    //public override string ToString()
-    //{
-    //    string totalMov = "";
-    //    for (int i = 0; i < names.Count; i++)
-    //    {
-    //        totalMov += Time.time + " " + owner + " TransformStatusUpdate " + names[i] + " " + poses[i].ToString("F3").Replace(" ", "") + " " + rots[i].ToString().Replace(" ", "") + " " + scales[i].ToString().Replace(" ", "");
-    //        if (i != names.Count - 1) totalMov += System.Environment.NewLine;
-    //    }
-    //    return totalMov;
-    //}
+        //public override string ToString()
+        //{
+        //    string totalcommand = "";
+        //    for (int i = 0; i < names.Count; i++)
+        //    {
+        //        totalcommand += Time.time + " " + owner + " InteractionCommand " + names[i] + " " + commands[i];
+        //        if (i != names.Count - 1) totalcommand += System.Environment.NewLine;
+        //    }
+        //    return totalcommand;
+        //}
 
         public void Reset()
         {
-            names.Clear();
-            colors.Clear();
+            name=new string[2];
+            command="";
         }
     }
+
 }

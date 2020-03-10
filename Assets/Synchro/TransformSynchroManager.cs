@@ -6,18 +6,22 @@ namespace Synchro
 {
     public class TransformSynchroManager : SynchroManager
     {
+        public FocusObj focusObj;
+        
+
         private TransformsStatusUpdate transformsStatusUpdate = new TransformsStatusUpdate();
-        private ColorUpdate colorUpdate = new ColorUpdate();
+        private InteractionCommand interactionCommand = new InteractionCommand();
         private bool isStopped = false;
-        private Dictionary<string, Color> previousColors = new Dictionary<string, Color>();
+        private GameObject focus = null;
+        
+
 
         public override void Start()
         {
+            
             base.Start();
             transformsStatusUpdate.owner = this.ownerId;
-            colorUpdate.owner = this.ownerId;
             NetworkUpdate += OnSynchroUpdate;
-            InitialColorList();
         }
         
         void OnSynchroUpdate(object sender, SynchroManager.SynchroEventArgs e)
@@ -25,38 +29,36 @@ namespace Synchro
             if (isStopped)
                 return;
             TransformUpdate();
-            ColorUpdate();
-
-
+            InteractionUpdate();
         }
-      
-        private void ColorUpdate()
+        private void InteractionUpdate()
         {
-            colorUpdate.Reset();
-            bool hasChangedcolor = false;
-            foreach (KeyValuePair<string, ObjectOwnershipStatus> de in sharedItems)
+            interactionCommand.Reset();
+            bool hasInteracion = false;
+            if (focusObj.GetFocus() != focus)
             {
-                GameObject gameObject = de.Value.obj;
-                bool ColorChanged = (previousColors[de.Key] != gameObject.GetComponent<MeshRenderer>().material.color);
-                if (ColorChanged)
-                {
-                    hasChangedcolor = true;
-                    previousColors[de.Key] = gameObject.GetComponent<MeshRenderer>().material.color;
-                    colorUpdate.AddChange(gameObject.name, gameObject.GetComponent<MeshRenderer>().material.color);
+                string[] focusNDefocus = new string[2];
+                focusNDefocus[0] = (focusObj.GetFocus() == null) ? "null" : focusObj.GetFocus().name;
+                focusNDefocus[1]= (focus == null) ? "null" : focus.name;
+                Debug.Log(focusNDefocus[0]+" and "+focusNDefocus[1]);
 
-                }
+                interactionCommand.AddChange(focusNDefocus, "OnHover");
+                focus = focusObj.GetFocus();
+                
+                hasInteracion = true;
+                
             }
 
-            if (hasChangedcolor)
-                SynchroServer.Instance.SendCommand(topic, colorUpdate);
+            if (hasInteracion)
+                SynchroServer.Instance.SendCommand(topic, interactionCommand);
         }
-
         private void TransformUpdate()
         {
             transformsStatusUpdate.Reset();
             bool hasChangedtransforms = false;
             foreach (KeyValuePair<string, ObjectOwnershipStatus> de in sharedItems)
             {
+                
                 GameObject gameObject = de.Value.obj;
                 if (gameObject.transform.hasChanged)
                 {
@@ -70,15 +72,6 @@ namespace Synchro
 
             if (hasChangedtransforms)
                 SynchroServer.Instance.SendCommand(topic, transformsStatusUpdate);
-        }
-
-        private void InitialColorList()
-        {
-            foreach (KeyValuePair<string, ObjectOwnershipStatus> de in sharedItems)
-            {
-                GameObject gameObject = de.Value.obj;
-                previousColors.Add(de.Key, gameObject.GetComponent<MeshRenderer>().material.color);
-            }
         }
 
 
