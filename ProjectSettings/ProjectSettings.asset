@@ -126,7 +126,7 @@ PlayerSettings:
   m_HolographicPauseOnTrackingLoss: 0
   xboxOneDisableKinectGpuReservation: 1
   xboxOneEnable7thCore: 1
-  isWsaHolographicRemotingEnabled: 0
+  isWsaHolographicRemotingEnabled: 1
   vrSettings:
     cardboard:
       depthFormat: 0
@@ -627,7 +627,7 @@ PlayerSettings:
       EnterpriseAuthentication: False
       HumanInterfaceDevice: False
       InputInjectionBrokered: False
-      InternetClient: True
+      InternetClient: False
       InternetClientServer: True
       Location: False
       LowLevelDevices: False

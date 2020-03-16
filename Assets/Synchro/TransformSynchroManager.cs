@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,10 +39,14 @@ namespace Synchro
             if (focusObj.GetFocus() != focus)
             {
                 string[] focusNDefocus = new string[2];
-                focusNDefocus[0] = (focusObj.GetFocus() == null) ? "null" : focusObj.GetFocus().name;
-                focusNDefocus[1]= (focus == null) ? "null" : focus.name;
-                Debug.Log(focusNDefocus[0]+" and "+focusNDefocus[1]);
+                
+                bool isWallItem = IsWallItem(focusObj.GetFocus()); ;
 
+
+                focusNDefocus[0] = (focusObj.GetFocus() == null|| !IsWallItem(focusObj.GetFocus())) ? "null" : focusObj.GetFocus().name;
+                focusNDefocus[1]= (focus == null||!IsWallItem(focus)) ? "null" : focus.name;
+                Debug.Log(focusNDefocus[0]+" and "+focusNDefocus[1]);
+                
                 interactionCommand.AddChange(focusNDefocus, "OnHover");
                 focus = focusObj.GetFocus();
                 
@@ -52,6 +57,20 @@ namespace Synchro
             if (hasInteracion)
                 SynchroServer.Instance.SendCommand(topic, interactionCommand);
         }
+
+        private bool IsWallItem(GameObject testobj)
+        {
+            bool iswallitem = false;
+            foreach (GameObject wallItem in wallItems)
+            {
+                if (testobj == wallItem)
+                {
+                    iswallitem = true;
+                }
+            }
+            return iswallitem;
+        }
+
         private void TransformUpdate()
         {
             transformsStatusUpdate.Reset();

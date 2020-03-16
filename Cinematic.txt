@@ -1,31 +1,25 @@
-39.7311 116 Register Op116
-39.8311 116 TransformStatusUpdate Wall (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (1.0,1.0,1.0)
-39.8311 116 TransformStatusUpdate VirtualWall1 (-3.500,0.000,-2.000) (0.0,-0.7,0.0,0.7) (1.0,1.0,1.0)
-39.8311 116 TransformStatusUpdate VirtualWall2 (3.500,0.000,-2.000) (0.0,0.7,0.0,0.7) (1.0,1.0,1.0)
-39.8311 116 TransformStatusUpdate VirtualWall3 (0.000,0.000,-4.000) (0.0,1.0,0.0,0.0) (1.0,1.0,1.0)
-39.8311 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-39.8311 116 TransformStatusUpdate Op116 (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (0.1,0.1,0.1)
-58.30965 116 TransformStatusUpdate Wall (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (1.0,1.0,1.0)
-58.30965 116 TransformStatusUpdate VirtualWall1 (-3.500,0.000,-2.000) (0.0,-0.7,0.0,0.7) (1.0,1.0,1.0)
-58.30965 116 TransformStatusUpdate VirtualWall2 (3.500,0.000,-2.000) (0.0,0.7,0.0,0.7) (1.0,1.0,1.0)
-58.30965 116 TransformStatusUpdate VirtualWall3 (0.000,0.000,-4.000) (0.0,1.0,0.0,0.0) (1.0,1.0,1.0)
-58.30965 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-58.30965 116 TransformStatusUpdate Op116 (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (0.1,0.1,0.1)
+36.06964 116 Register Op116
+36.16875 116 TransformStatusUpdate Wall (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (1.0,1.0,1.0)
+36.16875 116 TransformStatusUpdate VirtualWall1 (-3.500,0.000,-2.000) (0.0,-0.7,0.0,0.7) (1.0,1.0,1.0)
+36.16875 116 TransformStatusUpdate VirtualWall2 (3.500,0.000,-2.000) (0.0,0.7,0.0,0.7) (1.0,1.0,1.0)
+36.16875 116 TransformStatusUpdate VirtualWall3 (0.000,0.000,-4.000) (0.0,1.0,0.0,0.0) (1.0,1.0,1.0)
+36.16875 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.5,0.5,0.5)
+36.16875 116 TransformStatusUpdate Op116 (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (0.1,0.1,0.1)
+42.58312 116 TransformStatusUpdate Wall (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (1.0,1.0,1.0)
+42.58312 116 TransformStatusUpdate VirtualWall1 (-3.500,0.000,-2.000) (0.0,-0.7,0.0,0.7) (1.0,1.0,1.0)
+42.58312 116 TransformStatusUpdate VirtualWall2 (3.500,0.000,-2.000) (0.0,0.7,0.0,0.7) (1.0,1.0,1.0)
+42.58312 116 TransformStatusUpdate VirtualWall3 (0.000,0.000,-4.000) (0.0,1.0,0.0,0.0) (1.0,1.0,1.0)
+42.58312 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.5,0.5,0.5)
+42.58312 116 TransformStatusUpdate Op116 (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (0.1,0.1,0.1)
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
-62.02596 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-62.56787 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-63.45585 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-64.02404 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-64.82112 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-65.54419 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
@@ -123,10 +117,21 @@ Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
+65.02451 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.9,0.9,0.9)
 Synchro.InteractionCommand
+68.42603 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.5,0.5,0.5)
 Synchro.InteractionCommand
+77.98161 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.9,0.9,0.9)
 Synchro.InteractionCommand
+116.6422 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.5,0.5,0.5)
 Synchro.InteractionCommand
+160.4452 116 Register Op116
+161.5413 116 TransformStatusUpdate Wall (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (1.0,1.0,1.0)
+161.5413 116 TransformStatusUpdate VirtualWall1 (-3.500,0.000,-2.000) (0.0,-0.7,0.0,0.7) (1.0,1.0,1.0)
+161.5413 116 TransformStatusUpdate VirtualWall2 (3.500,0.000,-2.000) (0.0,0.7,0.0,0.7) (1.0,1.0,1.0)
+161.5413 116 TransformStatusUpdate VirtualWall3 (0.000,0.000,-4.000) (0.0,1.0,0.0,0.0) (1.0,1.0,1.0)
+161.5413 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.5,0.5,0.5)
+161.5413 116 TransformStatusUpdate Op116 (0.000,0.000,0.000) (0.0,0.0,0.0,1.0) (0.1,0.1,0.1)
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
@@ -239,37 +244,21 @@ Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
-178.5344 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-179.9878 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-180.6375 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-181.4554 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-185.2419 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-186.2331 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-187.0516 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-187.9488 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-188.7547 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-189.7358 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-190.5011 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-191.6212 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-192.7296 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-193.7066 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
-194.6703 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
 Synchro.InteractionCommand
-195.5001 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
@@ -336,190 +325,6 @@ Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-314.1917 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-319.0192 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-319.562 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-320.0049 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-349.7536 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-350.4396 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-Synchro.InteractionCommand
-396.2285 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-397.1232 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-397.6435 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-398.2705 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-398.9454 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-399.6398 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
-Synchro.InteractionCommand
-400.4802 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.6,0.6,0.6)
-Synchro.InteractionCommand
-401.0878 116 TransformStatusUpdate QuadColor (1.950,0.609,-0.012) (0.0,0.0,0.0,1.0) (0.3,0.3,0.3)
 Synchro.InteractionCommand
 Synchro.InteractionCommand
 Synchro.InteractionCommand

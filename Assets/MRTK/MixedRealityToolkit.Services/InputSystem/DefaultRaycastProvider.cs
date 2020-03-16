@@ -5,6 +5,7 @@ using Microsoft.MixedReality.Toolkit.Physics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 namespace Microsoft.MixedReality.Toolkit.Input
 {
     /// <summary>
@@ -15,7 +16,8 @@ namespace Microsoft.MixedReality.Toolkit.Input
         public DefaultRaycastProvider(
             IMixedRealityServiceRegistrar registrar,
             MixedRealityInputSystemProfile profile) : base(registrar, profile)
-        { }
+        {
+        }
 
         /// <inheritdoc />
         public bool Raycast(RayStep step, LayerMask[] prioritizedLayerMasks, bool focusIndividualCompoundCollider, out MixedRealityRaycastHit hitInfo)

@@ -448,13 +448,17 @@ namespace Synchro
                     return;
             }
             GameObject current = new GameObject();
+            
+
             if (!name[0].Equals("null"))
             {
+                Debug.Log(name[0]+" is name 0");
                 current = SynchroManager.Instance.GetObject(name[0]);
                 if (current.GetComponent<InteractableReceiver>() == null)
                 {
                     Debug.Log("Can't interact with" + current.name);
                 }
+                Debug.Log(current.name+ "is current name");
                 current.GetComponent<InteractableReceiver>().interact(true);
 
             }
