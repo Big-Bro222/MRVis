@@ -27,6 +27,10 @@ public class RaycastManager : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
+            if (hit.collider.gameObject.CompareTag("ignoreRaycast"))
+            {
+                continue;
+            }
             float dist = Vector3.Distance(hit.point, hit.transform.position);
             if (dist < mindist)
             {

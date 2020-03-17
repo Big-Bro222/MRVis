@@ -21,7 +21,12 @@ public class FocusObj : MonoBehaviour
     {
             hoverSFX.Play();
             Focus = focusobj;
-            if(prefocusobj != null ||Focus != null)
+        if (focusobj.name == "PinchSlider")
+        {
+            return;
+        }
+             
+        if(prefocusobj != null ||Focus != null)
         {
             if (prefocusobj == null)
             {

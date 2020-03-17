@@ -16,6 +16,7 @@ namespace Microsoft.MixedReality.Toolkit.UI
     public class PinchSlider : MonoBehaviour, IMixedRealityPointerHandler, IMixedRealityFocusHandler
     {
         #region Serialized Fields and Properties
+
         [Tooltip("The gameObject that contains the slider thumb.")]
         [SerializeField]
         private GameObject thumbRoot = null;
@@ -31,7 +32,7 @@ namespace Microsoft.MixedReality.Toolkit.UI
                 InitializeSliderThumb();
             }
         }
-
+        
         [Range(0, 1)]
         [SerializeField]
         private float sliderValue = 0.5f;
