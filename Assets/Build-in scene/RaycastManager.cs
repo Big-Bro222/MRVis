@@ -19,37 +19,32 @@ public class RaycastManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Maincamera is: "+ Camera.main.name);
-        Debug.Log("WTFcamera is : " + CoreServices.CameraSystem.Name);
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized , 100.0f);
+        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized , Mathf.Infinity,(1<<11));
         float mindist = 20;
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
-            if (hit.collider.gameObject.CompareTag("ignoreRaycast"))
-            {
-                continue;
-            }
             float dist = Vector3.Distance(hit.point, hit.transform.position);
+
+
             if (dist < mindist)
             {
 
                 mindist = dist;
-                focus = hit.transform.gameObject;
+
+                focus = hit.transform.parent.gameObject;
+                if (hit.transform.name=="Wall")
+                {
+                    focus=null;
+                }
 
             }
         }
-        bool Iswall=(focus.name.Equals("Wall"));
         
-        if (focus!=null && focus.name.Equals("Wall"))
+        if (focus != prefocus)
         {
-            focusobj.setFocus(null, prefocus);
-            prefocus = null;
-        }
-        else if (focus != prefocus)
-        {
-            focusobj.setFocus(focus,prefocus);
+            focusobj.setFocus(focus, prefocus);
             prefocus = focus;
             
         }

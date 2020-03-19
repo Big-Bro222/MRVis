@@ -8,6 +8,7 @@ TagManager:
   - MagneticBoundary
   - Slate
   - ignoreRaycast
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - PostProcessing
   - Surface
   - Boundary
-  - 
+  - RaycastLayer
   - 
   - 
   - 

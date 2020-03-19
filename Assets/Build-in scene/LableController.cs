@@ -5,9 +5,12 @@ using Microsoft.MixedReality.Toolkit;
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class ClickerController : MonoBehaviour
+public class LableController : MonoBehaviour
 {
+    public bool showLabels;
+
     public GameObject Mapviz;
     private Canvas[] canvases;
     private int scale;
@@ -18,8 +21,18 @@ public class ClickerController : MonoBehaviour
     {
         canvases = Mapviz.GetComponentsInChildren<Canvas>();
         unit = 288;
+        if (!showLabels)
+        {
+            foreach (Canvas canvas in canvases)
+            {
+                canvas.gameObject.SetActive(false);
+            }
+        }
     }
 
+    private void Update()
+    {
+    }
 
     public void SliderValueUpdate()
     {

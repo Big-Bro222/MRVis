@@ -8,40 +8,56 @@ using UnityEngine.EventSystems;
 public class FocusObj : MonoBehaviour
 {
     public GameObject Focus;
-    private AudioSource hoverSFX;
+    //private AudioSource hoverSFX;
     private LayerMask[] laymasks;
     private PointerEventData pointeventdata;
 
 
     void Start()
     {
-        hoverSFX = GetComponent<AudioSource>();
+        //hoverSFX = GetComponent<AudioSource>();
     }
     public void setFocus(GameObject focusobj,GameObject prefocusobj)
     {
-            hoverSFX.Play();
-            Focus = focusobj;
-        if (focusobj.name == "PinchSlider")
+        Focus = focusobj;
+        if (Focus != null)
         {
-            return;
+            Focus.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(true);
         }
-             
-        if(prefocusobj != null ||Focus != null)
+
+        if (prefocusobj != null)
         {
-            if (prefocusobj == null)
-            {
-                Focus.GetComponent<AirTapTest>().OnHover(true);
-            }
-            else if (Focus == null)
-            {
-                prefocusobj.GetComponent<AirTapTest>().OnHover(false);
-            }
-            else
-            {
-                prefocusobj.GetComponent<AirTapTest>().OnHover(false);
-                Focus.GetComponent<AirTapTest>().OnHover(true);
-            }
+            prefocusobj.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(false);
         }
+        
+
+        //if (focusobj && focusobj.name == "Wall")
+        //{
+        //    Focus = null;
+        //}
+        //else
+        //{
+        //    Focus = focusobj;
+        //}
+        ////hoverSFX.Play();
+
+
+        //if (prefocusobj != null ||Focus != null)
+        //{
+        //    if (prefocusobj == null)
+        //    {
+        //        Focus.GetComponentInChildren<AirTapTest>().OnHover(true);
+        //    }
+        //    else if (Focus == null)
+        //    {
+        //        prefocusobj.GetComponentInChildren<AirTapTest>().OnHover(false);
+        //    }
+        //    else
+        //    {
+        //        prefocusobj.GetComponentInChildren<AirTapTest>().OnHover(false);
+        //        Focus.GetComponentInChildren<AirTapTest>().OnHover(true);
+        //    }
+        //}
 
     }
 

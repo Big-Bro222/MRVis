@@ -9,13 +9,15 @@ public class MapCanvas : MonoBehaviour
     // Start is called before the first frame update
 
     public GameObject nodeprefab;
-    public Vector3 maplocalscale;
+    public float mapscale;
     public Vector2 maplocalpos;
 
+    private Vector3 maplocalscale;
     private MapInformationParser mapInformationParser;  
     private List<string[]> locationlist;
     void Start()
     {
+        maplocalscale = new Vector3(mapscale, mapscale, mapscale);
         mapInformationParser = new MapInformationParser();
         locationlist=mapInformationParser.GetLocationList();
         GenerateNodes();
@@ -26,7 +28,7 @@ public class MapCanvas : MonoBehaviour
     {
         foreach(string[] location in locationlist)
         {
-            GameObject Node=Instantiate(nodeprefab, new Vector3(float.Parse(location[0]), float.Parse(location[1]), -0.01f), Quaternion.Euler(-90,0,0), transform);
+            GameObject Node=Instantiate(nodeprefab, new Vector3(float.Parse(location[0]), float.Parse(location[1]), -0.01f), Quaternion.Euler(0,0,0), transform);
             Node.name = location[2];
         }
         
