@@ -17,11 +17,12 @@ public class FocusObj : MonoBehaviour
     {
         //hoverSFX = GetComponent<AudioSource>();
     }
-    public void setFocus(GameObject focusobj,GameObject prefocusobj)
+    public void SetFocus(GameObject focusobj,GameObject prefocusobj)
     {
         Focus = focusobj;
         if (Focus != null)
         {
+            Debug.Log("the focus is " + Focus.name);
             Focus.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(true);
         }
 
@@ -29,36 +30,6 @@ public class FocusObj : MonoBehaviour
         {
             prefocusobj.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(false);
         }
-        
-
-        //if (focusobj && focusobj.name == "Wall")
-        //{
-        //    Focus = null;
-        //}
-        //else
-        //{
-        //    Focus = focusobj;
-        //}
-        ////hoverSFX.Play();
-
-
-        //if (prefocusobj != null ||Focus != null)
-        //{
-        //    if (prefocusobj == null)
-        //    {
-        //        Focus.GetComponentInChildren<AirTapTest>().OnHover(true);
-        //    }
-        //    else if (Focus == null)
-        //    {
-        //        prefocusobj.GetComponentInChildren<AirTapTest>().OnHover(false);
-        //    }
-        //    else
-        //    {
-        //        prefocusobj.GetComponentInChildren<AirTapTest>().OnHover(false);
-        //        Focus.GetComponentInChildren<AirTapTest>().OnHover(true);
-        //    }
-        //}
-
     }
 
     public GameObject GetFocus()

@@ -14,13 +14,17 @@ public class AirTapTest : MonoBehaviour
     private bool onHover;
     private Vector3 originalscale;
     private TextMeshProUGUI namelable;
+    private LabelRotationHandler labelRotationHandler;
 
     // Start is called before the first frame update
     void Awake()
     {
         namelable = GetComponentInChildren<TextMeshProUGUI>();
         namelable.SetText(gameObject.transform.parent.name);
-        //namelable.transform.parent.gameObject.SetActive(false);
+
+        labelRotationHandler = GetComponent<LabelRotationHandler>();
+        labelRotationHandler.enabled = false;
+
         onHover = false;
         onhovercolor = Color.red;
         defaultcolor = Color.yellow;
@@ -40,7 +44,10 @@ public class AirTapTest : MonoBehaviour
     public void OnHover(bool onHover)
     {
         namelable.transform.parent.gameObject.SetActive(onHover);
-        namelable.color = onHover ? onhovercolor : defaultcolor;
+        namelable.fontSize = onHover? 40 : 28;
+
+        labelRotationHandler.enabled= onHover ? true : false;
+
         node.GetComponent<MeshRenderer>().material.color = onHover ? onhovercolor : defaultcolor;
         node.transform.localScale = onHover? originalscale *2.0f: originalscale;
     }

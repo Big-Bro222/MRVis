@@ -20,31 +20,38 @@ public class RaycastManager : MonoBehaviour
     void Update()
     {
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized , Mathf.Infinity,(1<<11));
+        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized , Mathf.Infinity,(1<<11|1<<12));
         float mindist = 20;
         for (int i = 0; i < hits.Length; i++)
         {
             RaycastHit hit = hits[i];
-            float dist = Vector3.Distance(hit.point, hit.transform.position);
-
-
-            if (dist < mindist)
+            bool inLayerMaskAnnotation = hit.transform.gameObject.IsInLayerMask(1 << 12);
+            if (inLayerMaskAnnotation)
             {
-
-                mindist = dist;
-
-                focus = hit.transform.parent.gameObject;
-                if (hit.transform.name=="Wall")
-                {
-                    focus=null;
-                }
-
+                return;
             }
+                float dist = Vector3.Distance(hit.point, hit.transform.position);
+
+
+                if (dist < mindist)
+                {
+
+                    mindist = dist;
+
+                    focus = hit.transform.parent.gameObject;
+                    if (hit.transform.name == "Wall")
+                    {
+                        focus = null;
+                    }
+
+                }
+            
+
         }
         
         if (focus != prefocus)
         {
-            focusobj.setFocus(focus, prefocus);
+            focusobj.SetFocus(focus, prefocus);
             prefocus = focus;
             
         }
