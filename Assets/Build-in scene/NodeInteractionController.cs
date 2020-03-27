@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class AirTapTest : MonoBehaviour
+public class NodeInteractionController : MonoBehaviour
 {
     public GameObject node;
 
@@ -13,16 +13,17 @@ public class AirTapTest : MonoBehaviour
     private Color defaultcolor;
     private bool onHover;
     private Vector3 originalscale;
-    private TextMeshProUGUI namelable;
-    private LabelRotationHandler labelRotationHandler;
+    private TextMeshPro namelable;
+    private LabelMovementManager labelRotationHandler;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        namelable = GetComponentInChildren<TextMeshProUGUI>();
-        namelable.SetText(gameObject.transform.parent.name);
+        node = transform.parent.GetChild(0).gameObject;
 
-        labelRotationHandler = GetComponent<LabelRotationHandler>();
+        namelable = GetComponent<TextMeshPro>();
+
+        labelRotationHandler = GetComponent<LabelMovementManager>();
         labelRotationHandler.enabled = false;
 
         onHover = false;
@@ -33,17 +34,13 @@ public class AirTapTest : MonoBehaviour
         node.transform.localScale = originalscale;
     }
 
-    //private void Update()
-    //{
-    //    if (namelable.transform.parent.gameObject.activeSelf)
-    //    {
-    //        Debug.Log(namelable.transform.parent.name);
-    //        namelable.transform.parent.localRotation = Camera.main.transform.rotation;
-    //    }
-    //}
+
+
     public void OnHover(bool onHover)
     {
-        namelable.transform.parent.gameObject.SetActive(onHover);
+        Debug.Log(transform.parent.name+ " OnHover " + onHover);
+        
+        namelable.enabled=onHover;
         namelable.fontSize = onHover? 40 : 28;
 
         labelRotationHandler.enabled= onHover ? true : false;

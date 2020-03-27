@@ -12,7 +12,7 @@ public class LableController : MonoBehaviour
     public bool showLabels;
 
     public GameObject Mapviz;
-    private Canvas[] canvases;
+    private TextMeshPro[] labels;
     private int scale;
     private Vector3[] sliderstartpos;
     private int unit;
@@ -20,48 +20,29 @@ public class LableController : MonoBehaviour
 
     private void Start()
     {
-        canvases = Mapviz.GetComponentsInChildren<Canvas>();
+        labels = Mapviz.GetComponentsInChildren<TextMeshPro>();
         unit = 72;
         pinchSlider = FindObjectOfType<PinchSlider>();
-        if (!showLabels)
-        {
-            foreach (Canvas canvas in canvases)
-            {
-                canvas.gameObject.SetActive(false);
-            }
-        }
+        //if (!showLabels)
+        //{
+        //    foreach (Canvas canvas in canvases)
+        //    {
+        //        canvas.gameObject.SetActive(false);
+        //    }
+        //}
     }
 
-    private void Update()
-    {
-        //Debug.Log(CoreServices.InputSystem.RaiseGestureStarted.);
-    }
 
     public void SliderValueUpdate()
     {
+        
         float sliderscale = pinchSlider.SliderValue;
-        foreach (Canvas canvas in canvases)
+        foreach (TextMeshPro label in labels)
         {
-            Vector3 canvastransform = canvas.GetComponent<RectTransform>().localPosition;
-            canvas.GetComponent<RectTransform>().localPosition = new Vector3(canvastransform.x, canvastransform.y, -unit * sliderscale*0.1F);
+            Vector3 labeltransform = label.GetComponent<RectTransform>().localPosition;
+            label.GetComponent<RectTransform>().localPosition = new Vector3(labeltransform.x, labeltransform.y, -unit * sliderscale*0.1F);
         }
     }
-
-    //public void ClickerValueUpdate()
-    //{
-    //    scale++;
-
-    //    if (scale >= 6)
-    //    {
-    //        scale = 0;
-    //    }
-
-    //    foreach (Canvas canvas in canvases)
-    //    {
-    //        Vector3 canvastransform = canvas.GetComponent<RectTransform>().localPosition;
-    //        canvas.GetComponent<RectTransform>().localPosition = new Vector3(canvastransform.x, unit * scale * 0.2F, canvastransform.z);
-    //    }
-    //}
 
 }
 

@@ -51,6 +51,7 @@ public class RaycastManager : MonoBehaviour
         
         if (focus != prefocus)
         {
+            Debug.Log(focus + " and "+prefocus);
             focusobj.SetFocus(focus, prefocus);
             prefocus = focus;
             

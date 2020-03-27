@@ -22,13 +22,13 @@ public class FocusObj : MonoBehaviour
         Focus = focusobj;
         if (Focus != null)
         {
-            Debug.Log("the focus is " + Focus.name);
-            Focus.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(true);
+            Focus.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(true);
+            
         }
 
         if (prefocusobj != null)
         {
-            prefocusobj.transform.GetChild(0).GetComponent<AirTapTest>().OnHover(false);
+            prefocusobj.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(false);
         }
     }
 
