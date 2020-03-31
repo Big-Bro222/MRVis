@@ -79,11 +79,11 @@ namespace MapGenerator
                             xmlString= xdoc.GetXml();
                             Debug.Log(xmlString);
                             Windows.Data.Xml.Dom.XmlNodeList nodeList= null;
-                            Debug.Log(nodeList==null);
+                            
                             nodeList=xdoc.GetElementsByTagName("node");
-                            Debug.Log(nodeList==null);
+                            
                             foreach(IXmlNode node in nodeList){
-                                Debug.Log("running in Foreach");
+                                
                                 Dictionary<string,string> nodeinfo =new Dictionary<string, string>();
                                 string name = node.Attributes.GetNamedItem("name").InnerText;
                                 string x = node.Attributes.GetNamedItem("x").InnerText;
@@ -93,14 +93,33 @@ namespace MapGenerator
                                 nodeinfo.Add("x",x);
                                 nodeinfo.Add("y",y);
                                 nodeinfo.Add("id",id);
-                                nodeinfos.Add(nodeinfo);
-                                
+                                nodeinfos.Add(nodeinfo);    
                             }
                             
-                            NodeNum=nodeinfos.Count;
-                            Debug.Log(NodeNum);
+
+
+
+
+
+                            Windows.Data.Xml.Dom.XmlNodeList edgeList= null;
                             
-                        });
+                            edgeList=xdoc.GetElementsByTagName("edge");
+                            
+                            foreach(IXmlNode edge in edgeList){
+                                
+                                Dictionary<string,string> edgeinfo =new Dictionary<string, string>();
+                                string label = edge.Attributes.GetNamedItem("label").InnerText;
+                                string id = edge.Attributes.GetNamedItem("id").InnerText;
+                                string target = edge.Attributes.GetNamedItem("target").InnerText;
+                                string source = edge.Attributes.GetNamedItem("source").InnerText;
+                                edgeinfo.Add("label",label);
+                                edgeinfo.Add("id",id);
+                                edgeinfo.Add("target",target);
+                                edgeinfo.Add("source",source);
+                                edgeinfos.Add(edgeinfo);
+                             }
+                        }
+            );
                     task.Start();
                     task.Wait();
 #endif
@@ -108,19 +127,13 @@ namespace MapGenerator
         }
 
 
-        public List<Dictionary<string, string>> GetNodeList()
+        public List<Dictionary<string, string>>[] GetNodeNEdgeList()
         {
-            return nodeinfos;
-        }
-
-        public List<Dictionary<string, string>> GetEdgeList()
-        {
-            return edgeinfos;
-        }
-
-        public int GetNodeNum()
-        {
-            return NodeNum;
+            List<Dictionary<string, string>> []infos = new List<Dictionary<string, string>> [2];
+            infos[0] = nodeinfos;
+            infos[1] = edgeinfos;
+            Debug.Log("InParser: "+ edgeinfos.Count);
+            return infos;
         }
 
     }
