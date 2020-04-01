@@ -12,7 +12,12 @@ public class MapCanvas : MonoBehaviour
     public Vector3 maplocalpos;
     public Vector2 portion;
     public Material lineMaterial;
+    
     //public GameObject testobj;
+
+    [SerializeField]
+    private GameObject FollowingLabel;
+
 
     private GameObject NullObj;
     private InteractableToggleCollection interactableToggleCollection;
@@ -27,6 +32,7 @@ public class MapCanvas : MonoBehaviour
     private GameObject edgeparent;
 
     private float Linewidth = 0.01f;
+    private Queue <Color> colorqueue;
 
     private void Awake()
     {
@@ -35,13 +41,31 @@ public class MapCanvas : MonoBehaviour
         edgeinfos = mapInfoParser.GetNodeNEdgeList()[1];
         NullObj = new GameObject("yes");
         interactableToggleCollection = FindObjectOfType<InteractableToggleCollection>();
-        
+
+        colorqueue = new Queue<Color>();
+        colorqueue.Enqueue(new Color(102,255,148));
+        colorqueue.Enqueue(new Color(255,204,204));
+        colorqueue.Enqueue(new Color(255,0,222));
+        colorqueue.Enqueue(new Color(137,0,255));
+        colorqueue.Enqueue(new Color(0,60,255));
+        colorqueue.Enqueue(new Color(0,196,255));
+        colorqueue.Enqueue(new Color(0,255,247));
+        colorqueue.Enqueue(new Color(0,255,111));
+        colorqueue.Enqueue(new Color(222,255,0));
+        colorqueue.Enqueue(new Color(255,154,0));
+        colorqueue.Enqueue(new Color(210,84,58));
+        colorqueue.Enqueue(new Color(255,247,0));
+        colorqueue.Enqueue(new Color(255,155,185));
+        colorqueue.Enqueue(new Color(162,255,155));
+        colorqueue.Enqueue(new Color(189,155,255));
+        colorqueue.Enqueue(new Color(144,154,55));
+        colorqueue.Enqueue(new Color(238,201,146));
     }
     void Start()
     {
         GenerateNodes(nodeinfos);
         GenerateEdge(edgeinfos);
-        ShowMetroLine(false);
+        RevealMeatroLine("M10");
     }
 
 
@@ -60,7 +84,7 @@ public class MapCanvas : MonoBehaviour
                 ShowMetroLine(false);
                 break;
             default:
-                ShowMetroLine(false);
+                RevealMeatroLine("M10");
                 break;
         }
 
@@ -84,8 +108,7 @@ public class MapCanvas : MonoBehaviour
 
     private void GenerateNodes(List<Dictionary<string, string>> nodeinfos)
     {
-        Debug.Log("Nodegenerator is running");
-        
+
         nodeparent=Instantiate(new GameObject(),transform);
         nodeparent.name = "nodeparent";
         
@@ -103,7 +126,8 @@ public class MapCanvas : MonoBehaviour
 
            
 
-            GameObject NodeObj=Instantiate(nodeprefab, new Vector3(float.Parse(nodeXPos)* portion.x, float.Parse(nodeYPos)* portion.y, -0.01f), Quaternion.Euler(0,0,0), nodeparent.transform);
+            GameObject NodeObj=Instantiate(nodeprefab, nodeparent.transform,false);
+            NodeObj.transform.localPosition = new Vector3(float.Parse(nodeXPos) * portion.x, float.Parse(nodeYPos) * portion.y, -0.01f);
             NodeObj.name = nodeName;
             NodeObj.transform.localPosition += maplocalpos;
             NodeObj.transform.localScale = new Vector3(mapscale, mapscale, mapscale);
@@ -134,14 +158,19 @@ public class MapCanvas : MonoBehaviour
 
     private void GenerateLineRenderer(Vector3[]pos,GameObject lineObj)
     {
-        Debug.Log("generateLine running");
+
+        lineObj .GetComponent<Edge>().PosList=pos;
+
         LineRenderer linerenderer =lineObj.AddComponent<LineRenderer>();
         linerenderer.material = lineMaterial;
+        linerenderer.material.color = colorqueue.Dequeue();
         linerenderer.useWorldSpace = false;
         linerenderer.positionCount = pos.Length;
         linerenderer.startWidth = Linewidth;
         linerenderer.endWidth = Linewidth;
         linerenderer.SetPositions(pos);
+
+        
     }
 
     private void GenerateEdge(List<Dictionary<string, string>> edgeinfos)
@@ -189,6 +218,11 @@ public class MapCanvas : MonoBehaviour
                 metroName.Add(edgelabel);
                 GameObject MetroLine = Instantiate(NullObj, edgeparent.transform);
                 MetroLine.name = edgelabel;
+                Edge edge=MetroLine.AddComponent<Edge>();
+                edge.Edgelabel = edgelabel;
+                edge.FollowingLabelPrefab = FollowingLabel;
+
+
                 MetroToBeAdd = MetroLine;
 
                 MetroPointArrar.Clear();
