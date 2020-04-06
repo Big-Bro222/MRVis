@@ -17,7 +17,7 @@ namespace MapGenerator
     public class MapInfoParser
     {
 
-        private string xmlFilePath = "Assets/Build-in scene/MetroPlanar.xml";
+        private string xmlFilePath = "Assets/Build-in scene/MapVisualization/MetroPlanar.xml";
         private string xmlString;
         private List<string[]> LocationList;
         private int NodeNum = 20;
