@@ -9,6 +9,7 @@ TagManager:
   - Slate
   - ignoreRaycast
   - UI
+  - Destroiable
   layers:
   - Default
   - TransparentFX

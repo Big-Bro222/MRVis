@@ -8,10 +8,10 @@ public class LineRendererUpdate : MonoBehaviour
 
     LineRenderer lineRenderer;
     [SerializeField]
-    private Transform pivot;
+    public Transform pivot;
 
     [SerializeField]
-    private Transform target;
+    public Transform target;
 
     void Start()
     {

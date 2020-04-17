@@ -9,7 +9,8 @@ Shader "Mixed Reality Toolkit/InvisibleShader" {
 		{
 			GLSLPROGRAM
 			#ifdef VERTEX
-			void main() {}
+			void main() {
+	}
 			#endif
 
 			#ifdef FRAGMENT
