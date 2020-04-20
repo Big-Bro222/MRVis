@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Microsoft.MixedReality.Toolkit.UI;
 
 public class SliceBehaviorHandler : MonoBehaviour
 {
@@ -24,9 +23,6 @@ public class SliceBehaviorHandler : MonoBehaviour
     public float yMax;
     public float zMin;
     public float zMax;
-
-    public PinchSlider highestSlider;
-    public PinchSlider lowestSlider;
 
 
     void Start()
@@ -51,9 +47,6 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(up, true);
         SliceController(down, true);
 
-
-        highestSlider.SliderValue = xMax * 2;
-        lowestSlider.SliderValue = (xMin + 0.5f) * 2;
     }
 
     public void YAxisUnlock()
@@ -64,9 +57,6 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(left, true);
         SliceController(up, false);
         SliceController(down, false);
-
-        highestSlider.SliderValue = yMax * 2;
-        lowestSlider.SliderValue = (yMin + 0.5f) * 2;
     }
 
     public void ZAxisUnlock()
@@ -77,26 +67,24 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(left, true);
         SliceController(up, true);
         SliceController(down, true);
-
-        highestSlider.SliderValue = zMax * 2;
-        lowestSlider.SliderValue = (zMin + 0.5f) * 2;
     }
 
 
     private void Update()
     {
-        for (int i = 0; i < destroyItems.Count; i++)
+        foreach(GameObject destroyitem in destroyItems)
         {
-            bool xInRange = (destroyItems[i].transform.localPosition.x <= xMax) && (destroyItems[i].transform.localPosition.x >= xMin);
-            bool yInRange = (destroyItems[i].transform.localPosition.y <= yMax) && (destroyItems[i].transform.localPosition.y >= yMin);
-            bool zInRange = (destroyItems[i].transform.localPosition.z <= zMax) && (destroyItems[i].transform.localPosition.z >= zMin);
+            bool xInRange = (destroyitem.transform.localPosition.x <= xMax) && (destroyitem.transform.localPosition.x >= xMin);
+            bool yInRange = (destroyitem.transform.localPosition.y <= yMax) && (destroyitem.transform.localPosition.y >= yMin);
+            bool zInRange = (destroyitem.transform.localPosition.z >= zMax) && (destroyitem.transform.localPosition.z <= zMin);
 
 
-            if (yInRange && xInRange && zInRange)
+            if (yInRange&&xInRange&&zInRange)
             {
-                destroyItems[i].SetActive(true);
-                destroyItems.Remove(destroyItems[i]);
+                destroyitem.SetActive(true);
+                destroyItems.Remove(destroyitem);
             }
+
         }
     }
     private void SliceController(Transform surface,bool lockmovement)

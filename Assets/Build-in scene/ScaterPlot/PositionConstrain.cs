@@ -72,11 +72,11 @@ public class PositionConstrain : MonoBehaviour
             transform.localPosition = new Vector3(startPos.x, startPos.y, startPos.z+value);
             if (highest)
             {
-                sliceBehaviorHandler.zMax = -transform.localPosition.z;
+                sliceBehaviorHandler.zMax = transform.localPosition.z;
             }
             else
             {
-                sliceBehaviorHandler.zMin = -transform.localPosition.z;
+                sliceBehaviorHandler.zMin = transform.localPosition.z;
             }
         }
     }
