@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.MixedReality.Toolkit.UI;
 
 public class SliceBehaviorHandler : MonoBehaviour
 {
 
     public Transform slicingCube;
-
+    public PinchSlider highestSlider;
+    public PinchSlider lowestSlider;
     
     private Transform front;
     private Transform back;
@@ -47,6 +49,9 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(up, true);
         SliceController(down, true);
 
+        highestSlider.SliderValue = xMax * 2;
+        lowestSlider.SliderValue = (xMin + 0.5f) * 2;
+
     }
 
     public void YAxisUnlock()
@@ -57,6 +62,9 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(left, true);
         SliceController(up, false);
         SliceController(down, false);
+
+        highestSlider.SliderValue = yMax * 2;
+        lowestSlider.SliderValue = (yMin + 0.5f) * 2;
     }
 
     public void ZAxisUnlock()
@@ -67,6 +75,9 @@ public class SliceBehaviorHandler : MonoBehaviour
         SliceController(left, true);
         SliceController(up, true);
         SliceController(down, true);
+
+        highestSlider.SliderValue = zMax * 2;
+        lowestSlider.SliderValue = (zMin + 0.5f) * 2;
     }
 
 
@@ -76,7 +87,7 @@ public class SliceBehaviorHandler : MonoBehaviour
         {
             bool xInRange = (destroyitem.transform.localPosition.x <= xMax) && (destroyitem.transform.localPosition.x >= xMin);
             bool yInRange = (destroyitem.transform.localPosition.y <= yMax) && (destroyitem.transform.localPosition.y >= yMin);
-            bool zInRange = (destroyitem.transform.localPosition.z >= zMax) && (destroyitem.transform.localPosition.z <= zMin);
+            bool zInRange = (destroyitem.transform.localPosition.z <= zMax) && (destroyitem.transform.localPosition.z >= zMin);
 
 
             if (yInRange&&xInRange&&zInRange)
