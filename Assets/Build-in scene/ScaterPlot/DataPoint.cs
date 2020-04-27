@@ -26,7 +26,7 @@ public class DataPoint : MonoBehaviour
         UpdateNum = Convert.ToInt32(0.08f / Time.deltaTime);
         delayNum = 0;
 
-        label = transform.parent.parent.Find("Label").gameObject;
+        label = transform.parent.parent.Find("InfoPanel").gameObject;
 
         if (calories < 100)
         {
