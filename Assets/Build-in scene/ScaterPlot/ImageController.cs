@@ -8,6 +8,7 @@ public class ImageController : MonoBehaviour
 
     public GameObject quadimg1;
     public GameObject quadimg2;
+
     private bool isImg1;
     void Start()
     {

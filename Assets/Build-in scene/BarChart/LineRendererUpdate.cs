@@ -15,8 +15,18 @@ public class LineRendererUpdate : MonoBehaviour
 
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
+        if (GetComponent<LineRenderer>())
+        {
+            lineRenderer = GetComponent<LineRenderer>();
 
+        }
+        else
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+        }
+
+        lineRenderer.startWidth = 0.02f;
+        lineRenderer.endWidth = 0.02f;
     }
 
     // Update is called once per frame

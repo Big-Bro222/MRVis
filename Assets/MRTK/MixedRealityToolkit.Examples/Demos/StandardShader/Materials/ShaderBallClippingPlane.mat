@@ -90,7 +90,7 @@ Material:
     - _BorderWidthVertical: 0.1
     - _BumpScale: 1
     - _ClippingBorder: 1
-    - _ClippingBorderWidth: 0.025
+    - _ClippingBorderWidth: 0.03
     - _ClippingBox: 0
     - _ClippingPlane: 1
     - _ClippingPlaneBorder: 1
