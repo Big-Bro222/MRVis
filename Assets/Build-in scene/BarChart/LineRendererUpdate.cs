@@ -25,7 +25,7 @@ public class LineRendererUpdate : MonoBehaviour
             lineRenderer = gameObject.AddComponent<LineRenderer>();
         }
 
-        lineRenderer.startWidth = 0.02f;
+        lineRenderer.startWidth = 0.01f;
         lineRenderer.endWidth = 0.02f;
     }
 

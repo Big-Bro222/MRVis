@@ -1,13 +1,15 @@
-﻿using System.Collections;
+﻿using Microsoft.MixedReality.Toolkit.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ViewHandler : MonoBehaviour
 {
-    public Camera camera;
     public GameObject quad;
-    public GameObject viewWindowIndicator;
+    public GameObject viewWindowMarker;
     public ViewWindowController viewWindowController;
+    public List<GameObject> ChildWindows;
+    public List<GameObject> ParentWindowsLine;
 
 
     private RenderTexture cameraTexture;
@@ -17,13 +19,21 @@ public class ViewHandler : MonoBehaviour
     private Vector3 viewWindowScale;
 
     private float cameraSize;
-    private float cameraPortXRatio;
-    private float cameraPortYRatio;
+    private new Camera camera;
+
+    private Color lineRendererColor;
 
 
 
     void Start()
     {
+
+        //setup the public variable mannually
+        viewWindowController = gameObject.transform.parent.GetComponentInChildren<ViewWindowController>();
+        camera = transform.GetComponentInChildren<Camera>();
+        camera.enabled = true;
+
+
         cameraTexture = new RenderTexture(512, 512, 16);
         camera.targetTexture = cameraTexture;
         cameraMaterial = new Material(Shader.Find("Standard"));
@@ -31,37 +41,65 @@ public class ViewHandler : MonoBehaviour
         quad.GetComponent<MeshRenderer>().material = cameraMaterial;
 
         quadstartScale = quad.transform.localScale;
-        viewWindowScale = viewWindowIndicator.transform.localScale;
-        cameraSize = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().orthographicSize;
-        cameraPortXRatio = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().rect.width;
-        cameraPortYRatio = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().rect.height;
+        viewWindowScale = viewWindowMarker.transform.localScale;
+        cameraSize = transform.GetComponentInChildren<Camera>().orthographicSize;
+
+        
+
+    }
+
+    public void ShowHierarchy()
+    {
+        lineRendererColor = transform.GetComponent<LineRenderer>().material.color;
+        transform.GetComponent<LineRenderer>().material.color = Color.red;
+        foreach (GameObject parentWindow in ParentWindowsLine)
+        {
+            parentWindow.GetComponent<LineRenderer>().material.color = Color.red;
+        }
+    }
 
 
-
-        //////setup the public variable mannually
-        ////viewWindowController = gameObject.transform.parent.GetComponentInChildren<ViewWindowController>();
-        //////camera = viewWindowController.viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>();
-        ////viewWindowIndicator = viewWindowController.viewWindowIndicator;
-        ////transform.GetComponent<LineRendererUpdate>().pivot = viewWindowIndicator.transform;
-
-
-        //cameraTexture = new RenderTexture(512, 512, 16);
-        //camera.targetTexture = cameraTexture;
-        //cameraMaterial = new Material(Shader.Find("Standard"));
-        //cameraMaterial.mainTexture = cameraTexture;
-        //quad.GetComponent<MeshRenderer>().material = cameraMaterial;
-
-        //quadstartScale = quad.transform.localScale;
-        //viewWindowScale = viewWindowIndicator.transform.localScale;
-        //cameraSize = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().orthographicSize;
-        //cameraPortXRatio = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().rect.width;
-        //cameraPortYRatio = viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().rect.height;
+    public void HideHierarchy()
+    {
+        transform.GetComponent<LineRenderer>().material.color = lineRendererColor;
+        foreach (GameObject parentWindow in ParentWindowsLine)
+        {
+            parentWindow.GetComponent<LineRenderer>().material.color = lineRendererColor;
+        }
+    }
 
 
-        //////prepare for the next group
-        ////viewWindowController.viewWindowIndicator = transform.Find("ViewWindowIndicator").gameObject;
-        ////viewWindowController.viewWindow = transform.Find("ViewWindow").gameObject;
+    public void DisableClip(bool clipable)
+    {
+        viewWindowController.clipable = !clipable;
+    }
 
+    private void OnDestroy()
+    {
+        if (ChildWindows.Count!=0)
+        {
+            foreach(GameObject ChildWindow in ChildWindows)
+            {
+                Destroy(ChildWindow);
+                Debug.Log(ChildWindow.name);
+            }
+
+        }
+        
+
+    }
+
+    public void DestroyOnClick(bool down)
+    {
+        if (down)
+        {
+            viewWindowController.clipable = false;
+        }
+        else
+        {
+            Destroy(gameObject);
+            viewWindowController.clipable = true;
+        }
     }
 
     // Update is called once per frame
@@ -71,7 +109,7 @@ public class ViewHandler : MonoBehaviour
      
 
 
-        viewWindowIndicator.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y,viewWindowScale.z);
-        viewWindowIndicator.transform.parent.GetComponentInChildren<Camera>().orthographicSize = scale * cameraSize;
+        viewWindowMarker.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y,viewWindowScale.z);
+        transform.GetComponentInChildren<Camera>().orthographicSize = scale * cameraSize;
     }
 }

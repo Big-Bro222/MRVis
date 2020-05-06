@@ -11,7 +11,6 @@ public class HandDetectionHandler : MonoBehaviour,IMixedRealityGestureHandler
     [SerializeField]
     private MixedRealityInputAction selectAction; // You'll need to set this in the Inspector to Select
 
-    public ScaleHandler scaleHandler;
 
 
     private void OnEnable()
@@ -36,12 +35,10 @@ public class HandDetectionHandler : MonoBehaviour,IMixedRealityGestureHandler
         if (eventData.Handedness == Handedness.Right)
         {
 
-            scaleHandler.OnScaleChange();
+            Debug.Log("right");
         }
         else {
             Debug.Log("left");
-            bool isLock = scaleHandler.isLock;
-            scaleHandler.isLock = !isLock;
 
         }
     }

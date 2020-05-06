@@ -10,6 +10,8 @@ public class DataParser : MonoBehaviour
     private List<Dictionary<string, string>> csvDataList;
     private GameObject text;
     public GameObject Node;
+    public GameObject Bar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,18 +25,40 @@ public class DataParser : MonoBehaviour
             csvData.Add("name", sArray[0]);
             csvData.Add("Horsepower", sArray[4]);
             csvData.Add("Acceleration", sArray[6]);
-
+            csvData.Add("Weight", sArray[5]);
             ////name,calories,protein,fat,sugars
             csvDataList.Add(csvData);
         }
 
-        Draw();
-
+        DrawScatterPlot();
+        DrawBarchart();
 
     }
 
 
-    private void Draw()
+    private void DrawBarchart()
+    {
+
+
+
+        GameObject DataPointFolder = new GameObject("BarFolder");
+        DataPointFolder.transform.SetParent(transform);
+
+        int chartscale = 8;
+        for (int i = 0; i < csvDataList.Count; i++)
+        {
+            float Horsepower = float.Parse(csvDataList[i]["Horsepower"]);
+            float Acceleration = float.Parse(csvDataList[i]["Acceleration"]);
+            float Weight= float.Parse(csvDataList[i]["Weight"]);
+            string name = csvDataList[i]["name"]+"- Bar";
+            Debug.Log(Weight + " is weight");
+            float zScale = 0.0001f;
+            GameObject Datapoint = Instantiate(Node, new Vector3((Horsepower - 40) / (chartscale * 20) - 0.5f, (Acceleration - 5) / (chartscale * 3) - 0.5f, -(Weight* zScale) /2), Quaternion.identity, DataPointFolder.transform);
+            Datapoint.transform.localScale = new Vector3(Datapoint.transform.localScale.x, Datapoint.transform.localScale.y, Weight* zScale);
+            Datapoint.name = name;
+        }
+    }
+    private void DrawScatterPlot()
     {
 
 
