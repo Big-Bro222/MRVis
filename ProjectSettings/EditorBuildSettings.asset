@@ -44,7 +44,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Wall/Scenes/BaseSetupWall.unity
     guid: 27ebe6f3bc50f604bba5d632b8dc4c2c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Hololens/Scenes/BaseSetupHL.unity
     guid: c2b5844063344c0469117c2315fcb575
+  - enabled: 1
+    path: Assets/Wall/Scenes/WallRemoteScenes/StartingUIWall.unity
+    guid: 9a351900479590948a806eb1a1325109
+  - enabled: 1
+    path: Assets/Wall/Scenes/WallRemoteScenes/BaseWallRemote.unity
+    guid: 270ffe7be200f274f86b16d94b215536
+  - enabled: 0
+    path: Assets/Hololens/Scenes/HoloLensRemote/StartingUIHoloLens.unity
+    guid: 12a8799bca2320142bf92ff230295f5c
+  - enabled: 0
+    path: Assets/Hololens/Scenes/HoloLensRemote/BaseSetupHLRemote.unity
+    guid: 680fc91a11dd9f347a22ccd96bba2577
   m_configObjects: {}
