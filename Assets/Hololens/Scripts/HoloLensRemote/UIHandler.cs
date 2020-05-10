@@ -6,11 +6,15 @@ using Photon.Realtime;
 
 namespace HoloLensRemote
 {
+
+
     public class UIHandler : MonoBehaviourPunCallbacks
     {
 
         //public GameObject GameLevel;
         //public GameObject connectedCanvas;
+
+        public Transform Anchor;
 
         public void OnClick_JoinRoom()
         {
@@ -31,6 +35,9 @@ namespace HoloLensRemote
             Debug.Log("Room Joined Sucess");
             //connectedCanvas.SetActive(false);
             //GameLevel.SetActive(true);
+            //Global.wallPosition=Anchor.position;
+            //Global.wallRotation = Anchor.rotation;
+
             PhotonNetwork.LoadLevel("BaseSetupHLRemote");
 
         }

@@ -15,10 +15,15 @@ namespace WallRemote
             cameraThirdPerson.SetActive(false);
         }
 
-        public void OnChangeView()
+        public void OnChangeView_btn()
         {
             cameraThirdPerson.SetActive(!cameraThirdPerson.activeSelf);
             cameraFirstPerson.enabled = !cameraFirstPerson.enabled;
+        }
+
+        public void OnExit_btn()
+        {
+            Application.Quit();
         }
     }
 }

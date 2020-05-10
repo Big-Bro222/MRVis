@@ -28,11 +28,26 @@ public class ThirdPersonCamerController : MonoBehaviour
     float m_rotationY = 0f;
 
 
+
+    public float maxView = 90;
+    public float minView = 10;
+
+    [Range(0.0F, 10.0F)]
+    public float scrollSensity = 3f;
+
+
+    private Camera thirdPersonCamera;
+
+    private void Start()
+    {
+        thirdPersonCamera=GetComponent<Camera>();
+    }
     // Update is called once per frame
     void Update()
     {
         ProcessMovementInput();
         ProcessRotationInput();
+        CameraViewInput();
     }
 
 
@@ -45,6 +60,14 @@ public class ThirdPersonCamerController : MonoBehaviour
         //Get the value of the Vertical input axis.
 
         transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * moveSpeed * Time.deltaTime);
+    }
+
+    private void CameraViewInput()
+    {
+        float offsetView = -Input.GetAxis("Mouse ScrollWheel") * scrollSensity;
+        float tmpView = offsetView + thirdPersonCamera.fieldOfView;
+        tmpView = Mathf.Clamp(tmpView, minView, maxView);
+        thirdPersonCamera.fieldOfView = tmpView;
     }
 
     private void ProcessRotationInput()

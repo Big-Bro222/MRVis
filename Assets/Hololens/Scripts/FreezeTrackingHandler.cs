@@ -7,6 +7,7 @@ public class FreezeTrackingHandler : DefaultTrackableEventHandler
 {
     public Transform Controller;
     public Transform CameraTransform;
+    
     private bool recalibrating = false;
 
     protected override void OnTrackingFound()
@@ -21,7 +22,9 @@ public class FreezeTrackingHandler : DefaultTrackableEventHandler
         mTrackableBehaviour = GetComponent<TrackableBehaviour>();
         if (mTrackableBehaviour)
             mTrackableBehaviour.UnregisterTrackableEventHandler(this);
-            
+        
+        
+        
     }
 
     public void Enable(Transform controller)
