@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloLensPyrimad;
 
 public class ViewHandler : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class ViewHandler : MonoBehaviour
         viewWindowScale = viewWindowMarker.transform.localScale;
         cameraSize = transform.GetComponentInChildren<Camera>().orthographicSize;
 
-        
+
 
     }
 
@@ -76,16 +77,17 @@ public class ViewHandler : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (ChildWindows.Count!=0)
+        if (ChildWindows.Count != 0)
         {
-            foreach(GameObject ChildWindow in ChildWindows)
+            foreach (GameObject ChildWindow in ChildWindows)
             {
                 Destroy(ChildWindow);
+                Destroy(ChildWindow.GetComponent<ViewHandler>().viewWindowMarker);
                 Debug.Log(ChildWindow.name);
             }
 
         }
-        
+
 
     }
 
@@ -98,6 +100,7 @@ public class ViewHandler : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            Destroy(viewWindowMarker);
             viewWindowController.clipable = true;
         }
     }
@@ -106,10 +109,10 @@ public class ViewHandler : MonoBehaviour
     void Update()
     {
         float scale = quad.transform.localScale.x / quadstartScale.x;
-     
 
 
-        viewWindowMarker.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y,viewWindowScale.z);
+
+        viewWindowMarker.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y, viewWindowScale.z);
         transform.GetComponentInChildren<Camera>().orthographicSize = scale * cameraSize;
     }
 }

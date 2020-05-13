@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
-public class TransformSynchronizeCameraController : MonoBehaviourPun,IPunObservable
+public class TransformSynchronizeCameraContoller : MonoBehaviourPun,IPunObservable
 {
 
     public PhotonView pv;
@@ -12,10 +12,12 @@ public class TransformSynchronizeCameraController : MonoBehaviourPun,IPunObserva
     private float moveSpeed = 1;
 
     private Transform mixRealityPlaySpace;
-    private Transform Contoller;
+    public Transform Controller;
 
     private Vector3 smoothMove;
     private Quaternion smoothRotate;
+
+    
 
     // Update is called once per frame
     void Update()
@@ -55,14 +57,15 @@ public class TransformSynchronizeCameraController : MonoBehaviourPun,IPunObserva
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         Vector3 cameraWorldPos = transform.position;
-        Vector3 cameraContollerPos = Contoller.transform.InverseTransformPoint(cameraWorldPos);
+        Vector3 cameraControllerPos = Controller.transform.InverseTransformPoint(cameraWorldPos);
 
-        Vector3 thePosition = transform.TransformPoint(cameraContollerPos);
+        Quaternion cameraWorldRotate = transform.rotation;
+        Quaternion cameraControllerRotation = Quaternion.Inverse(Controller.transform.rotation) * cameraWorldRotate;
 
         if (stream.IsWriting)
         {
-            stream.SendNext(transform.localPosition);
-            stream.SendNext(transform.localRotation);
+            stream.SendNext(cameraControllerPos);
+            stream.SendNext(cameraControllerRotation);
         }
         else if (stream.IsReading)
         {
