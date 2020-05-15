@@ -6813,8 +6813,9 @@ GameObject:
   - component: {fileID: 7487012922787268663}
   - component: {fileID: 7487012922787268656}
   - component: {fileID: 7913766970362840609}
+  - component: {fileID: 114736640665966818}
   m_Layer: 0
-  m_Name: ExtrudeWindow
+  m_Name: ExtrudeWindow 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6827,7 +6828,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7487012922787268662}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6868,6 +6869,20 @@ MonoBehaviour:
   pivot: {fileID: 2467691636047336645}
   target: {fileID: 7487012922970509172}
   lineMaterial: {fileID: 2100000, guid: f3073cacbe7adb24ab92ddb3b3ca1c6a, type: 2}
+--- !u!114 &114736640665966818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487012922787268662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f521e521bec574db08c1a0be0953b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quad: {fileID: 7487012922970509179}
+  viewWindowMarker: {fileID: 7628418897464594969}
 --- !u!1 &7487012922970509179
 GameObject:
   m_ObjectHideFlags: 0

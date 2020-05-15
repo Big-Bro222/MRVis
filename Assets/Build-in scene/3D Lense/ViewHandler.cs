@@ -8,7 +8,7 @@ public class ViewHandler : MonoBehaviour
 {
     public GameObject quad;
     public GameObject viewWindowMarker;
-    public ViewWindowController viewWindowController;
+    private ViewWindowController viewWindowController;
     public List<GameObject> ChildWindows;
     public List<GameObject> ParentWindowsLine;
 
@@ -17,20 +17,21 @@ public class ViewHandler : MonoBehaviour
     private Material cameraMaterial;
 
     private Vector3 quadstartScale;
-    private Vector3 viewWindowScale;
+    //private Vector3 viewWindowScale;
 
     private float cameraSize;
     private new Camera camera;
 
     private Color lineRendererColor;
-
-
+    private PhotonSynChroManager photonSynChroManager;
+    private new string name ;
 
     void Start()
     {
-
+        name = gameObject.name;
         //setup the public variable mannually
         viewWindowController = gameObject.transform.parent.GetComponentInChildren<ViewWindowController>();
+        photonSynChroManager = gameObject.transform.parent.GetComponentInChildren<PhotonSynChroManager>();
         camera = transform.GetComponentInChildren<Camera>();
         camera.enabled = true;
 
@@ -42,7 +43,7 @@ public class ViewHandler : MonoBehaviour
         quad.GetComponent<MeshRenderer>().material = cameraMaterial;
 
         quadstartScale = quad.transform.localScale;
-        viewWindowScale = viewWindowMarker.transform.localScale;
+        //viewWindowScale = viewWindowMarker.transform.localScale;
         cameraSize = transform.GetComponentInChildren<Camera>().orthographicSize;
 
 
@@ -51,6 +52,7 @@ public class ViewHandler : MonoBehaviour
 
     public void ShowHierarchy()
     {
+        viewWindowController.ShowHierarchy(name);
         lineRendererColor = transform.GetComponent<LineRenderer>().material.color;
         transform.GetComponent<LineRenderer>().material.color = Color.red;
         foreach (GameObject parentWindow in ParentWindowsLine)
@@ -62,6 +64,7 @@ public class ViewHandler : MonoBehaviour
 
     public void HideHierarchy()
     {
+        viewWindowController.HideHierarchy(name);
         transform.GetComponent<LineRenderer>().material.color = lineRendererColor;
         foreach (GameObject parentWindow in ParentWindowsLine)
         {
@@ -77,13 +80,15 @@ public class ViewHandler : MonoBehaviour
 
     private void OnDestroy()
     {
+        
+        photonSynChroManager.RemovesyncronizeObj(name);
+        viewWindowController.RaiseDestroyWallEvent(name);
         if (ChildWindows.Count != 0)
         {
             foreach (GameObject ChildWindow in ChildWindows)
             {
                 Destroy(ChildWindow);
                 Destroy(ChildWindow.GetComponent<ViewHandler>().viewWindowMarker);
-                Debug.Log(ChildWindow.name);
             }
 
         }
@@ -109,10 +114,7 @@ public class ViewHandler : MonoBehaviour
     void Update()
     {
         float scale = quad.transform.localScale.x / quadstartScale.x;
-
-
-
-        viewWindowMarker.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y, viewWindowScale.z);
+        //viewWindowMarker.transform.localScale = new Vector3(scale * viewWindowScale.x, scale * viewWindowScale.y, viewWindowScale.z);
         transform.GetComponentInChildren<Camera>().orthographicSize = scale * cameraSize;
     }
 }

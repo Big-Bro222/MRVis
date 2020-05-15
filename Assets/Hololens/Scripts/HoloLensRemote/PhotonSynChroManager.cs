@@ -9,6 +9,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
 
     public List<GameObject> syncronizeObjs;
     public PhotonView pv;
+    public GameObject gameObjectTobedestroy;
 
     private List<Vector3> syncronizeObjLocalpositionList;
     private List<Quaternion> syncronizeObjLocalrotationList;
@@ -18,16 +19,18 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
     private Quaternion[] StreamObjLocalrotationArray;
     private Vector3[] StreamObjLocalscaleArray;
 
-
+    private Dictionary<string, GameObject> syncronizeObjsDictionary;
 
 
 
 
     void Awake()
     {
+        syncronizeObjsDictionary = new Dictionary<string, GameObject>();
         syncronizeObjLocalpositionList = new List<Vector3>();
         for (int i = 0; i < syncronizeObjs.Count; i++)
         {
+            syncronizeObjsDictionary.Add(syncronizeObjs[i].name, syncronizeObjs[i]);
             syncronizeObjLocalpositionList.Add(syncronizeObjs[i].transform.localPosition);
         }
 
@@ -51,10 +54,36 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
 
     }
 
+    public GameObject GetGameObjectByName(string name)
+    {
+        GameObject obj = syncronizeObjsDictionary[name];
+        return obj;
+    }
+
+    public void AddsyncronizeObj(string name, GameObject obj)
+    {
+        syncronizeObjsDictionary.Add(name, obj);
+        syncronizeObjs.Clear();
+        foreach(GameObject syncronizeObj in syncronizeObjsDictionary.Values)
+        {
+            syncronizeObjs.Add(syncronizeObj);
+        }
+    }
+
+    public void RemovesyncronizeObj(string name)
+    {
+        gameObjectTobedestroy = syncronizeObjsDictionary[name];
+        syncronizeObjsDictionary.Remove(name);
+        syncronizeObjs.Clear();
+        foreach (GameObject syncronizeObj in syncronizeObjsDictionary.Values)
+        {
+            syncronizeObjs.Add(syncronizeObj);
+        }
+    }
+
 
     void Update()
     {
-        Debug.Log(syncronizeObjs.Count);
         if (photonView.IsMine)
         {
             //ProcessInput();
@@ -62,8 +91,8 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         else
         {
             smoothMovement();
-            //smoothRotation();
-            //smoothScale();
+            smoothRotation();
+            smoothScale();
         }
     }
 
@@ -102,25 +131,25 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         syncronizeObjLocalpositionList.Clear();
         for (int i = 0; i < syncronizeObjs.Count; i++)
         {
-            Debug.Log(i);
             syncronizeObjLocalpositionList.Add(syncronizeObjs[i].transform.localPosition);
         }
         Vector3[] syncronizeObjLocalpositionArray = syncronizeObjLocalpositionList.ToArray();
 
 
+        syncronizeObjLocalrotationList.Clear();
+        for (int i = 0; i < syncronizeObjs.Count; i++)
+        {
+            syncronizeObjLocalrotationList.Add(syncronizeObjs[i].transform.localRotation);
+        }
+        Quaternion[] syncronizeObjLocalrotationArray = syncronizeObjLocalrotationList.ToArray();
 
-        //for (int i = 0; i < syncronizeObjs.Count; i++)
-        //{
-        //    syncronizeObjLocalrotationList[i] = syncronizeObjs[i].transform.localRotation;
-        //}
-        //Quaternion[] syncronizeObjLocalrotationArray = syncronizeObjLocalrotationList.ToArray();
 
-
-        //for (int i = 0; i < syncronizeObjs.Count; i++)
-        //{
-        //    syncronizeObjLocalscaleList[i] = syncronizeObjs[i].transform.localScale;
-        //}
-        //Vector3[] syncronizeObjLocalscaleArray = syncronizeObjLocalscaleList.ToArray();
+        syncronizeObjLocalscaleList.Clear();
+        for (int i = 0; i < syncronizeObjs.Count; i++)
+        {
+            syncronizeObjLocalscaleList.Add(syncronizeObjs[i].transform.localScale);
+        }
+        Vector3[] syncronizeObjLocalscaleArray = syncronizeObjLocalscaleList.ToArray();
 
 
         if (stream.IsWriting)
@@ -128,9 +157,8 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
             //stream.SendNext(SerializeVector3Array(syncronizeObjLocalpositionArray));
 
             stream.SendNext(syncronizeObjLocalpositionArray);
-            Debug.Log("sending objNum" + syncronizeObjLocalpositionArray.Length);
-            //stream.SendNext(syncronizeObjLocalrotationArray);
-            //stream.SendNext(syncronizeObjLocalscaleArray);
+            stream.SendNext(syncronizeObjLocalrotationArray);
+            stream.SendNext(syncronizeObjLocalscaleArray);
 
         }
         else if (stream.IsReading)
@@ -140,9 +168,8 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
 
 
             StreamObjLocalpositionArray = (Vector3[])stream.ReceiveNext();
-            Debug.Log("reading objNum" + StreamObjLocalpositionArray.Length);
-            //StreamObjLocalrotationArray = (Quaternion[])stream.ReceiveNext();
-            //StreamObjLocalscaleArray = (Vector3[])stream.ReceiveNext();
+            StreamObjLocalrotationArray = (Quaternion[])stream.ReceiveNext();
+            StreamObjLocalscaleArray = (Vector3[])stream.ReceiveNext();
         }
     }
 

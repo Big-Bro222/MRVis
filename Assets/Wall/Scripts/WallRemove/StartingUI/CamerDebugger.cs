@@ -7,8 +7,11 @@ namespace WallRemote
     public class CamerDebugger : MonoBehaviour
     {
         LineRenderer cameraDebugLine;
+        CameraRaycastManager cameraRaycastManager;
         void Start()
         {
+            cameraRaycastManager = GetComponent<CameraRaycastManager>();
+
             if (!GetComponent<LineRenderer>())
             {
                 cameraDebugLine = gameObject.AddComponent<LineRenderer>();
@@ -24,9 +27,16 @@ namespace WallRemote
         // Update is called once per frame
         void Update()
         {
-            cameraDebugLine.SetPositions(new Vector3[2] {transform.position, transform.forward * 50000000 });
+            if (cameraRaycastManager.currentHitPoint == null)
+            {
+                cameraDebugLine.SetPositions(new Vector3[2] { transform.position, transform.forward * 50000000 });
+            }else
+            {
+                cameraDebugLine.SetPositions(new Vector3[2] { transform.position, cameraRaycastManager.currentHitPoint });
 
-            
+            }
+
+
         }
     }
 }

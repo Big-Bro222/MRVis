@@ -27,7 +27,6 @@ namespace HoloLensPyrimad
 
         private int windowNum;
 
-        private static byte EXTURDE_WINDOW_EVENT = 0;
 
         public void Clip()
         {
@@ -46,10 +45,11 @@ namespace HoloLensPyrimad
 
                 if (base.photonView.IsMine)
                 {
-                    InstantiateWallEvent(newextrudeWindow.name);
-                    transform.GetComponent<PhotonSynChroManager>().syncronizeObjs.Add(newextrudeWindow.transform.Find("Quad").gameObject);
+                    RaiseInstantiateWallEvent(newextrudeWindow.name);
+                    GameObject quad = newextrudeWindow.transform.Find("Quad").gameObject;
+                    transform.GetComponent<PhotonSynChroManager>().AddsyncronizeObj(newextrudeWindow.name,quad);
                     //base.photonView.RPC("OnInstantiateInPC", RpcTarget.Others);
-                    Debug.Log("RaiseEvent of extrude in HoloLens");
+                    
                 }
 
 
@@ -72,14 +72,47 @@ namespace HoloLensPyrimad
         }
 
         ////call instantiate function in Wall Scene
-        private void InstantiateWallEvent(string name)
+        private void RaiseInstantiateWallEvent(string name)
         {
             int ViewID = base.photonView.ViewID;
             object[] datas = new object[] { ViewID, name };
-            PhotonNetwork.RaiseEvent(EXTURDE_WINDOW_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+            PhotonNetwork.RaiseEvent(Global.EXTURDE_WINDOW_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
         }
 
-        private float[] viewWindowScale;
+        
+        public void RaiseDestroyWallEvent(string name)
+        {
+            int ViewID = base.photonView.ViewID;
+            object[] datas = new object[] { ViewID, name };
+            PhotonNetwork.RaiseEvent(Global.DESTROY_WINDOW_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
+
+        public void ShowHierarchy(string name)
+        {
+            object[] datas = new object[] { name };
+            PhotonNetwork.RaiseEvent(Global.SHOW_HIERARCHY, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
+
+        public void HideHierarchy(string name)
+        {
+            object[] datas = new object[] { name };
+            PhotonNetwork.RaiseEvent(Global.HIDE_HIERARCHY, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
+
+        public void EnableWindowTransform(string name)
+        {
+            object[] datas = new object[] { name };
+            PhotonNetwork.RaiseEvent(Global.ENABLE_WINDOW_TRANSFORM, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
+
+        public void DisableWindowTransform(string name)
+        {
+            object[] datas = new object[] { name };
+            PhotonNetwork.RaiseEvent(Global.DISABLE_WINDOW_TRANSFORM, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
+
+
+        //private float[] viewWindowScale;
         void Start()
         {
             isLock = false;
