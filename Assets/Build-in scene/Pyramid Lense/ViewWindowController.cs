@@ -18,6 +18,7 @@ namespace HoloLensPyrimad
         public GameObject extrudeWindow;
         public GameObject quad;
         public GameObject currentGazeTarget;
+        public PhotonView pv;
 
 
 
@@ -26,30 +27,26 @@ namespace HoloLensPyrimad
 
 
         private int windowNum;
-
+        private string visualizationName = "Pyrimad";
 
         public void Clip()
         {
-            //if (CoreServices.InputSystem.GazeProvider.GazeTarget && CoreServices.InputSystem.GazeProvider.GazeTarget.transform.GetChild(0)== viewWindow.transform)
             if (CoreServices.InputSystem.GazeProvider.GazeTarget && clipable)
             {
 
 
                 windowNum++;
-                //GameObject newextrudeWindow = PhotonNetwork.Instantiate("ExtrudeWindow", new Vector3(0, 0, 0), Quaternion.identity);
                 GameObject newextrudeWindow = Instantiate(extrudeWindow, currentGazeTarget.transform);
                 newextrudeWindow.transform.localPosition = new Vector3(viewWindowIndicator.transform.localPosition.x, viewWindowIndicator.transform.localPosition.y, -0.2f);
                 newextrudeWindow.name = "extrude window " + windowNum;
                 newextrudeWindow.transform.parent = transform.parent;
                 newextrudeWindow.transform.localScale = new Vector3(1, 1, 1);
 
-                if (base.photonView.IsMine)
+                if (pv.IsMine)
                 {
                     RaiseInstantiateWallEvent(newextrudeWindow.name);
                     GameObject quad = newextrudeWindow.transform.Find("Quad").gameObject;
-                    transform.GetComponent<PhotonSynChroManager>().AddsyncronizeObj(newextrudeWindow.name,quad);
-                    //base.photonView.RPC("OnInstantiateInPC", RpcTarget.Others);
-                    
+                    transform.GetComponent<PhotonSynChroManager>().AddsyncronizeObj(newextrudeWindow.name,quad);                    
                 }
 
 
@@ -74,41 +71,42 @@ namespace HoloLensPyrimad
         ////call instantiate function in Wall Scene
         private void RaiseInstantiateWallEvent(string name)
         {
-            int ViewID = base.photonView.ViewID;
-            object[] datas = new object[] { ViewID, name };
-            PhotonNetwork.RaiseEvent(Global.EXTURDE_WINDOW_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+            int ViewID = pv.ViewID;
+            object[] datas = new object[] { name,"Instantiate GameObject", visualizationName };
+            PhotonNetwork.RaiseEvent(Global.INSTANTIATE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
         }
 
         
         public void RaiseDestroyWallEvent(string name)
         {
-            int ViewID = base.photonView.ViewID;
-            object[] datas = new object[] { ViewID, name };
+            int ViewID = pv.ViewID;
+            object[] datas = new object[] { name,"Destroy GameObject",visualizationName };
             PhotonNetwork.RaiseEvent(Global.DESTROY_WINDOW_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
 
         public void ShowHierarchy(string name)
         {
-            object[] datas = new object[] { name };
-            PhotonNetwork.RaiseEvent(Global.SHOW_HIERARCHY, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            object[] datas = new object[] { name, "ShowHierarchy", visualizationName };
+            PhotonNetwork.RaiseEvent(Global.SCROLLVIEW_LOG_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
 
         public void HideHierarchy(string name)
         {
-            object[] datas = new object[] { name };
-            PhotonNetwork.RaiseEvent(Global.HIDE_HIERARCHY, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            object[] datas = new object[] { name, "HideHierarchy" , visualizationName };
+            PhotonNetwork.RaiseEvent(Global.SCROLLVIEW_LOG_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
 
         public void EnableWindowTransform(string name)
         {
-            object[] datas = new object[] { name };
-            PhotonNetwork.RaiseEvent(Global.ENABLE_WINDOW_TRANSFORM, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            object[] datas = new object[] { name, "EnableWindowTransform", visualizationName };
+            PhotonNetwork.RaiseEvent(Global.SCROLLVIEW_LOG_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
 
         public void DisableWindowTransform(string name)
         {
-            object[] datas = new object[] { name };
-            PhotonNetwork.RaiseEvent(Global.DISABLE_WINDOW_TRANSFORM, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            object[] datas = new object[] { name, "DisableWindowTransform", visualizationName };
+
+            PhotonNetwork.RaiseEvent(Global.SCROLLVIEW_LOG_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
 
 

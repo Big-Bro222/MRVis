@@ -12,6 +12,7 @@ namespace WallRemote
         public ScrollBehaviorHandler scrollBehaviorHandler;
         public GameObject ExtrudeWindow;
         public CameraRaycastManager cameraRaycastManager;
+
         private void OnEnable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
@@ -23,75 +24,65 @@ namespace WallRemote
 
         private void NetworkingClient_EventReceived(EventData obj)
         {
-            if (obj.Code == Global.EXTURDE_WINDOW_EVENT)
+            if (obj.Code == Global.INSTANTIATE_EVENT)
             {
-                Extrude(obj);
+                object[] datas = (object[])obj.CustomData;
+
+                string objectname = (string)datas[0];
+                string eventname = (string)datas[1];
+                string visualization = (string)datas[2];
+                InstantiateGameObject(objectname, visualization);
+                scrollViewLogUpdate(objectname, eventname);
             }
             else if (obj.Code == Global.DESTROY_WINDOW_EVENT)
             {
-                DestoryWindow(obj);
+                object[] datas = (object[])obj.CustomData;
+
+                string objectname = (string)datas[0];
+                string eventname = (string)datas[1];
+                string visualization = (string)datas[2];
+                DestroyWindow(objectname, visualization);
+                scrollViewLogUpdate(objectname, eventname);
             }
-            else if (obj.Code == Global.ENABLE_WINDOW_TRANSFORM)
+            else if (obj.Code == Global.SCROLLVIEW_LOG_EVENT)
             {
                 object[] datas = (object[])obj.CustomData;
-                string windowName = (string)datas[0];
-                scrollBehaviorHandler.TextEventReciever(windowName + " transform enabled");
+
+                string objectname = (string)datas[0];
+                string eventname = (string)datas[1];
+                string visualization = (string)datas[2];
+                scrollViewLogUpdate(objectname, eventname);
             }
-            else if (obj.Code == Global.DISABLE_WINDOW_TRANSFORM)
-            {
-                object[] datas = (object[])obj.CustomData;
-                string windowName = (string)datas[0];
-                scrollBehaviorHandler.TextEventReciever(windowName + " transform disabled");
-            }
-            else if (obj.Code == Global.SHOW_HIERARCHY)
-            {
-                object[] datas = (object[])obj.CustomData;
-                string windowName = (string)datas[0];
-                scrollBehaviorHandler.TextEventReciever(windowName + " show hierarchy");
-            }
-            else if (obj.Code == Global.HIDE_HIERARCHY)
-            {
-                object[] datas = (object[])obj.CustomData;
-                string windowName = (string)datas[0];
-                scrollBehaviorHandler.TextEventReciever(windowName + " hide hierarchy");
-            }
+
         }
 
-        private void DestoryWindow(EventData obj)
+        private void scrollViewLogUpdate(string name, string eventname)
         {
-            
-            object[] datas = (object[])obj.CustomData;
-            int ViewID = (int)datas[0];
-            string windowName = (string)datas[1];
+            scrollBehaviorHandler.TextEventReciever(name + " acting event: " + eventname);
+        }
 
-            Debug.Log(windowName);
-            GameObject DestroyObject = transform.parent.Find(windowName).gameObject;
+
+
+        private void DestroyWindow(string GameObjectName, string visualizationName)
+        {
+            GameObject DestroyObject = transform.parent.Find(GameObjectName).gameObject;
             Destroy(DestroyObject.GetComponentInChildren<ScaleUpdater>().viewWindowMarker);
             Destroy(DestroyObject);
-            GetComponent<PhotonSynChroManager>().RemovesyncronizeObj(windowName);
-            //Destroy(DestroyObject.transform.parent.gameObject);
-            scrollBehaviorHandler.TextEventReciever(windowName+" is Destroyed");
+            GetComponent<PhotonSynChroManager>().RemovesyncronizeObj(GameObjectName);
         }
 
-        private void Extrude(EventData obj)
+        private void InstantiateGameObject(string windowName, string visualizationName)
         {
-            object[] datas = (object[])obj.CustomData;
-            int ViewID = (int)datas[0];
-            string windowName = (string)datas[1];
-
             GameObject newextrudeWindow = Instantiate(ExtrudeWindow, cameraRaycastManager.currentGazeGameObject.transform);
             newextrudeWindow.transform.localPosition = new Vector3(cameraRaycastManager.currnetRelativeHitPoint.x, cameraRaycastManager.currnetRelativeHitPoint.y, -0.2f);
             newextrudeWindow.name = windowName;
             newextrudeWindow.transform.parent = transform.parent;
             newextrudeWindow.transform.localScale = new Vector3(1, 1, 1);
-
             newextrudeWindow.transform.Find("ViewWindow/Marker").SetParent(cameraRaycastManager.currentGazeGameObject.transform);
-
             GetComponent<PhotonSynChroManager>().AddsyncronizeObj(windowName, newextrudeWindow.transform.Find("Quad").gameObject);
-
-            scrollBehaviorHandler.TextEventReciever("Extrude new window "+windowName);
-
         }
+
+
     }
 }
 
