@@ -27,13 +27,12 @@ namespace WallRemote
         // Update is called once per frame
         void Update()
         {
-            if (cameraRaycastManager.currentHitPoint == null)
+            if (cameraRaycastManager.currentHitPoint == new Vector3(1000, 1000, 1000))
             {
                 cameraDebugLine.SetPositions(new Vector3[2] { transform.position, transform.forward * 50000000 });
             }else
-            {
+            { 
                 cameraDebugLine.SetPositions(new Vector3[2] { transform.position, cameraRaycastManager.currentHitPoint });
-
             }
 
 

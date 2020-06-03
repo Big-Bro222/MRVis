@@ -25,7 +25,7 @@ namespace HoloLensRemote
 
         public void OnClick_CreateRoom()
         {
-            PhotonNetwork.CreateRoom("DefaultRoom", new RoomOptions { MaxPlayers = 4 }, null);
+            PhotonNetwork.CreateRoom("DefaultRoom", new RoomOptions { MaxPlayers = 10 }, null);
             Debug.Log("Create");
         }
 

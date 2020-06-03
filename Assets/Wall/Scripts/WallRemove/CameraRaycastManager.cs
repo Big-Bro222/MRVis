@@ -7,8 +7,9 @@ namespace WallRemote
     public class CameraRaycastManager : MonoBehaviour
     {
         public GameObject currentGazeGameObject;
-        public Vector3 currentHitPoint;
+        public Vector3 currentExtrudeHitPoint;
         public Vector3 currnetRelativeHitPoint;
+        public Vector3 currentHitPoint;
 
         void Start()
         {
@@ -18,12 +19,23 @@ namespace WallRemote
         // Update is called once per frame
         void Update()
         {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, (1 << 11)))
+            RaycastHit Etrudehit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out Etrudehit, Mathf.Infinity, (1 << 11)))
             {
-                currentGazeGameObject = hit.transform.gameObject;
+                currentGazeGameObject = Etrudehit.transform.gameObject;
+
+                currentExtrudeHitPoint = Etrudehit.point;
+                currnetRelativeHitPoint = Etrudehit.transform.InverseTransformPoint(currentExtrudeHitPoint);
+            }
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+            {
                 currentHitPoint = hit.point;
-                currnetRelativeHitPoint = hit.transform.InverseTransformPoint(currentHitPoint);
+            }
+            else {
+                currentHitPoint = new Vector3(1000,1000,1000);
+                //set currentHitPoint to a insane value to show it's null
             };
 
         }

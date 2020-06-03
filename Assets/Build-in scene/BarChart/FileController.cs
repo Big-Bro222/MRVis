@@ -5,7 +5,7 @@ using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 using TMPro;
 
-//[ExecuteInEditMode ]
+[ExecuteInEditMode ]
 public class FileController : MonoBehaviour
 {
     private List<string> csvParseData;
