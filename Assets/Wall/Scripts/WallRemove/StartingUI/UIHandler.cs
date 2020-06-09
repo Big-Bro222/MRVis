@@ -18,6 +18,7 @@ namespace WallRemote
         //        OnClick_CreateRoom();
         //    }
         //}
+        //public string LoadScene;
 
         public void OnClick_JoinRoom()
         {
@@ -36,7 +37,8 @@ namespace WallRemote
         public override void OnJoinedRoom()
         {
             Debug.Log("Room Joined Sucess");
-            PhotonNetwork.LoadLevel("BaseWallRemote");
+            //PhotonNetwork.LoadLevel(LoadScene);
+            PhotonNetwork.LoadLevel(1);
 
 
         }

@@ -35,8 +35,6 @@ public class InterfaceController : MonoBehaviourPun
         if (!pv.IsMine)
         {
             pv.RPC("RPC_LoadNextVis", RpcTarget.All, visualizationNameTobeSet);
-            Debug.Log("is Mine");
-            Debug.Log(visualizationNameTobeSet);
         }
 
         //sending the data by RaiseEvent only work on one part
@@ -48,7 +46,6 @@ public class InterfaceController : MonoBehaviourPun
     {
         //Debug.Log(visualizationnameTobeSet);
         GetComponent<photonviewController>().setVisualization(visualizationnameTobeSet);
-        Debug.Log(string.Format("<color=red>{0}</color>", visualizationNameTobeSet));
     }
 
 
