@@ -191,6 +191,20 @@ public class MouseEventHandler : MonoBehaviourPun, IPunObservable
         MouseEventIndicator.transform.Rotate(new Vector3(0, MouseScroll * 180, 0));
     }
 
+    [PunRPC]
+    private void LogError()
+    {
+        ScrollState.SetText("No object focusing!!!");
+        Invoke("setText", 1);
+        TransformState.SetText("Null");
+        currentState = State.Static;
+    }
+
+    private void setText()
+    {
+        ScrollState.SetText("Interaction Off");
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
 

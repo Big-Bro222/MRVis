@@ -40,6 +40,7 @@ MonoBehaviour:
   - LoadNextlevel
   - RPC_LoadNextVis
   - Scroll
+  - LogError
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

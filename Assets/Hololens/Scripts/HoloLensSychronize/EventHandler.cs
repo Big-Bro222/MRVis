@@ -18,6 +18,7 @@ namespace HoloLensinterface
             PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_EventReceived;
         }
 
+
         [PunRPC]
         void RPC_LoadNextVis(string visualizationnameTobeSet)
         {

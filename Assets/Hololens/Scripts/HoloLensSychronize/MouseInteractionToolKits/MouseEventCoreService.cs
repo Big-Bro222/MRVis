@@ -18,7 +18,6 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
 
     public float MouseY;
     private bool isMoving = false;
-
     public string currentEvent;
 
     private enum FocusState
@@ -85,10 +84,11 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
 
             if (!GazeTarget)
             {
-                Debug.LogError("you are not focusing on GameObjects!");
+                photonView.RPC("LogError", RpcTarget.All);
             }
             else
             {
+                
                 isMoving = !isMoving;
                 DoubleClicked();
                 focusState = isMoving ? FocusState.Focusing : FocusState.Observing;
@@ -164,6 +164,13 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         onScroll(Delta);
     }
 
+    //Error message sending back to monitor scene
+    [PunRPC]
+    private void LogError()
+    {
+        Debug.LogError("you are not focusing on GameObjects!");
+
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (isMoving)

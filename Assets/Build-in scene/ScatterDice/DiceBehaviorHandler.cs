@@ -16,6 +16,9 @@ public class DiceBehaviorHandler : MonoBehaviour
     [Range(0, 5f)]
     public float translateDuration;
 
+    [Range(0, 3f)]
+    public float InvokeRotationDelay;
+
     public PhotonView pv;
 
 
@@ -97,7 +100,7 @@ public class DiceBehaviorHandler : MonoBehaviour
                 break;
         }
 
-        Invoke(functionArray[(int)state], 3);
+        Invoke(functionArray[(int)state], InvokeRotationDelay);
 
     }
 

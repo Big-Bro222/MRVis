@@ -7174,9 +7174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HostTransform: {fileID: 0}
-  Scalable: 0
+  Scalable: 1
   ScaleHandler: {fileID: 4812477343100229184, guid: 7688a818e6f417a449b29eb2364888c7,
     type: 3}
+  DistanceMin: 0.2
+  DistanceMax: 3
 --- !u!1 &7491324423422801081
 GameObject:
   m_ObjectHideFlags: 0
