@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using MapGenerator;
 using Microsoft.MixedReality.Toolkit.UI;
-
+//[ExecuteInEditMode]
 public class MapCanvas : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject nodeprefab;
     public float mapscale=0.0255f;
     public Vector3 maplocalpos;
     public Vector2 portion;
     public Material lineMaterial;
     
-    //public GameObject testobj;
 
     [SerializeField]
     private GameObject FollowingLabel;
@@ -42,6 +40,7 @@ public class MapCanvas : MonoBehaviour
         NullObj = new GameObject("yes");
         interactableToggleCollection = FindObjectOfType<InteractableToggleCollection>();
 
+        //Setup color for all metro line
         colorqueue = new Queue<Color>();
         colorqueue.Enqueue(new Color(102,255,148));
         colorqueue.Enqueue(new Color(255,204,204));
@@ -65,10 +64,10 @@ public class MapCanvas : MonoBehaviour
     {
         GenerateNodes(nodeinfos);
         GenerateEdge(edgeinfos);
-        RevealMeatroLine("M10");
+        ShowMetroLine(true);
     }
 
-
+    //Handler toggle behavior
     public void ToggleHandler()
     {
         int Index=interactableToggleCollection.CurrentIndex;
@@ -89,6 +88,8 @@ public class MapCanvas : MonoBehaviour
         }
 
     }
+
+    //Show all the metro line
     private void ShowMetroLine(bool isShow)
     {
         for (int i = 0; i < edgeparent.transform.childCount; i++)
@@ -96,7 +97,7 @@ public class MapCanvas : MonoBehaviour
             edgeparent.transform.GetChild(i).gameObject.SetActive(isShow);
         }
     }
-
+    //show a particular metro line
     private void RevealMeatroLine(string metroname)
     {
         for(int i = 0; i < edgeparent.transform.childCount; i++)
@@ -105,7 +106,7 @@ public class MapCanvas : MonoBehaviour
             edgeparent.transform.GetChild(i).gameObject.SetActive(isMetroSelected);
         }
     }
-
+    //generate Nodes map
     private void GenerateNodes(List<Dictionary<string, string>> nodeinfos)
     {
 
@@ -172,9 +173,10 @@ public class MapCanvas : MonoBehaviour
 
         
     }
-
+    //generate edge information
     private void GenerateEdge(List<Dictionary<string, string>> edgeinfos)
     {
+        //there was something wrong so I had to add a null dictionary here
         List<Dictionary<string, string>> M9edgeinfos = edgeinfos;
         Dictionary<string, string> M9generator = new Dictionary<string, string>();
         M9generator.Add("label", "M99");

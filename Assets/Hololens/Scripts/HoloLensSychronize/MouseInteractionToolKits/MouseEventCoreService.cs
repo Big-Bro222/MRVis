@@ -127,7 +127,6 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(MouseY + "MovingRadius");
         if (!isMoving)
         {
             //Update GazeTarget

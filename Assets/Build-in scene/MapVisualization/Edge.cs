@@ -6,22 +6,15 @@ using TMPro;
 
 public class Edge : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     public Vector3[] PosList;
     public string Edgelabel;
     public GameObject FollowingLabelPrefab;
-
-
-    //private GameObject indicator;
     private RaycastManager raycastManager;
 
     private GameObject FollowingLabel;
     void Start()
     {
-        //indicator = Instantiate(new GameObject(),transform);
-        //indicator.transform.SetParent(transform);
-        //FollowingLabel=Instantiate(FollowingLabelPrefab, new Vector3(0,-0.05f,0),Quaternion.identity,indicator.transform);
         Vector3 InitialLablePoint = GetComponent<LineRenderer>().GetPosition(0);
         FollowingLabel = Instantiate(FollowingLabelPrefab, new Vector3(InitialLablePoint.x, InitialLablePoint.y, 0), Quaternion.identity,transform);
         FollowingLabel.name = Edgelabel + " sphere";
@@ -40,8 +33,6 @@ public class Edge : MonoBehaviour
         Vector2 previousPoint = new Vector2(0, 0);
         Vector3 hitPosLocal = transform.InverseTransformPoint(raycastManager.hitpos);
 
-        Debug.Log("hitposLocal is " + hitPosLocal);
-        Debug.Log("hitPosGlobal is " + raycastManager.hitpos);
 
         //FollowingLabel.transform.localPosition = hitPosLocal;
 
