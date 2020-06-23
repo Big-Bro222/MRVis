@@ -76,6 +76,12 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         OnButtonClicked(UIid);
     }
 
+    public Action<float, int> OnSliderChanged;
+    public void SliderChanged(float sliderValue, int UIid)
+    {
+        OnSliderChanged(sliderValue, UIid);
+    }
+
     private void NetworkingClient_EventReceived(EventData obj)
     {
         if (obj.Code == Global.DOUBLE_CLICKED)
@@ -108,17 +114,20 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         else if (obj.Code == Global.UI_BTN_CLICKED)
         {
 
-            Debug.Log("RecievingBtn");
             object[] datas = (object[])obj.CustomData;
             string UIstate = (string)datas[0];
-            int ToggleIndex = (int)datas[1];
+            float UIrelatedData = (float)datas[1];
             int UIid = (int)datas[2];
             if (UIstate.Equals("ToggleGroup"))
             {
+                int ToggleIndex = (int)UIrelatedData;
                 ToggleClicked(ToggleIndex, UIid);
             }else if (UIstate.Equals("Button"))
             {
                 ButtonClicked(UIid);
+            }else if (UIstate.Equals("Slider"))
+            {
+                SliderChanged(UIrelatedData, UIid);
             }
         }
 

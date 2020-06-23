@@ -22,48 +22,50 @@ public class RaycastManager : MonoBehaviour
     void Update()
     {
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized , Mathf.Infinity,(1<<11|1<<12));
+        hits = Physics.RaycastAll(camera.transform.position, CoreServices.InputSystem.GazeProvider.GazeDirection.normalized, Mathf.Infinity, (1 << 11 | 1 << 12));
         float mindist = 20;
         for (int i = 0; i < hits.Length; i++)
         {
-            
+
             RaycastHit hit = hits[i];
-            if(!new Vector2(hit.point.x, hit.point.y).Equals(hitpos))
+            if (!new Vector2(hit.point.x, hit.point.y).Equals(hitpos))
             {
                 hitpos = hit.point;
                 Debug.Log("hitpoint changed");
             }
-            
+
+            //if the hit point is on Annotation, don't calculate hitchange
             bool inLayerMaskAnnotation = hit.transform.gameObject.IsInLayerMask(1 << 12);
             if (inLayerMaskAnnotation)
             {
                 return;
             }
-                float dist = Vector3.Distance(hit.point, hit.transform.position);
+
+            float dist = Vector3.Distance(hit.point, hit.transform.position);
 
 
-                if (dist < mindist)
+            if (dist < mindist)
+            {
+
+                mindist = dist;
+
+                focus = hit.transform.parent.gameObject;
+                if (hit.transform.name == "Wall")
                 {
-
-                    mindist = dist;
-
-                    focus = hit.transform.parent.gameObject;
-                    if (hit.transform.name == "Wall")
-                    {
-                        focus = null;
-                    }
-
+                    focus = null;
                 }
-            
+
+            }
+
 
         }
-        
+
         if (focus != prefocus)
         {
             //Debug.Log(focus + " and "+prefocus);
             focusobj.SetFocus(focus, prefocus);
             prefocus = focus;
-            
+
         }
 
 

@@ -13,7 +13,7 @@ public class AnnotationManager : MonoBehaviour
     private GameObject backPanel;
     private string descriptiontText;
 
-    private bool isAnchored;
+    public bool isAnchored;
     public float panelFollowOffset;
     private Transform annotationOriginalParent;
 
@@ -26,7 +26,7 @@ public class AnnotationManager : MonoBehaviour
         backPanel = gameObject.transform.Find("Backpanel").gameObject;
         descriptiontText = description.GetComponent<Text>().text;
         annotationOriginalParent = transform.parent;
-        isAnchored = false;
+        isAnchored = true;
     }
 
     public void SetAnchor(bool anchor)
@@ -68,7 +68,7 @@ public class AnnotationManager : MonoBehaviour
         }
         transform.parent = focus.transform;
         Vector3 startPos = transform.localPosition;
-        transform.localPosition=Vector3.Lerp(startPos, new Vector3(0, 0- panelFollowOffset, -1.5f), 0.05f);
+        transform.localPosition=Vector3.Lerp(startPos, new Vector3(0, 0- panelFollowOffset, -1.5f), 0.02f);
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
     }
 

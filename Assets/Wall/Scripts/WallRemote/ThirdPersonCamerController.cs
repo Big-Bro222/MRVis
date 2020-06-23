@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ThirdPersonCamerController : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class ThirdPersonCamerController : MonoBehaviour
     private void Start()
     {
         thirdPersonCamera=GetComponent<Camera>();
+
     }
     // Update is called once per frame
     void Update()
@@ -48,11 +50,22 @@ public class ThirdPersonCamerController : MonoBehaviour
         ProcessMovementInput();
         ProcessRotationInput();
         CameraViewInput();
+
+        if (Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+        }
     }
 
 
     private void ProcessMovementInput()
     {
+        // Camera movement
         float horizontalInput = Input.GetAxis("Horizontal");
         //Get the value of the Horizontal input axis.
 
@@ -64,6 +77,7 @@ public class ThirdPersonCamerController : MonoBehaviour
 
     private void CameraViewInput()
     {
+        //manage Camera magnification
         float offsetView = -Input.GetAxis("Mouse ScrollWheel") * scrollSensity;
         float tmpView = offsetView + thirdPersonCamera.fieldOfView;
         tmpView = Mathf.Clamp(tmpView, minView, maxView);
@@ -72,6 +86,7 @@ public class ThirdPersonCamerController : MonoBehaviour
 
     private void ProcessRotationInput()
     {
+        //Camera rotation
         if (m_axes == RotationAxes.MouseXAndY)
         {
             float m_rotationX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * m_sensitivityX;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MapGenerator;
 using Microsoft.MixedReality.Toolkit.UI;
-//[ExecuteInEditMode]
+[ExecuteInEditMode]
 public class MapCanvas : MonoBehaviour
 {
     public GameObject nodeprefab;
@@ -17,7 +17,7 @@ public class MapCanvas : MonoBehaviour
     private GameObject FollowingLabel;
 
 
-    private GameObject NullObj;
+    //private GameObject NullObj;
     private InteractableToggleCollection interactableToggleCollection;
 
     //private Vector3 maplocalscale;
@@ -29,7 +29,7 @@ public class MapCanvas : MonoBehaviour
     private GameObject nodeparent;
     private GameObject edgeparent;
 
-    private float Linewidth = 0.01f;
+    private float Linewidth = 0.001f;
     private Queue <Color> colorqueue;
 
     private void Awake()
@@ -37,7 +37,6 @@ public class MapCanvas : MonoBehaviour
         mapInfoParser = new MapInfoParser();
         nodeinfos = mapInfoParser.GetNodeNEdgeList()[0];
         edgeinfos = mapInfoParser.GetNodeNEdgeList()[1];
-        NullObj = new GameObject("yes");
         interactableToggleCollection = FindObjectOfType<InteractableToggleCollection>();
 
         //Setup color for all metro line
@@ -218,7 +217,8 @@ public class MapCanvas : MonoBehaviour
                     break;
                 }
                 metroName.Add(edgelabel);
-                GameObject MetroLine = Instantiate(NullObj, edgeparent.transform);
+                //NullObj = new GameObject("yes");
+                GameObject MetroLine = Instantiate(new GameObject("yes"), edgeparent.transform);
                 MetroLine.name = edgelabel;
                 Edge edge=MetroLine.AddComponent<Edge>();
                 edge.Edgelabel = edgelabel;

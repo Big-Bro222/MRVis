@@ -19,6 +19,7 @@ public class InvisiableInteractableButton : MonoBehaviour
     {
         if (uiId.Equals(UIid))
         {
+            Debug.Log("Invock UIid: " + uiId);
             onClick.Invoke();
         }
     }

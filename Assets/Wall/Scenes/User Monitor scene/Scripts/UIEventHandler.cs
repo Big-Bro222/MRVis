@@ -32,23 +32,27 @@ public class UIEventHandler : MonoBehaviour
             uIEventInteractable.OnClicked += OnUIClicked;
         }
     }
-    private void OnUIClicked(int ButtonIndex,int UIEventIndex)
+    private void OnUIClicked(float UIrelatedValue,int UIEventIndex)
     {
+        //UIrelatedValue, 999 is null
         if (uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.Button)
         {
-            RaiseOnUiClickEvent("Button",ButtonIndex, uIEventInteractables[UIEventIndex].UIid);
+            RaiseOnUiClickEvent("Button",UIrelatedValue, uIEventInteractables[UIEventIndex].UIid);
         }
         else if (uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.ToggleGroup)
         {
-            RaiseOnUiClickEvent("ToggleGroup", ButtonIndex, uIEventInteractables[UIEventIndex].UIid);
+            RaiseOnUiClickEvent("ToggleGroup", UIrelatedValue, uIEventInteractables[UIEventIndex].UIid);
+        }else if(uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.Slider)
+        {
+            RaiseOnUiClickEvent("Slider", UIrelatedValue, uIEventInteractables[UIEventIndex].UIid);
         }
 
 
     }
 
-    private void RaiseOnUiClickEvent(string UIState, int ButtonIndex,int UIEventIndex)
+    private void RaiseOnUiClickEvent(string UIState, float UIrelatedValue, int UIEventIndex)
     {
-        object[] datas = new object[] {UIState,ButtonIndex,UIEventIndex };
-        PhotonNetwork.RaiseEvent(Global.UI_BTN_CLICKED, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+        object[] datas = new object[] {UIState, UIrelatedValue, UIEventIndex };
+        PhotonNetwork.RaiseEvent(Global.UI_BTN_CLICKED, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 }

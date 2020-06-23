@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: MultiBuildConfig
   m_EditorClassIdentifier: Assembly-CSharp-Editor::MultiBuild
   sceneWall:
-  - {fileID: 102900000, guid: 27ebe6f3bc50f604bba5d632b8dc4c2c, type: 3}
+  - {fileID: 102900000, guid: 9a351900479590948a806eb1a1325109, type: 3}
+  - {fileID: 102900000, guid: 270ffe7be200f274f86b16d94b215536, type: 3}
   sceneMaster: []
   sceneHL:
   - {fileID: 102900000, guid: c2b5844063344c0469117c2315fcb575, type: 3}

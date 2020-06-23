@@ -9,8 +9,8 @@ public class Node : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public string name { set; get; }
-    public string id { set; get; }
+    public string name;
+    public string id;
 
     private TextMeshPro label;
     private GameObject nodeChild;

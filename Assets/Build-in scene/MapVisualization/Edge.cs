@@ -16,9 +16,9 @@ public class Edge : MonoBehaviour
     void Start()
     {
         Vector3 InitialLablePoint = GetComponent<LineRenderer>().GetPosition(0);
-        FollowingLabel = Instantiate(FollowingLabelPrefab, new Vector3(InitialLablePoint.x, InitialLablePoint.y, 0), Quaternion.identity,transform);
-        FollowingLabel.name = Edgelabel + " sphere";
-        FollowingLabel.GetComponentInChildren<TextMeshPro>().SetText(Edgelabel);
+        //FollowingLabel = Instantiate(FollowingLabelPrefab, new Vector3(InitialLablePoint.x, InitialLablePoint.y, 0), Quaternion.identity,transform);
+        //FollowingLabel.name = Edgelabel + " sphere";
+        //FollowingLabel.GetComponentInChildren<TextMeshPro>().SetText(Edgelabel);
 
         raycastManager = FindObjectOfType<RaycastManager>();
  
@@ -27,39 +27,39 @@ public class Edge : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
 
-        Vector2 previousPoint = new Vector2(0, 0);
-        Vector3 hitPosLocal = transform.InverseTransformPoint(raycastManager.hitpos);
-
-
-        //FollowingLabel.transform.localPosition = hitPosLocal;
-
-        for (int i = 0; i < PosList.Length; i++)
-        {
-            if (PosList[i].x < hitPosLocal.x)
-            {
-                previousPoint = new Vector2(PosList[i].x, PosList[i].y);
-            }
-            else if (PosList[i].x >= hitPosLocal.x)
-            {
-                if (i == 0)
-                {
-                    FollowingLabel.transform.localPosition = new Vector3(PosList[i].x , PosList[i].y, FollowingLabel.transform.localPosition.z);
-                    break;
-                }
-                float pointY = GetY(previousPoint, new Vector2(PosList[i].x, PosList[i].y-0.7f), hitPosLocal.x);
-                Vector3 moveTowardsPoint = new Vector3(hitPosLocal.x, pointY, FollowingLabel.transform.localPosition.z);
-
-                //indicator.transform.localPosition = Vector3.Lerp(indicator.transform.localPosition, moveTowardsPoint, 0.05f);
-                FollowingLabel.transform.localPosition = moveTowardsPoint;
-
-            }
-        }
+    //    Vector2 previousPoint = new Vector2(0, 0);
+    //    Vector3 hitPosLocal = transform.InverseTransformPoint(raycastManager.hitpos);
 
 
-    }
+    //    //FollowingLabel.transform.localPosition = hitPosLocal;
+
+    //    for (int i = 0; i < PosList.Length; i++)
+    //    {
+    //        if (PosList[i].x < hitPosLocal.x)
+    //        {
+    //            previousPoint = new Vector2(PosList[i].x, PosList[i].y);
+    //        }
+    //        else if (PosList[i].x >= hitPosLocal.x)
+    //        {
+    //            if (i == 0)
+    //            {
+    //                FollowingLabel.transform.localPosition = new Vector3(PosList[i].x , PosList[i].y, FollowingLabel.transform.localPosition.z);
+    //                break;
+    //            }
+    //            float pointY = GetY(previousPoint, new Vector2(PosList[i].x, PosList[i].y-0.7f), hitPosLocal.x);
+    //            Vector3 moveTowardsPoint = new Vector3(hitPosLocal.x, pointY, FollowingLabel.transform.localPosition.z);
+
+    //            //indicator.transform.localPosition = Vector3.Lerp(indicator.transform.localPosition, moveTowardsPoint, 0.05f);
+    //            FollowingLabel.transform.localPosition = moveTowardsPoint;
+
+    //        }
+    //    }
+
+
+    //}
 
 
     private float GetY(Vector2 startPoint,Vector2 endPoint, float x)

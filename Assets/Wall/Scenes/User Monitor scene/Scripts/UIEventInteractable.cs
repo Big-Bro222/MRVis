@@ -17,7 +17,8 @@ public class UIEventInteractable : MonoBehaviour
     private int UIEventIndex;
     public UI UIState;
     public int UIid;
-    private int curentToggleIndex=0;
+    private float curentToggleIndex=0;
+    private float currentSliderValue = 1;
     private UIEventInteractable[] UIEventInteractables;
     private ToggleGroup toggleGroup;
     private Toggle[] toggles;
@@ -44,6 +45,9 @@ public class UIEventInteractable : MonoBehaviour
                 break;
             case UI.Button:
                 GetComponent<Button>().onClick.AddListener(Clicked);
+                break;
+            case UI.Slider:
+                GetComponent<Slider>().onValueChanged.AddListener((float sliderValue)=>ValueChanged(sliderValue));
                 break;
             default:
                 Debug.LogError("No UI interactable Element found");
@@ -77,18 +81,32 @@ public class UIEventInteractable : MonoBehaviour
     }
     #endregion
 
-    public Action <int,int> OnClicked;
+    //public Action <int,int> OnClicked;
+
+    public Action<float, int> OnClicked;
+
+    //public Action<float> OnValueChanged;
+    private void ValueChanged(float sliderValue)
+    {
+        currentSliderValue = sliderValue;
+        Clicked();
+    }
 
     private void Clicked()
     {
         if (UIState == UI.ToggleGroup)
         {
-            Debug.Log("Toggle clicked in UIEventInteractable!!!");
+            //Debug.Log("Toggle clicked in UIEventInteractable!!!");
             OnClicked.Invoke(curentToggleIndex,UIEventIndex);
         }else if (UIState == UI.Button)
         {
             //button click is 999
+            Debug.Log("Clickinfor sending!");
             OnClicked.Invoke(999, UIEventIndex);
+        }else if(UIState == UI.Slider)
+        {
+            Debug.Log("Sliding");
+            OnClicked.Invoke(currentSliderValue, UIEventIndex);
         }
     }
 

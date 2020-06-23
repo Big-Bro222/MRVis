@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit;
 using TMPro;
-
+using Photon.Pun;
+using ExitGames.Client.Photon;
+using Photon.Realtime;
 
 public class ScaleHandler : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class ScaleHandler : MonoBehaviour
     public GameObject camera1;
     public GameObject camera2;
     public GameObject camera3;
+    public PhotonView pv;
 
     public List<GameObject> scales;
 
@@ -37,8 +40,22 @@ public class ScaleHandler : MonoBehaviour
         viewWindowScale =new float[4]{ 0.28f,0.18f,0.077f,0.3f};
     }
 
+    public void SetLock()
+    {
+        isLock = !isLock;
+
+        if (pv.IsMine)
+        {
+            //reuse the method in Pyrimad Lens(Hierarchy), the name doesn't mean anything.
+            PhotonNetwork.RaiseEvent(Global.DESTROY_WINDOW_EVENT, new object(), RaiseEventOptions.Default, SendOptions.SendReliable);
+        }
+
+    }
+
     public void OnScaleChange()
     {
+
+
         float viewWindowLocalscale = viewWindowScale[scaleint];
         viewWindow.transform.localScale = new Vector3(viewWindowLocalscale, viewWindowLocalscale, 1);
         if (scaleint == 3)
@@ -63,7 +80,16 @@ public class ScaleHandler : MonoBehaviour
         {
             scaleint = 0;
         }
- 
+
+        Debug.Log("OnScaleChange!!!");
+        if (pv.IsMine)
+        {
+            //reuse the method in Pyrimad Lens(Hierarchy), the name doesn't mean anything.
+            object[] datas = new object[] { };
+            PhotonNetwork.RaiseEvent(Global.INSTANTIATE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+            Debug.Log("HoloLens OnscaleChange");
+        }
+
     }
 
     // Update is called once per frame
@@ -75,7 +101,11 @@ public class ScaleHandler : MonoBehaviour
         {
             return;
         }
-        viewWindow.transform.position = new Vector3(CoreServices.InputSystem.GazeProvider.HitPosition.x, CoreServices.InputSystem.GazeProvider.HitPosition.y,0);
+        if (pv.IsMine)
+        {
+            viewWindow.transform.position = new Vector3(CoreServices.InputSystem.GazeProvider.HitPosition.x, CoreServices.InputSystem.GazeProvider.HitPosition.y, 0);
+        }
+
         camera1.transform.position = new Vector3(viewWindow.transform.position.x,viewWindow.transform.position.y,camera1.transform.position.z);
         camera2.transform.position = new Vector3(viewWindow.transform.position.x, viewWindow.transform.position.y, camera2.transform.position.z);
         camera3.transform.position = new Vector3(viewWindow.transform.position.x, viewWindow.transform.position.y, camera3.transform.position.z);
