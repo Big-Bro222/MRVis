@@ -8,7 +8,7 @@ public class NodeInteractionController : MonoBehaviour
 {
     public GameObject node;
 
-
+    private MapTaskController mapTaskController;
     private Color onhovercolor;
     private Color defaultcolor;
     private bool onHover;
@@ -19,6 +19,7 @@ public class NodeInteractionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mapTaskController = FindObjectOfType<MapTaskController>();
         node = transform.parent.GetChild(0).gameObject;
 
         namelable = GetComponent<TextMeshPro>();
@@ -28,7 +29,7 @@ public class NodeInteractionController : MonoBehaviour
 
         onHover = false;
         onhovercolor = Color.red;
-        defaultcolor = Color.yellow;
+        defaultcolor = node.GetComponent<MeshRenderer>().material.GetColor("_MainColor");
         node.GetComponent<MeshRenderer>().material.SetColor("_MainColor", defaultcolor);
 
         originalscale = node.transform.localScale*1.5f;
@@ -39,9 +40,35 @@ public class NodeInteractionController : MonoBehaviour
 
     public void OnHover(bool onHover)
     {
-        Debug.Log(transform.parent.name+ " OnHover " + onHover);
-        
+        if(mapTaskController.taskState == MapTaskController.TaskState.Fixedlabel)
+        {
+
+            return;
+        }
         namelable.enabled=onHover;
+
+        if (onHover)
+        {
+            if (mapTaskController.taskState ==MapTaskController.TaskState.OnScreen)
+            {
+                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, 2.0f, 0);
+            }
+            else if(mapTaskController.taskState == MapTaskController.TaskState.InFront)
+            {
+                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, 2.0f, -20.0f);
+            }
+        }
+        else
+        {
+            if (mapTaskController.taskState == MapTaskController.TaskState.OnScreen)
+            {
+                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, -2.0f, 0);
+            }
+            else if (mapTaskController.taskState == MapTaskController.TaskState.InFront)
+            {
+                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, -2.0f, 20.0f);
+            }
+        }
         namelable.fontSize = onHover? 40 : 28;
 
         labelRotationHandler.enabled= onHover ? true : false;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
+using System;
 
 public class MapEventHandler : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MapEventHandler : MonoBehaviour
     private GameObject prefocusGameobj;
     public Transform AnnotationPanel;
     public Transform MetroLineCollectionBoth;
+    public MapTaskController mapTaskController;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -31,6 +33,7 @@ public class MapEventHandler : MonoBehaviour
     {
         if (obj.Code == Global.SET_FOCUS)
         {
+            //set focus gameobject
             object[] datas = (object[])obj.CustomData;
 
             string focusobjName = (string)datas[0];
@@ -40,6 +43,8 @@ public class MapEventHandler : MonoBehaviour
         }
         else if (obj.Code == Global.INSTANTIATE_EVENT)
         {
+
+            //set select metro
             object[] datas = (object[])obj.CustomData;
 
             bool Onselect = (bool)datas[0];
@@ -48,6 +53,25 @@ public class MapEventHandler : MonoBehaviour
 
             SetMetroline(Onselect, MetrolineName);
         }
+        else if (obj.Code == Global.SCALE)
+        {
+            object[] datas = (object[])obj.CustomData;
+            float PanX = (float)datas[0];
+            float PanY = (float)datas[1];
+            MapPan(PanX,PanY);
+            Debug.Log("ScaleMove");
+        }
+        else if (obj.Code == Global.NEXT_TASK)
+        {
+            Debug.Log("next task");
+            mapTaskController.NextTask();
+        }
+    }
+
+    private void MapPan(float PanX, float PanY)
+    {
+        nodeparent.parent.localPosition += new Vector3(PanX,PanY,0);
+        Debug.Log("Pan!!!");
     }
 
     private void SetMetroline(bool Onselect,string MetrolineMame)

@@ -19,4 +19,7 @@ public static class Global
     public static byte RIGHT_BTN_CLICKED = 7;
     public static byte UI_BTN_CLICKED = 8;
 
+    public static byte SCALE = 9;
+    public static byte NEXT_TASK = 10;
+
 }

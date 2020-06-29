@@ -9,7 +9,8 @@ using ExitGames.Client.Photon;
 //[ExecuteInEditMode]
 public class LineRendererUIInteractable : MonoBehaviour
 {
-
+    [SerializeField]
+    private BoxCollider boxCollider;
     private LineRenderer lineRenderer;
     private float linerendererWidth;
     public ToolTipHandler toolTip;
@@ -27,6 +28,7 @@ public class LineRendererUIInteractable : MonoBehaviour
         EdgeCollider2D edgeCollider2D = gameObject.AddComponent<EdgeCollider2D>();
         Vector3[] newPos = new Vector3[lineRenderer.positionCount];
         lineRenderer.GetPositions(newPos);
+        lineRenderer.material.SetColor("_MainColor", DefaultColor);
 
         List<Vector2> points = new List<Vector2>();
 
@@ -51,12 +53,12 @@ public class LineRendererUIInteractable : MonoBehaviour
     {
         if (isOver)
         {
-            lineRenderer.material.color = DefaultColor;
+            lineRenderer.material.SetColor("_MainColor",DefaultColor);
             toolTip.ShowTooltip(gameObject.name);
         }
         else
         {
-            lineRenderer.material.color = HoveredColor;
+            lineRenderer.material.SetColor("_MainColor", HoveredColor);
             toolTip.HideTooltip();
         }
         lineRenderer.startWidth = isOver ? linerendererWidth * 2 : linerendererWidth;
@@ -64,9 +66,34 @@ public class LineRendererUIInteractable : MonoBehaviour
 
     }
 
+
+    private bool IsPointingAvaliable()
+    {
+        bool isavaliable = false;
+
+        Vector3 m_Min = boxCollider.bounds.min;
+        Vector3 m_Max = boxCollider.bounds.max;
+        float Top = m_Max.y;
+        float Bottom = m_Min.y;
+        float Right = m_Max.x;
+        float Left = m_Min.x;
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Left < mousePos.x && mousePos.x < Right && Bottom < mousePos.y && mousePos.y < Top)
+        {
+            isavaliable = true;
+        }
+
+        return isavaliable;
+    }
+
     private void OnMouseEnter()
     {
-        
+
+        if (!IsPointingAvaliable())
+        {
+            return;
+        }
+
         if (toolTip.isLock)
         {
             return;

@@ -41,12 +41,12 @@ public class FocusObj : MonoBehaviour
             RaiseSetFocus(focusobjName, prefocusobjName);
         }
         Focus = focusobj;
-        if (Focus != null)
+        if (Focus != null&& Focus.transform.GetChild(1))
         {
             Focus.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(true);
         }
 
-        if (prefocusobj != null)
+        if (prefocusobj != null&& prefocusobj.transform.GetChild(1))
         {
             prefocusobj.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(false);
         }

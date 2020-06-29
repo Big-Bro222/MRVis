@@ -33,7 +33,7 @@ public class ToolTipHandler : MonoBehaviour
         }
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent.GetComponent<RectTransform>(), Input.mousePosition, uiCamera, out localPoint);
-        transform.localPosition = new Vector3(localPoint.x+7f,localPoint.y+3f,-4f);
+        transform.localPosition = new Vector3(localPoint.x+7f,localPoint.y+3f,-10f);
     }
 
     public void ShowTooltip(string tooltip)

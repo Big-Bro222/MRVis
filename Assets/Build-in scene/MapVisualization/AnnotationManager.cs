@@ -6,36 +6,38 @@ using UnityEngine.UI;
 public class AnnotationManager : MonoBehaviour
 {
     // Start is called before the first frame update
+    private MapTaskController mapTaskController;
     private GameObject focusObj;
     private FocusObj focus;
     private GameObject title;
     private GameObject description;
+    private GameObject price;
     private GameObject backPanel;
     private string descriptiontText;
+    private string priceText;
 
-    public bool isAnchored;
+    //public bool isAnchored;
     public float panelFollowOffset;
     private Transform annotationOriginalParent;
 
 
     void Start()
     {
+        mapTaskController = FindObjectOfType<MapTaskController>();
         focus = FindObjectOfType<FocusObj>();
         title = gameObject.transform.Find("TextContent/Title").gameObject;
         description = gameObject.transform.Find("TextContent/Description").gameObject;
         backPanel = gameObject.transform.Find("Backpanel").gameObject;
+        price = gameObject.transform.Find("TextContent/Price").gameObject;
         descriptiontText = description.GetComponent<Text>().text;
+        priceText = price.GetComponent<Text>().text;
         annotationOriginalParent = transform.parent;
-        isAnchored = true;
+        //isAnchored = true;
     }
 
     public void SetAnchor(bool anchor)
     {
-        isAnchored = anchor;
-        if (!isAnchored)
-        {
-            transform.parent = annotationOriginalParent;
-        }
+        transform.parent = annotationOriginalParent;
     }
 
     // Update is called once per frame
@@ -52,12 +54,10 @@ public class AnnotationManager : MonoBehaviour
             {
                 return;
             }
-            TextUpdate(focusObj.name);
+            TextUpdate(focusObj.name, focusObj.GetComponent<Node>().id);
         }
-        if (isAnchored)
-        {
-            TransformUpdate(focusObj);
-        }
+        TransformUpdate(focusObj);
+
     }
 
     private void TransformUpdate(GameObject focus)
@@ -68,13 +68,21 @@ public class AnnotationManager : MonoBehaviour
         }
         transform.parent = focus.transform;
         Vector3 startPos = transform.localPosition;
-        transform.localPosition=Vector3.Lerp(startPos, new Vector3(0, 0- panelFollowOffset, -1.5f), 0.02f);
+        if (mapTaskController.taskState == MapTaskController.TaskState.OnScreen)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, new Vector3(0, 0 - panelFollowOffset, -1.5f), 0.02f);
+        }else if(mapTaskController.taskState == MapTaskController.TaskState.InFront)
+        {
+            transform.localPosition = Vector3.Lerp(startPos, new Vector3(0, 0 - panelFollowOffset, -10.0f), 0.02f);
+        }
         transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
     }
 
-    private void TextUpdate(string name)
+    private void TextUpdate(string name,string hotelPrice)
     {
         title.GetComponent<Text>().text = name;
         description.GetComponent<Text>().text = name+descriptiontText;
+        price.GetComponent<Text>().text = priceText +" "+ hotelPrice;
+
     }
 }
