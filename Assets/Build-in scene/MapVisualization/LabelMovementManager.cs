@@ -12,6 +12,9 @@ public class LabelMovementManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Camera.main.transform.rotation,Time.time*rotationSpeed);
+        if (Camera.main)
+        {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Camera.main.transform.rotation, Time.time * rotationSpeed);
+        }
     }
 }

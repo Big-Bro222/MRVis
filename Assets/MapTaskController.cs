@@ -9,7 +9,6 @@ public class MapTaskController : MonoBehaviourPun
     {
         OnScreen,
         InFront,
-        OnHoloLens,
         Fixedlabel,
         Customize
     }
@@ -18,6 +17,7 @@ public class MapTaskController : MonoBehaviourPun
     public GameObject FixedPannel;
     public GameObject AnnotationPannel;
     public Transform EdgeParent;
+    //public GameObject highlightNode;
     void Start()
     {
         taskState = TaskState.OnScreen;
@@ -29,10 +29,17 @@ public class MapTaskController : MonoBehaviourPun
         MapVis.localPosition = new Vector3(0, 0, 0);
         MapVis.localScale = new Vector3(1, 1, 1);
         MapVis.gameObject.SetActive(false);
+
         for(int i = 0; i < EdgeParent.childCount; i++)
         {
             EdgeParent.GetChild(i).gameObject.SetActive(false);
         }
+
+        //if (taskState == TaskState.InFront)
+        //{
+        //    highlightNode.SetActive(true);
+        //}
+        //else 
         if (taskState == TaskState.Customize)
         {
             return;

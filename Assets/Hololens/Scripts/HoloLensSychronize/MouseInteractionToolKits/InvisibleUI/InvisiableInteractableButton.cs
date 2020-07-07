@@ -15,7 +15,7 @@ public class InvisiableInteractableButton : MonoBehaviour
 
     }
 
-    private void OnClick(int uiId)
+    private void OnClick(string uiId)
     {
         if (uiId.Equals(UIid))
         {

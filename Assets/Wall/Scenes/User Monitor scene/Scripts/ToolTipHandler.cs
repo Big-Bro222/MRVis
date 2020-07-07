@@ -2,31 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class ToolTipHandler : MonoBehaviour
 {
     // Start is called before the first frame update
 
     private Text tooltiptext;
+    private Text accidentNumtext;
     private RectTransform backgroundRectTransform;
+    //private CustomeStandaloneInputModule inputModule;
     [SerializeField]
     private Camera uiCamera;
-    private List<string>Metrostation;
-
 
     public bool isLock;
+    public bool isInteractable;
+
+
     void Start()
     {
-        Metrostation = new List<string>();
         isLock = false;
+        isInteractable = true;
         backgroundRectTransform = transform.GetComponent<RectTransform>();
         tooltiptext = transform.Find("Text").GetComponent<Text>();
-        ShowTooltip("yessssss");
+        accidentNumtext= transform.Find("Text (1)").GetComponent<Text>();
+        ShowTooltip("Click on MetroLine","");
+
+        //inputModule = FindObjectOfType<CustomeStandaloneInputModule>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if (inputModule.IsPointerOverGameObject<PhysicsRaycaster>())
+        //{
+        //    print("Over 3D Object!");
+        //}
+        //else if (inputModule.IsPointerOverGameObject<Physics2DRaycaster>())
+        //{
+        //    print("Over 2D Object!");
+        //}
+        //else if (inputModule.IsPointerOverGameObject<GraphicRaycaster>())
+        //{
+        //    print("Over UI Object!");
+        //}
+
         if (isLock)
         {
             return;
@@ -36,31 +56,11 @@ public class ToolTipHandler : MonoBehaviour
         transform.localPosition = new Vector3(localPoint.x+7f,localPoint.y+3f,-10f);
     }
 
-    public void ShowTooltip(string tooltip)
+    public void ShowTooltip(string tooltip,string metroAccidentNum)
     {
-
-        if(Metrostation.Count >= 7)
-        {
-            if (tooltip.Equals(Metrostation[6]))
-            {
-                gameObject.SetActive(true);
-                tooltiptext.text = "RER B";
-            }
-            else
-            {
-                gameObject.SetActive(true);
-                tooltiptext.text = tooltip;
-            }
-        }
-        else
-        {
-            if (!Metrostation.Contains(tooltip))
-            {
-                Metrostation.Add(tooltip);
-            }
-            gameObject.SetActive(true);
-            tooltiptext.text = tooltip;
-        }
+        gameObject.SetActive(true);
+        tooltiptext.text = tooltip;
+        accidentNumtext.text = metroAccidentNum;
 
     }
 

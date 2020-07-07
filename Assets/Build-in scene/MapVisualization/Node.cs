@@ -22,7 +22,7 @@ public class Node : MonoBehaviour
         label = GetComponentInChildren<TextMeshPro>();
         label.SetText(gameObject.name);
         label.enabled = false;
-        label.gameObject.AddComponent<NodeInteractionController>();
+        //label.gameObject.AddComponent<NodeInteractionController>();
         label.gameObject.AddComponent<LabelMovementManager>();
     }
 

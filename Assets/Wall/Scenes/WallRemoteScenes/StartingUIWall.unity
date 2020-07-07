@@ -1206,7 +1206,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82a1ffe3bf1e3914eb4fcc68b39ab928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadScene: MonitorView
 --- !u!114 &1504941368
 MonoBehaviour:
   m_ObjectHideFlags: 0

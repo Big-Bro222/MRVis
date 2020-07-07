@@ -54,12 +54,10 @@ public class LineRendererUIInteractable : MonoBehaviour
         if (isOver)
         {
             lineRenderer.material.SetColor("_MainColor",DefaultColor);
-            toolTip.ShowTooltip(gameObject.name);
         }
         else
         {
-            lineRenderer.material.SetColor("_MainColor", HoveredColor);
-            toolTip.HideTooltip();
+            lineRenderer.material.SetColor("_MainColor", SelectedColor);
         }
         lineRenderer.startWidth = isOver ? linerendererWidth * 2 : linerendererWidth;
         lineRenderer.endWidth = isOver ? linerendererWidth * 2 : linerendererWidth;
@@ -89,7 +87,7 @@ public class LineRendererUIInteractable : MonoBehaviour
     private void OnMouseEnter()
     {
 
-        if (!IsPointingAvaliable())
+        if (!IsPointingAvaliable()|| !toolTip.isInteractable)
         {
             return;
         }
@@ -102,17 +100,23 @@ public class LineRendererUIInteractable : MonoBehaviour
     }
     private void OnMouseExit()
     {
-        if (toolTip.isLock)
+        if (toolTip.isLock|| !toolTip.isInteractable)
         {
             return;
         }
         MouseOverEffect(false);
     }
 
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
+        if (!toolTip.isInteractable)
+        {
+            return;
+        }
+
         if (!toolTip.isLock)
         {
+            toolTip.ShowTooltip(gameObject.name, gameObject.GetComponent<Edge>().MetroaccidentNum.ToString());
             toolTip.isLock = !toolTip.isLock;
             object[] datas = new object[] { true, gameObject.name, "Map" };
             PhotonNetwork.RaiseEvent(Global.INSTANTIATE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
@@ -122,11 +126,22 @@ public class LineRendererUIInteractable : MonoBehaviour
         {
             if (toolTip.Tooltiptext().Equals(gameObject.name))
             {
+                toolTip.HideTooltip();
                 toolTip.isLock = !toolTip.isLock;
                 object[] datas = new object[] { false, gameObject.name, "Map" };
                 PhotonNetwork.RaiseEvent(Global.INSTANTIATE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
             }
+            else
+            {
+                //object[] datas = new object[] { true, gameObject.name, "Map" };
+                //PhotonNetwork.RaiseEvent(Global.INSTANTIATE_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+            }
         }
+    }
+
+    private void OnMouseUp()
+    {
+
 
         
     }

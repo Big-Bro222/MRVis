@@ -4,6 +4,9 @@ using System.IO;
 using System.Xml;
 using UnityEditor;
 using UnityEngine;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using System;
 
 public class LocationLogger : MonoBehaviour
 {
@@ -15,6 +18,10 @@ public class LocationLogger : MonoBehaviour
     private XmlElement VisualizationElement;
     private EventLogger eventLogger;
     private GameObject child;
+
+
+    private string CompentPath;//recieved path
+    private string UnityPath;//Unity path
 
     //recordingRate per second
     private float recordingRate=0.01f;
@@ -31,10 +38,49 @@ public class LocationLogger : MonoBehaviour
         RecordabletransformDic = new Dictionary<string, Transform>();
         RegisterTransformtoLogger();
         List<string> keyList = new List<string>(RecordabletransformDic.Keys);
-        //foreach (string key in keyList)
-        //{
-        //    Debug.Log(key);
-        //}
+        ////foreach (string key in keyList)
+        ////{
+        ////    Debug.Log(key);
+        ////}
+    }
+
+    //自定义文件保存文件夹;
+    private void SaveCutScreenPath()
+    {
+        SaveFileDialog saveFileDialog = new SaveFileDialog();//new folderbrowser
+        saveFileDialog.Filter = "XML-File | *.xml";
+        saveFileDialog.FileName = "yes";
+        saveFileDialog.AddExtension = true;
+        //saveFileDialog.CheckPathExists = true;
+        //saveFileDialog.CheckFileExists = true;
+        saveFileDialog.OverwritePrompt = true;   //enable overwrite;
+
+        saveFileDialog.Title = "Select file";
+        saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyComputer);  //set default path
+
+
+
+        //If pressing OK
+        if (saveFileDialog.ShowDialog() == DialogResult.OK)
+        {
+            xmlDocument.Save(saveFileDialog.FileName);
+        }
+
+        ////transfer to Unity Path
+        // UnityPath = CompentPath.Replace(@"\", "/");
+        // print(UnityPath);
+        // //如果 \  比较多的话      
+        // //if (UnityPath.IndexOf("/") > 2)
+        // //{
+        // //UnityPath = CompentPath+ "/";
+        // //print("大于了");
+        // //}
+        // //else {
+
+        // //print("小于了");
+        // //}
+
+
     }
 
     public void RegisterTransformtoLogger()
@@ -61,7 +107,7 @@ public class LocationLogger : MonoBehaviour
                 path = child.transform.parent.name + "/" + path;
                 child = other;
             }
-
+            Debug.Log(path);
             RecordabletransformDic.Add(path, wallchild);
         }
         
@@ -94,14 +140,8 @@ public class LocationLogger : MonoBehaviour
         XmlElement EndElement = xmlDocument.CreateElement("End");
         EndElement.SetAttribute("TotalTime", recordingClock.ToString("F3"));
         root.AppendChild(EndElement);
-
-
         eventLogger.StopRecording();
-        xmlDocument.Save("F:/Game project/Bas/Bas/Assets/DataXML.xml");
-        if (File.Exists("F:/Game project/Bas/Bas/Assets/DataXML.xml"))
-        {
-            Debug.Log("Transform File saved");
-        }
+        SaveCutScreenPath();
     }
 
     private void WriteXMLOnce()

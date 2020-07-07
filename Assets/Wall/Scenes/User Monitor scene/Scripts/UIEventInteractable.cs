@@ -14,9 +14,11 @@ public class UIEventInteractable : MonoBehaviour
         RadioBtn,
         Slider
     }
+
+    public Transform parentVisCollection;
     private int UIEventIndex;
     public UI UIState;
-    public int UIid;
+    public string UIid;
     private float curentToggleIndex=0;
     private float currentSliderValue = 1;
     private UIEventInteractable[] UIEventInteractables;
@@ -25,7 +27,7 @@ public class UIEventInteractable : MonoBehaviour
     // Start is called before the first frame update
     private void OnEnable()
     {
-        UIEventInteractables = transform.parent.GetComponentsInChildren<UIEventInteractable>();
+        UIEventInteractables = parentVisCollection.GetComponentsInChildren<UIEventInteractable>();
         for(int i = 0; i < UIEventInteractables.Length; i++)
         {
             if (UIEventInteractables[i] == this)
@@ -101,11 +103,11 @@ public class UIEventInteractable : MonoBehaviour
         }else if (UIState == UI.Button)
         {
             //button click is 999
-            Debug.Log("Clickinfor sending!");
+            //Debug.Log("Clickinfor sending!");
             OnClicked.Invoke(999, UIEventIndex);
         }else if(UIState == UI.Slider)
         {
-            Debug.Log("Sliding");
+            Debug.Log(transform.parent.name);
             OnClicked.Invoke(currentSliderValue, UIEventIndex);
         }
     }

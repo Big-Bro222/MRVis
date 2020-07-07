@@ -7,6 +7,7 @@ public class VisualizationController : MonoBehaviourPun
 {
     public UIEventHandler uIEventHandler;
     public List<GameObject> visualizationCollection;
+    //public List<GameObject> backgroundCollection;
     public string visualizationName;
     private Dictionary<string, GameObject> visualizationCollectionDictionary;
     private GameObject currentVisualization;
@@ -30,7 +31,8 @@ public class VisualizationController : MonoBehaviourPun
     public void Setscale()
     {
         scale = CalibrationData.ResolutionScale;
-        currentVisualization.transform.localScale = new Vector3(scale, scale, scale);
+        string visname = currentVisualization.name;
+        currentVisualization.transform.Find(visname).localScale = new Vector3(scale, scale, scale);
 
     }
 

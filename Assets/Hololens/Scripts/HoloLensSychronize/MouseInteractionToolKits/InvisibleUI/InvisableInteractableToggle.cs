@@ -17,7 +17,7 @@ public class InvisableInteractableToggle : MonoBehaviour
         MouseEventCoreService.Instance.OnToggleClicked += OnValueChanged;
     }
 
-    private void OnValueChanged(int ToggleIndex, int uiId)
+    private void OnValueChanged(int ToggleIndex, string uiId)
     {
         if (uiId.Equals(UIid))
         {

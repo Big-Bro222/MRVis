@@ -8,7 +8,7 @@ using UnityEngine;
 public class UIEventHandler : MonoBehaviour
 {
     public Transform Canvas;
-    private UIEventInteractable[] uIEventInteractables;
+    public UIEventInteractable[] uIEventInteractables;
 
     private void Start()
     {
@@ -42,17 +42,19 @@ public class UIEventHandler : MonoBehaviour
         else if (uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.ToggleGroup)
         {
             RaiseOnUiClickEvent("ToggleGroup", UIrelatedValue, uIEventInteractables[UIEventIndex].UIid);
-        }else if(uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.Slider)
+        }
+        else if(uIEventInteractables[UIEventIndex].UIState == UIEventInteractable.UI.Slider)
         {
+            Debug.Log(UIEventIndex + "last in Monitor Slider");
             RaiseOnUiClickEvent("Slider", UIrelatedValue, uIEventInteractables[UIEventIndex].UIid);
         }
 
 
     }
 
-    private void RaiseOnUiClickEvent(string UIState, float UIrelatedValue, int UIEventIndex)
+    private void RaiseOnUiClickEvent(string UIState, float UIrelatedValue, string UIName)
     {
-        object[] datas = new object[] {UIState, UIrelatedValue, UIEventIndex };
+        object[] datas = new object[] {UIState, UIrelatedValue, UIName };
         PhotonNetwork.RaiseEvent(Global.UI_BTN_CLICKED, datas, RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 }

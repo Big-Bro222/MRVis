@@ -5,9 +5,10 @@ using System.Xml;
 using UnityEditor;
 using UnityEngine;
 
+
 public class EventLogger : MonoBehaviour
 {
-    public GameObject Wall;
+    //public GameObject Wall;
     private XmlDocument xmlDocument;
     private XmlElement root;
     private Dictionary<string, Transform> RecordabletransformDic;
@@ -56,18 +57,15 @@ public class EventLogger : MonoBehaviour
 
     private void TimeRecording()
     {
-        Debug.Log("Writing...");
         recordingClock += recordingRate;
     }
 
     public void StopRecording()
     {
         CancelInvoke("TimeRecording");
-        xmlDocument.Save("F:/Game project/Bas/Bas/Assets/EventXML.xml");
-        if (File.Exists("F:/Game project/Bas/Bas/Assets/EventXML.xml"))
-        {
-            Debug.Log(" Event log File saved");
-        }
     }
+
+
+    
 
 }

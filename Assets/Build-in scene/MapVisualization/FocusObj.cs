@@ -7,10 +7,12 @@ using UnityEngine.EventSystems;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using TMPro;
 
 public class FocusObj : MonoBehaviour
 {
     public GameObject Focus;
+    public Transform FixedAnnotation;
     //private AudioSource hoverSFX;
     private LayerMask[] laymasks;
     private PointerEventData pointeventdata;
@@ -30,25 +32,53 @@ public class FocusObj : MonoBehaviour
         }
         else { focusobjName = focusobj.name; }
 
+        //if (focusobjName.Equals("MapShrink"))
+        //{
+        //    return;
+        //}
+
         if (prefocusobj == null)
         {
             prefocusobjName = "null";
         }
         else { prefocusobjName = prefocusobj.name; }
+
+        if (focusobj.GetComponent<Node>())
+        {
+            if (FixedAnnotation)
+            {
+                FixedAnnotation.Find("Cube/Description").GetComponent<TextMeshPro>().text = focusobjName + " is the Hotel name in Paris";
+                FixedAnnotation.Find("Cube/price").GetComponent<TextMeshPro>().text = "The Price is € " + focusobj.GetComponent<Node>().id;
+            }
+        }
+        else
+        {
+            Debug.Log("false" + focusobj.name);
+        }
+
+
         if (pv.IsMine)
         {
-            Debug.Log("Set" + focusobjName + " , " + prefocusobjName);
-            RaiseSetFocus(focusobjName, prefocusobjName);
+            if (focusobjName != "MapShrink" && prefocusobjName != "MapShrink")
+            {
+                RaiseSetFocus(focusobjName, prefocusobjName);
+            }
         }
         Focus = focusobj;
         if (Focus != null&& Focus.transform.GetChild(1))
         {
-            Focus.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(true);
+            if (Focus.transform.GetComponent<NodeInteractionController>())
+            {
+                Focus.transform.GetComponent<NodeInteractionController>().OnHover(true);
+            }
         }
 
         if (prefocusobj != null&& prefocusobj.transform.GetChild(1))
         {
-            prefocusobj.transform.GetChild(1).GetComponent<NodeInteractionController>().OnHover(false);
+            if (prefocusobj.transform.GetComponent<NodeInteractionController>())
+            {
+                prefocusobj.transform.GetComponent<NodeInteractionController>().OnHover(false);
+            }
         }
     }
 

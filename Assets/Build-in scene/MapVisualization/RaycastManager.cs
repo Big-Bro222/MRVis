@@ -31,7 +31,6 @@ public class RaycastManager : MonoBehaviour
             if (!new Vector2(hit.point.x, hit.point.y).Equals(hitpos))
             {
                 hitpos = hit.point;
-                Debug.Log("hitpoint changed");
             }
 
             //if the hit point is on Annotation, don't calculate hitchange
@@ -50,7 +49,7 @@ public class RaycastManager : MonoBehaviour
                 mindist = dist;
 
                 focus = hit.transform.parent.gameObject;
-                if (hit.transform.name == "Wall")
+                if (hit.transform.name == "Wall"&& focus.name.Equals("Map Visualization"))
                 {
                     focus = null;
                 }
@@ -63,9 +62,11 @@ public class RaycastManager : MonoBehaviour
         if (focus != prefocus)
         {
             //Debug.Log(focus + " and "+prefocus);
-            focusobj.SetFocus(focus, prefocus);
-            prefocus = focus;
-
+            if(!focus.name.Equals("Map Visualization"))
+            {
+                focusobj.SetFocus(focus, prefocus);
+                prefocus = focus;
+            }
         }
 
 

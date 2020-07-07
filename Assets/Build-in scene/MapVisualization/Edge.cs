@@ -9,6 +9,7 @@ public class Edge : MonoBehaviour
 
     public Vector3[] PosList;
     public string Edgelabel;
+    public int MetroaccidentNum;
     public GameObject FollowingLabelPrefab;
     private RaycastManager raycastManager;
 

@@ -14,6 +14,7 @@ public class MapEventHandler : MonoBehaviour
     public Transform AnnotationPanel;
     public Transform MetroLineCollectionBoth;
     public MapTaskController mapTaskController;
+    public TaskUpdate taskUpdate;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -58,13 +59,21 @@ public class MapEventHandler : MonoBehaviour
             object[] datas = (object[])obj.CustomData;
             float PanX = (float)datas[0];
             float PanY = (float)datas[1];
-            MapPan(PanX,PanY);
-            Debug.Log("ScaleMove");
+            if (AnnotationPanel == null)
+            {
+                MapPan(PanX, PanY);
+            }
         }
         else if (obj.Code == Global.NEXT_TASK)
         {
-            Debug.Log("next task");
-            mapTaskController.NextTask();
+            if (mapTaskController != null)
+            {
+                mapTaskController.NextTask();
+            }
+            else
+            {
+                taskUpdate.Nexttask();
+            }
         }
     }
 
@@ -89,7 +98,6 @@ public class MapEventHandler : MonoBehaviour
 
     private void SetFocus(string focusobjName,string prefocusobjName)
     {
-        Debug.Log("Get " + focusobjName + " , " + prefocusobjName);
         if (focusobjName.Equals("null"))
         {
             focusGameobj = null;

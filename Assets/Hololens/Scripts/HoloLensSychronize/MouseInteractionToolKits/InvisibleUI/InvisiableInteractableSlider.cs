@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class InvisiableInteractableSlider: MonoBehaviour
 {
-    public int UIid;
+    public string UIid;
     public UnityEvent OnvalueChanged;
     public float SliderValue=1;
     void Start()
@@ -14,10 +14,11 @@ public class InvisiableInteractableSlider: MonoBehaviour
 
     }
 
-    private void OnValueChanged(float sliderValue, int uiId)
+    private void OnValueChanged(float sliderValue, string uiId)
     {
         if (uiId.Equals(UIid))
         {
+            Debug.Log(transform.name+" is working");
             SliderValue = sliderValue;
             OnvalueChanged.Invoke();
         }

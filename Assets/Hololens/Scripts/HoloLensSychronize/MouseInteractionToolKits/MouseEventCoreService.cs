@@ -64,21 +64,22 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         OnRightClicked();
     }
 
-    public Action<int, int> OnToggleClicked;
-    public void ToggleClicked(int ToggleIndex, int UIid)
+    public Action<int, string> OnToggleClicked;
+    public void ToggleClicked(int ToggleIndex, string UIid)
     {
         OnToggleClicked(ToggleIndex, UIid);
     }
 
-    public Action<int> OnButtonClicked;
-    public void ButtonClicked(int UIid)
+    public Action<string> OnButtonClicked;
+    public void ButtonClicked(string UIid)
     {
         OnButtonClicked(UIid);
     }
 
-    public Action<float, int> OnSliderChanged;
-    public void SliderChanged(float sliderValue, int UIid)
+    public Action<float, string> OnSliderChanged;
+    public void SliderChanged(float sliderValue, string UIid)
     {
+        Debug.Log(UIid);
         OnSliderChanged(sliderValue, UIid);
     }
 
@@ -117,7 +118,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
             object[] datas = (object[])obj.CustomData;
             string UIstate = (string)datas[0];
             float UIrelatedData = (float)datas[1];
-            int UIid = (int)datas[2];
+            string UIid = (string)datas[2];
             if (UIstate.Equals("ToggleGroup"))
             {
                 int ToggleIndex = (int)UIrelatedData;
@@ -127,6 +128,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
                 ButtonClicked(UIid);
             }else if (UIstate.Equals("Slider"))
             {
+                Debug.Log(UIid+"firsthand in HoloLens");
                 SliderChanged(UIrelatedData, UIid);
             }
         }
@@ -147,14 +149,12 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
                 }
                 else
                 {
-                    Debug.Log("null");
                     GazeTarget = null;
                 }
 
             }
             else
             {
-                Debug.Log("null");
                 GazeTarget = null;
             }
         }

@@ -51,7 +51,7 @@ public class ThirdPersonCamerController : MonoBehaviour
         ProcessRotationInput();
         CameraViewInput();
 
-        if (Input.GetMouseButton(0)&&!EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
