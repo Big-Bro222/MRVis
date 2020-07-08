@@ -15,6 +15,7 @@ public class MapEventHandler : MonoBehaviour
     public Transform MetroLineCollectionBoth;
     public MapTaskController mapTaskController;
     public TaskUpdate taskUpdate;
+    public LogRecorder logRecorder;
 
     // Start is called before the first frame update
     private void OnEnable()
@@ -64,11 +65,15 @@ public class MapEventHandler : MonoBehaviour
                 MapPan(PanX, PanY);
             }
         }
+        else if(obj.Code == Global.START_TASK){
+            logRecorder.StartTask();
+        }
         else if (obj.Code == Global.NEXT_TASK)
         {
             if (mapTaskController != null)
             {
                 mapTaskController.NextTask();
+                logRecorder.EndTask();
             }
             else
             {

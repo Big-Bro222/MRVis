@@ -22,4 +22,8 @@ public static class Global
     public static byte SCALE = 9;
     public static byte NEXT_TASK = 10;
 
+    public static byte TASK_APPROVE = 11;
+    public static byte START_TASK = 12;
+    public static byte LOG_FINISH = 13;
+
 }
