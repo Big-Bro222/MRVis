@@ -17,6 +17,8 @@ public class FocusObj : MonoBehaviour
     private LayerMask[] laymasks;
     private PointerEventData pointeventdata;
     public PhotonView pv;
+    public MapTaskController mapTaskController;
+    [SerializeField] LogRecorder logRecorder;
 
     void Start()
     {
@@ -24,6 +26,10 @@ public class FocusObj : MonoBehaviour
     }
     public void SetFocus(GameObject focusobj,GameObject prefocusobj)
     {
+        if (mapTaskController.taskState == MapTaskController.TaskState.PracticeMode)
+        {
+            return;
+        }
         string focusobjName = "";
         string prefocusobjName = "";
         if (focusobj == null)
@@ -45,10 +51,11 @@ public class FocusObj : MonoBehaviour
 
         if (focusobj.GetComponent<Node>())
         {
+            logRecorder.HotelsexploreCount(focusobj.name);
             if (FixedAnnotation)
             {
-                FixedAnnotation.Find("Cube/Description").GetComponent<TextMeshPro>().text = focusobjName + " is the Hotel name in Paris";
-                FixedAnnotation.Find("Cube/price").GetComponent<TextMeshPro>().text = "The Price is € " + focusobj.GetComponent<Node>().id;
+                FixedAnnotation.Find("Cube/Description").GetComponent<TextMeshPro>().text = focusobjName + " is the Hotel";
+                FixedAnnotation.Find("Cube/price").GetComponent<TextMeshPro>().text = "€ " + focusobj.GetComponent<Node>().id;
             }
         }
         else

@@ -7,6 +7,7 @@ public class MapTaskController : MonoBehaviourPun
 {
     public enum TaskState
     {
+        PracticeMode,
         OnScreen,
         InFront,
         Fixedlabel,
@@ -17,34 +18,52 @@ public class MapTaskController : MonoBehaviourPun
     public GameObject FixedPannel;
     public GameObject AnnotationPannel;
     public Transform EdgeParent;
+
     //public GameObject highlightNode;
     void Start()
     {
-        taskState = TaskState.OnScreen;
+        taskState = TaskState.PracticeMode;
     }
 
 
-    public void NextTask()
+    public void NextTask(string taskName)
     {
         MapVis.localPosition = new Vector3(0, 0, 0);
         MapVis.localScale = new Vector3(1, 1, 1);
         MapVis.gameObject.SetActive(false);
-
+        
+        //disable edges
         for(int i = 0; i < EdgeParent.childCount; i++)
         {
             EdgeParent.GetChild(i).gameObject.SetActive(false);
         }
-
-        //if (taskState == TaskState.InFront)
-        //{
-        //    highlightNode.SetActive(true);
-        //}
-        //else 
         if (taskState == TaskState.Customize)
         {
             return;
         }
-        taskState++;
+
+        switch (taskName)
+        {
+            case "PracticeMode":
+                taskState = TaskState.PracticeMode;
+                    break;
+            case "OnScreen":
+                taskState = TaskState.OnScreen;
+                break;
+            case "InFront":
+                taskState = TaskState.InFront;
+                break;
+            case "Fixedlabel":
+                taskState = TaskState.Fixedlabel;
+                break;
+            case "Customize":
+                taskState = TaskState.Customize;
+                break;
+            default:
+                Debug.LogError("No such task found in HoloLens!!!");
+                break;
+        }
+
         Invoke("EnableVis", 1.0f);
     }
 

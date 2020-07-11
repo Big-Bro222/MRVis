@@ -26,4 +26,6 @@ public static class Global
     public static byte START_TASK = 12;
     public static byte LOG_FINISH = 13;
 
+    public static byte RESCALE_WINDOW = 14;
+
 }

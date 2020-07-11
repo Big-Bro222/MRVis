@@ -70,10 +70,37 @@ public class MapEventHandler : MonoBehaviour
         }
         else if (obj.Code == Global.NEXT_TASK)
         {
+            object[] datas = (object[])obj.CustomData;
+            string NexttaskName = (string) datas[0];
+            Debug.Log("Recieve next taskname "  + NexttaskName);
             if (mapTaskController != null)
             {
-                mapTaskController.NextTask();
-                logRecorder.EndTask();
+                if (mapTaskController.taskState != MapTaskController.TaskState.PracticeMode)
+                {
+                    string thistaskName = "";
+
+                    switch (NexttaskName)
+                    {
+                        case "Over":
+                            thistaskName = "Customize";
+                            break;
+                        case "InFront":
+                            thistaskName = "OnScreen";
+                            break;
+                        case "Fixedlabel":
+                            thistaskName = "InFront";
+                            break;
+                        case "Customize":
+                            thistaskName = "Fixedlabel";
+                            break;
+                        default:
+                            Debug.LogError("No such task to log in HoloLens!!!");
+                            break;
+                    }
+                    logRecorder.EndTask(thistaskName);
+                }
+                mapTaskController.NextTask(NexttaskName);
+
             }
             else
             {

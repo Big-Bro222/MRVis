@@ -9,6 +9,7 @@ namespace HoloLensinterface
     public class EventHandler : MonoBehaviourPun
     {
         public photonviewController photonviewController;
+        public Transform WindowClip;
         private void OnEnable()
         {
             PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
@@ -35,6 +36,13 @@ namespace HoloLensinterface
                 string visualizationName = (string)datas[0];
                 string visualization = (string)datas[1];
                 photonviewController.setVisualization(visualizationName);
+            }
+            else if (obj.Code==Global.RESCALE_WINDOW)
+            {
+                object[] datas = (object[])obj.CustomData;
+                float xScale = (float)datas[0]/2;
+                float yScale = (float)datas[1]/2;
+                WindowClip.transform.localScale = new Vector3(WindowClip.transform.localScale.x * xScale, WindowClip.transform.localScale.y * yScale, WindowClip.transform.localScale.z);
             }
         }
         }
