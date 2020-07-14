@@ -50,6 +50,9 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 60;
     }
+
+
+    #region Eventsetup
     public event Action OnDoubleClicked;
     public void DoubleClicked()
     {
@@ -83,6 +86,16 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         OnSliderChanged(sliderValue, UIid);
     }
 
+    public Action<string> OnKeypressed;
+    public void Keypressed(string Keycode)
+    {
+        OnKeypressed(Keycode);
+    }
+
+    #endregion
+
+
+    //Input event handler
     private void NetworkingClient_EventReceived(EventData obj)
     {
         if (obj.Code == Global.DOUBLE_CLICKED)
@@ -95,7 +108,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
             }
             else
             {
-                
+
                 isMoving = !isMoving;
                 DoubleClicked();
                 focusState = isMoving ? FocusState.Focusing : FocusState.Observing;
@@ -123,14 +136,22 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
             {
                 int ToggleIndex = (int)UIrelatedData;
                 ToggleClicked(ToggleIndex, UIid);
-            }else if (UIstate.Equals("Button"))
+            }
+            else if (UIstate.Equals("Button"))
             {
                 ButtonClicked(UIid);
-            }else if (UIstate.Equals("Slider"))
+            }
+            else if (UIstate.Equals("Slider"))
             {
-                Debug.Log(UIid+"firsthand in HoloLens");
+                Debug.Log(UIid + "firsthand in HoloLens");
                 SliderChanged(UIrelatedData, UIid);
             }
+        }
+        else if (obj.Code == Global.KEY_PRESSED)
+        {
+            object[] datas = (object[])obj.CustomData;
+            string Keycode = (string)datas[0];
+            Keypressed(Keycode);
         }
 
     }

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class InvisiableInteractableButton : MonoBehaviour
 {
-    public int UIid;
+    public string UIid;
     public UnityEvent onClick;
 
 

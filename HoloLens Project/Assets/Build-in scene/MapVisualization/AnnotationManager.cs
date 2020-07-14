@@ -123,14 +123,14 @@ public class AnnotationManager : MonoBehaviour
     {
         if (isObservermode)
         {
-            title.GetComponent<TextMeshPro>().text = name;
-            description.GetComponent<TextMeshPro>().text = name + descriptiontText;
+            title.GetComponent<TextMeshPro>().text = "";
+            description.GetComponent<TextMeshPro>().text = "";
             price.GetComponent<TextMeshPro>().text = priceText + " " + hotelPrice;
         }
         else
         {
-            title.GetComponent<Text>().text = name;
-            description.GetComponent<Text>().text = name + descriptiontText;
+            title.GetComponent<Text>().text = "";
+            description.GetComponent<Text>().text = "";
             price.GetComponent<Text>().text = priceText + " " + hotelPrice;
         }
 

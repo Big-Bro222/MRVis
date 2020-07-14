@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class InvisableInteractableToggle : MonoBehaviour
 {
 
-    public int UIid;
+    public string UIid;
     public UnityEvent onSelectfirst;
     public UnityEvent onSelectSecond;
     public UnityEvent onSelectThird;

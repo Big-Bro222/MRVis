@@ -18,14 +18,19 @@ public static class Global
     public static byte DOUBLE_CLICKED = 6;
     public static byte RIGHT_BTN_CLICKED = 7;
     public static byte UI_BTN_CLICKED = 8;
+    public static byte KEY_PRESSED = 9;
 
-    public static byte SCALE = 9;
-    public static byte NEXT_TASK = 10;
+    public static byte SCALE = 10;
+    public static byte NEXT_TASK = 11;
 
-    public static byte TASK_APPROVE = 11;
-    public static byte START_TASK = 12;
-    public static byte LOG_FINISH = 13;
 
-    public static byte RESCALE_WINDOW = 14;
+    public static byte TASK_APPROVE = 12;
+    public static byte START_TASK = 13;
+    public static byte LOG_FINISH = 14;
+
+    public static byte RESCALE_WINDOW = 15;
+
+
+
 
 }

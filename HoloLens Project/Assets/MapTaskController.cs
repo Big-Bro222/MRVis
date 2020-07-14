@@ -59,8 +59,11 @@ public class MapTaskController : MonoBehaviourPun
             case "Customize":
                 taskState = TaskState.Customize;
                 break;
+            case "Over":
+                Debug.Log("Task Over");
+                break;
             default:
-                Debug.LogError("No such task found in HoloLens!!!");
+                Debug.Log("No such task found in HoloLens!!!");
                 break;
         }
 
