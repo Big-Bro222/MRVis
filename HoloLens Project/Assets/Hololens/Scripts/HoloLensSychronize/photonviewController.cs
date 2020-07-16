@@ -41,6 +41,11 @@ public class photonviewController : MonoBehaviourPun
         currentVisualization = visualizationCollectionDictionary[visualizationName];
     }
 
+    public GameObject getCurrentVisualization()
+    {
+        return currentVisualization;
+    }
+
     public void setVisualization(int i)
     {
         GameObject visualizationTobeSet = visualizationCollection[i];

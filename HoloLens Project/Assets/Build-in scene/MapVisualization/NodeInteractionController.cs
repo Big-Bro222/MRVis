@@ -31,9 +31,6 @@ public class NodeInteractionController : MonoBehaviour
         nodestartLocation = node.transform.localPosition;
         namelable = GetComponentInChildren<TextMeshPro>();
 
-        //labelRotationHandler = namelable.transform.GetComponent<LabelMovementManager>();
-        //labelRotationHandler.enabled = false;
-
         onHover = false;
         onhovercolor = Color.red;
         if(defaultcolor!=new Color(255, 217, 0, 0))

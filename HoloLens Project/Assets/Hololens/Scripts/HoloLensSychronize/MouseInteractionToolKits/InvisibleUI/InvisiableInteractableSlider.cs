@@ -18,7 +18,7 @@ public class InvisiableInteractableSlider: MonoBehaviour
     {
         if (uiId.Equals(UIid))
         {
-            Debug.Log(transform.name+" is working");
+            Debug.Log(UIid+ " is working"+sliderValue);
             SliderValue = sliderValue;
             OnvalueChanged.Invoke();
         }

@@ -30,6 +30,11 @@ public static class Global
 
     public static byte RESCALE_WINDOW = 15;
 
+    public static byte START_RECALIBRATION = 16;
+    public static byte REQUEST_RECALIBRATION = 17;
+    public static byte REQUEST_ADJUSTMENT = 18;
+    public static byte FINISH_RECALIBRATION = 19;
+
 
 
 

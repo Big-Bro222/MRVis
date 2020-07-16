@@ -27,15 +27,14 @@ public class FreezeTrackingHandler : DefaultTrackableEventHandler
         
     }
 
-    public void Enable(Transform controller)
+    public void Enable()
     {
-        Controller = controller;
-        Debug.Log("Plop " + Controller.name);
-
+        Debug.Log("Recalibrate!");
         Controller.parent = this.transform;
+        Controller.transform.Find("Wall").localPosition = Vector3.zero;
+        Controller.transform.Find("RecalibtationMarker").localPosition = Vector3.zero;
         Controller.transform.localPosition = Vector3.zero;
         Controller.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
-
         CameraTransform.parent = null;
         CameraTransform.GetComponentInChildren<VuforiaMonoBehaviour>().enabled = true;
 
