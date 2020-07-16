@@ -18,16 +18,19 @@ public class MapTaskController : MonoBehaviourPun
     public GameObject FixedPannel;
     public GameObject AnnotationPannel;
     public Transform EdgeParent;
+    private FocusObj focusObj;
 
     //public GameObject highlightNode;
     void Start()
     {
         taskState = TaskState.PracticeMode;
+        focusObj = GetComponent<FocusObj>();
     }
 
 
     public void NextTask(string taskName)
     {
+        //focusObj.Focus.GetComponent<NodeInteractionController>().OnHover(false);
         MapVis.localPosition = new Vector3(0, 0, 0);
         MapVis.localScale = new Vector3(1, 1, 1);
         MapVis.gameObject.SetActive(false);

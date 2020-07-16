@@ -121,6 +121,7 @@ public class AnnotationManager : MonoBehaviour
 
     private void TextUpdate(string name,string hotelPrice)
     {
+        //Update the text on Annotation
         if (isObservermode)
         {
             title.GetComponent<TextMeshPro>().text = "";

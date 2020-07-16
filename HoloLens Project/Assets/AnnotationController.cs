@@ -11,6 +11,7 @@ public class AnnotationController : MonoBehaviour
 
     public void Switch()
     {
+        Debug.Log("Switch in AnnotationController");
         Annotation = !Annotation;
         AnnotationPanel.SetActive(Annotation);
         FixLabel.SetActive(!Annotation);

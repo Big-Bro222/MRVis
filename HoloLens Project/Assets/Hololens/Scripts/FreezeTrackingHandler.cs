@@ -14,7 +14,7 @@ public class FreezeTrackingHandler : DefaultTrackableEventHandler
     {
         base.OnTrackingFound();
         Debug.Log(Controller.name);
-        Controller.parent = null;        
+        Controller.parent = null;
         CameraTransform.parent = Controller;
         CameraTransform.GetComponentInChildren<VuforiaMonoBehaviour>().enabled = false;
         this.enabled = false;

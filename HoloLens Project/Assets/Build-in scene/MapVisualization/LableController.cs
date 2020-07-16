@@ -30,17 +30,5 @@ public class LableController : MonoBehaviour
         //}
     }
 
-
-    //public void SliderValueUpdate()
-    //{
-        
-    //    float sliderscale = nodeParent.SliderValue;
-    //    foreach (TextMeshPro label in labels)
-    //    {
-    //        Vector3 labeltransform = label.GetComponent<RectTransform>().localPosition;
-    //        label.GetComponent<RectTransform>().localPosition = new Vector3(labeltransform.x, labeltransform.y, -unit * sliderscale*0.1F);
-    //    }
-    //}
-
 }
 

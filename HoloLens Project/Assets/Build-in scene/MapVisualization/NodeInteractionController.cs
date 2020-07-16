@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Microsoft.MixedReality.Toolkit;
 using TMPro;
 
 public class NodeInteractionController : MonoBehaviour
 {
+
     public GameObject node;
     public InvisiableInteractableSlider labelSlider;
     public InvisiableInteractableSlider HighlightSlider;
@@ -21,7 +23,8 @@ public class NodeInteractionController : MonoBehaviour
 
     private Vector3 nodestartLocation;
     private Vector3 labelstartLocation;
-
+    private Vector3 CameraToNameLabel;
+    private Vector3 CameraToNode;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,10 +53,12 @@ public class NodeInteractionController : MonoBehaviour
 
         if (mapTaskController&&mapTaskController.taskState == MapTaskController.TaskState.Customize)
         {
-            namelable.gameObject.GetComponent<RectTransform>().localPosition = labelstartLocation + new Vector3(0, 0, -4 * labelSlider.SliderValue);
-            node.transform.localPosition = nodestartLocation + new Vector3(0, 0, -4 * HighlightSlider.SliderValue);
+            namelable.gameObject.GetComponent<RectTransform>().localPosition = labelstartLocation + transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * labelSlider.SliderValue);
+            //node.transform.localPosition = nodestartLocation + new Vector3(0, 0, -4 * HighlightSlider.SliderValue);
+            //node.transform.localPosition = nodestartLocation + transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * HighlightSlider.SliderValue);
+
         }
-        
+
 
     }
 
@@ -82,6 +87,15 @@ public class NodeInteractionController : MonoBehaviour
 
                 node.GetComponent<MeshRenderer>().material.shader = Shader.Find("Mixed Reality Toolkit/Standard");
                 node.GetComponent<MeshRenderer>().material.SetColor("_Color", onhovercolor);
+            CameraToNode = transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * 0.1f);
+            if (mapTaskController.taskState == MapTaskController.TaskState.InFront)
+            {
+                node.transform.localPosition += CameraToNode;
+            }
+            else if(mapTaskController.taskState == MapTaskController.TaskState.Customize)
+            {
+                node.transform.localPosition += CameraToNode* HighlightSlider.SliderValue;
+            }
         }
         else
         {
@@ -95,7 +109,13 @@ public class NodeInteractionController : MonoBehaviour
 
                 node.GetComponent<MeshRenderer>().material.shader = Shader.Find("Custom/CliptestReverse");
                 node.GetComponent<MeshRenderer>().material.SetColor("_MainColor", defaultcolor);
-
+            if (mapTaskController.taskState == MapTaskController.TaskState.InFront)
+            {
+                node.transform.localPosition -= CameraToNode;
+            }else if(mapTaskController.taskState == MapTaskController.TaskState.Customize)
+            {
+                node.transform.localPosition -= CameraToNode * HighlightSlider.SliderValue;
+            }
 
         }
         node.transform.localScale = onHover ? originalscale * 2.0f : originalscale;
@@ -111,13 +131,16 @@ public class NodeInteractionController : MonoBehaviour
         namelable.enabled = onHover;
         if (onHover)
         {
+            CameraToNameLabel = transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * 0.2f);
             if (mapTaskController.taskState == MapTaskController.TaskState.OnScreen)
             {
+                CameraToNameLabel = transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * 0.2f);
                 namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, 2.0f, 0);
             }
             else if (mapTaskController.taskState == MapTaskController.TaskState.InFront)
             {
-                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, 2.0f, -20.0f);
+                CameraToNameLabel = transform.InverseTransformVector(-CoreServices.InputSystem.GazeProvider.GazeDirection * 0.2f);
+                namelable.gameObject.GetComponent<RectTransform>().localPosition += CameraToNameLabel;
             }
         }
         else
@@ -128,7 +151,7 @@ public class NodeInteractionController : MonoBehaviour
             }
             else if (mapTaskController.taskState == MapTaskController.TaskState.InFront)
             {
-                namelable.gameObject.GetComponent<RectTransform>().localPosition += new Vector3(0, -2.0f, 20.0f);
+                namelable.gameObject.GetComponent<RectTransform>().localPosition -= CameraToNameLabel;
             }
         }
         namelable.fontSize = onHover ? 40 : 28;

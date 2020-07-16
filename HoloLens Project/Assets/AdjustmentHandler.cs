@@ -11,7 +11,6 @@ public class AdjustmentHandler : MonoBehaviour
     private Vector3 OriginalPos;
     void OnEnable()
     {
-        OriginalPos = transform.position;
     }
 
 
@@ -22,12 +21,4 @@ public class AdjustmentHandler : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Debug.Log(transform.GetChild(i).localPosition+" , "+transform.GetChild(i).name);
-        }
-    }
 }
