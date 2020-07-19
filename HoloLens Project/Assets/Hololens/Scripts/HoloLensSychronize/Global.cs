@@ -22,18 +22,19 @@ public static class Global
 
     public static byte SCALE = 10;
     public static byte NEXT_TASK = 11;
+    public static byte NEXT_VIS = 12;
 
 
-    public static byte TASK_APPROVE = 12;
-    public static byte START_TASK = 13;
-    public static byte LOG_FINISH = 14;
+    public static byte TASK_APPROVE = 13;
+    public static byte START_TASK = 14;
+    public static byte LOG_FINISH = 15;
 
-    public static byte RESCALE_WINDOW = 15;
+    public static byte RESCALE_WINDOW = 16;
 
-    public static byte START_RECALIBRATION = 16;
-    public static byte REQUEST_RECALIBRATION = 17;
-    public static byte REQUEST_ADJUSTMENT = 18;
-    public static byte FINISH_RECALIBRATION = 19;
+    public static byte START_RECALIBRATION = 17;
+    public static byte REQUEST_RECALIBRATION = 18;
+    public static byte REQUEST_ADJUSTMENT = 19;
+    public static byte FINISH_RECALIBRATION = 20;
 
 
 
