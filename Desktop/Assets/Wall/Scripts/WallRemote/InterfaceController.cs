@@ -7,6 +7,8 @@ using ExitGames.Client.Photon;
 
 public class InterfaceController : MonoBehaviourPun
 {
+
+    //this script is responsible for sending loadvisualization message to the HoloLens application and the monitor application.
     private int currentInterfaceIndex;
     private PhotonView pv;
     private string visualizationNameTobeSet;

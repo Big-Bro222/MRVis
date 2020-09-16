@@ -31,6 +31,7 @@ namespace WallRemote
                 string objectname = (string)datas[0];
                 string eventname = (string)datas[1];
                 string visualization = (string)datas[2];
+                //Instantiate the window
                 InstantiateGameObject(objectname, visualization);
                 scrollViewLogUpdate(objectname, eventname);
             }
@@ -41,7 +42,9 @@ namespace WallRemote
                 string objectname = (string)datas[0];
                 string eventname = (string)datas[1];
                 string visualization = (string)datas[2];
+                //Destroy the window
                 DestroyWindow(objectname, visualization);
+                //Update the scrollView UI
                 scrollViewLogUpdate(objectname, eventname);
             }
             else if (obj.Code == Global.SCROLLVIEW_LOG_EVENT)
@@ -51,6 +54,7 @@ namespace WallRemote
                 string objectname = (string)datas[0];
                 string eventname = (string)datas[1];
                 string visualization = (string)datas[2];
+                //Update the scrollView UI
                 scrollViewLogUpdate(objectname, eventname);
             }
 
@@ -58,6 +62,7 @@ namespace WallRemote
 
         private void scrollViewLogUpdate(string name, string eventname)
         {
+            //Update scroll view Log
             scrollBehaviorHandler.TextEventReciever(name + " acting event: " + eventname);
         }
 
@@ -79,6 +84,8 @@ namespace WallRemote
             newextrudeWindow.transform.parent = transform.parent;
             newextrudeWindow.transform.localScale = new Vector3(1, 1, 1);
             newextrudeWindow.transform.Find("ViewWindow/Marker").SetParent(cameraRaycastManager.currentGazeGameObject.transform);
+
+            //Add the new window into synchronization
             GetComponent<PhotonSynChroManager>().AddsyncronizeObj(windowName, newextrudeWindow.transform.Find("Quad").gameObject);
         }
 

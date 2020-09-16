@@ -5,6 +5,9 @@ using Microsoft.MixedReality.Toolkit;
 using UnityEngine;
 using TMPro;
 
+
+//this class is responsible for drawing the barchart
+//Cause the currently barchart drawer has been edited based on this, try to make a backup before regenerate a new one.
 [ExecuteInEditMode ]
 public class FileController : MonoBehaviour
 {
@@ -72,14 +75,15 @@ public class FileController : MonoBehaviour
 
 
 
-        drawRect(pertubationCount,Color.blue,0);
-        drawRect(interruptionCount, Color.red, 1);
-        drawRect(otherCount, Color.green, 2);
-        drawAxis();
+        DrawRect(pertubationCount,Color.blue,0);
+        DrawRect(interruptionCount, Color.red, 1);
+        DrawRect(otherCount, Color.green, 2);
+        DrawAxis();
     }
 
     private int CalculateTimeZone(string time)
     {
+        //seperate the time zone for the line chart
        int index = 0;
         string[] times = time.Split(new char[1] { ':' });
         int hour = int.Parse(times[0]);
@@ -106,7 +110,7 @@ public class FileController : MonoBehaviour
         return index;
     }
 
-    private void drawAxis()
+    private void DrawAxis()
     {
         LineRenderer lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.positionCount = 5;
@@ -134,7 +138,7 @@ public class FileController : MonoBehaviour
 
     private Mesh CreateMesh(List<int> lineChartInfo)
     {
-
+        //create mesh for the linechart
         List<string> strList = new List<string>();
 
         for (int i = 0; i < 3; i++)
@@ -164,9 +168,9 @@ public class FileController : MonoBehaviour
     }
 
 
-    private void drawRect(int[,] typeCount,Color color, int barIndex)
+    private void DrawRect(int[,] typeCount,Color color, int barIndex)
     {
-
+        //draw bars
         for (int i = 0; i < typeCount.GetLength(0); i++)
         {
             

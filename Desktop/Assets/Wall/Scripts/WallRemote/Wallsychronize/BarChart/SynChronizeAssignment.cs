@@ -17,6 +17,7 @@ public class SynChronizeAssignment : MonoBehaviour
                 if (Bar.GetChild(i).GetChild(j).Find("lineChart"))
                 {
                     GameObject lineChart = Bar.GetChild(i).GetChild(j).Find("lineChart").gameObject;
+                    //Add each line chart into the photonSynchroManager.
                     photonSynChroManager.AddsyncronizeObj("lineChart " + i + " , " + j, lineChart);
                     lineCharts.Add(lineChart);
                 }
@@ -27,9 +28,4 @@ public class SynChronizeAssignment : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

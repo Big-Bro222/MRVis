@@ -24,10 +24,12 @@ public class MaginifierEventHandler : MonoBehaviour
         if (obj.Code == Global.INSTANTIATE_EVENT)
         {
             Debug.Log("Onscale change recieved in VR!");
+            // change the magnification scale.
             scaleHandler.OnScaleChange();
         }
         else if (obj.Code==Global.DESTROY_WINDOW_EVENT)
         {
+            //lock the view port if recieve this command.
             scaleHandler.SetLock();
         }
     }

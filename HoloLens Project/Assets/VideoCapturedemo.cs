@@ -24,18 +24,6 @@ public class VideoCapturedemo : MonoBehaviour
         m_VideoCapture.StopRecordingAsync(OnStoppedRecordingVideo);
     }
 
-    //void Update()
-    //{
-    //    if (m_VideoCapture == null || !m_VideoCapture.IsRecording)
-    //    {
-    //        return;
-    //    }
-
-    //    if (Time.time > m_stopRecordingTimer)
-    //    {
-    //        m_VideoCapture.StopRecordingAsync(OnStoppedRecordingVideo);
-    //    }
-    //}
 
     void StartVideoCaptureTest()
     {
@@ -79,11 +67,6 @@ public class VideoCapturedemo : MonoBehaviour
         string filepath = System.IO.Path.Combine(Application.persistentDataPath, filename);
         filepath = filepath.Replace("/", @"\");
         Debug.Log(filepath);
-//#if ENABLE_WINMD_SUPPORT
-//        string filePath = System.IO.Path.Combine(Windows.Storage.KnownFolders.PicturesLibrary.Path, filename);
-//#else
-//        string filePath = "";
-//#endif
         m_VideoCapture.StartRecordingAsync(filepath, OnStartedRecordingVideo);
     }
 

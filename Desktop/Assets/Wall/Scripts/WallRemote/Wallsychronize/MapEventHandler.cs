@@ -21,6 +21,7 @@ public class MapEventHandler : MonoBehaviour
     {
         for (int i = 0; i < MetroLineCollectionBoth.childCount; i++)
         {
+            //disable all the metrolines
             MetroLineCollectionBoth.GetChild(i).gameObject.SetActive(false);
         }
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_EventReceived;
@@ -34,6 +35,7 @@ public class MapEventHandler : MonoBehaviour
     {
         if (obj.Code == Global.SET_FOCUS)
         {
+            //recieve the set focus event from HoloLens
             //set focus gameobject
             object[] datas = (object[])obj.CustomData;
 
@@ -56,6 +58,7 @@ public class MapEventHandler : MonoBehaviour
         }
         else if (obj.Code == Global.SCALE)
         {
+            //Move the Map, once the event is called.
             object[] datas = (object[])obj.CustomData;
             float PanX = (float)datas[0];
             float PanY = (float)datas[1];

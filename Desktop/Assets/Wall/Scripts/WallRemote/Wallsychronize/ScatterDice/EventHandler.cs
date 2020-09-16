@@ -30,6 +30,7 @@ namespace ScatterDice
                 string formerState = (string)datas[0];
                 string presentStateToBe = (string)datas[1];
                 string visualization = (string)datas[2];
+                //set up dice rolling behavior
                 diceBehaviorHandler.Translate(presentStateToBe);
                 scrollViewLogUpdate(formerState, presentStateToBe);
             }

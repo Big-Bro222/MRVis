@@ -14,6 +14,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
 
     public GameObject GazeTarget;
     [Range(0.0f, 5.0f)]
+    //set up the moving sensity of the cursor
     public float MovingSensity;
 
     public float MouseY;
@@ -51,8 +52,8 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         PhotonNetwork.SerializationRate = 60;
     }
 
-
-    #region Eventsetup
+    //this responsible for mouse event 
+    #region MouseEventsetup
     public event Action OnDoubleClicked;
     public void DoubleClicked()
     {
@@ -66,7 +67,17 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         Debug.Log("MouseRight Clicked HoloLens");
         OnRightClicked();
     }
+    public event Action<bool> onScroll;
 
+    [PunRPC]
+    private void Scroll(bool Delta)
+    {
+        Debug.Log("Core" + Delta);
+        onScroll(Delta);
+    }
+    #endregion
+    //this responsible for UI event
+    #region UIEventsetup
     public Action<int, string> OnToggleClicked;
     public void ToggleClicked(int ToggleIndex, string UIid)
     {
@@ -104,11 +115,12 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
 
             if (!GazeTarget)
             {
+                //if the cursor in HoloLens is not focusing on any gameobject
                 photonView.RPC("LogError", RpcTarget.All);
             }
             else
             {
-
+                //Mouse double click switch between Focusing state(focus on a gameobject) and Observing state(default state)
                 isMoving = !isMoving;
                 DoubleClicked();
                 focusState = isMoving ? FocusState.Focusing : FocusState.Observing;
@@ -149,6 +161,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
         }
         else if (obj.Code == Global.KEY_PRESSED)
         {
+            //Key press event
             object[] datas = (object[])obj.CustomData;
             string Keycode = (string)datas[0];
             Keypressed(Keycode);
@@ -166,6 +179,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
             {
                 if (CoreServices.InputSystem.GazeProvider.GazeTarget.GetComponent<MouseInteractable>())
                 {
+                    //setup the gaze target.
                     GazeTarget = CoreServices.InputSystem.GazeProvider.GazeTarget;
                 }
                 else
@@ -184,14 +198,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
     }
 
 
-    public event Action<bool> onScroll;
-
-    [PunRPC]
-    private void Scroll(bool Delta)
-    {
-        Debug.Log("Core" + Delta);
-        onScroll(Delta);
-    }
+    
 
     //Error message sending back to monitor scene
     [PunRPC]
@@ -213,6 +220,7 @@ public class MouseEventCoreService : MonoBehaviourPun, IPunObservable, IPunOwner
 
     }
 
+    //If the Monitor system is asking for ownership, switch the ownership to the monitor system
     public void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
         Debug.Log("requesting");

@@ -56,12 +56,13 @@ public class DiceBehaviorHandler : MonoBehaviour
             return;
         }
 
-        if (pv.IsMine)
-        {
-            RaiseTransitionEvent(stateArray[(int)state], stateStr);
-            Debug.Log(stateArray[(int)state] + " to " + stateStr);
-        }
-
+        //if (pv.IsMine)
+        //{
+        //    RaiseTransitionEvent(stateArray[(int)state], stateStr);
+        //    Debug.Log(stateArray[(int)state] + " to " + stateStr);
+        //}
+        //For the transition between a 2D to another 2D: the 2D will turn into 3D first
+        //Then the 3D will translate into another 2D.
         switch (state)
         {
             case State.ThreeDimension:
@@ -104,11 +105,11 @@ public class DiceBehaviorHandler : MonoBehaviour
 
     }
 
-    private void RaiseTransitionEvent(string formerState, string presentStateToBe)
-    {
-        object[] datas = new object[] { formerState, presentStateToBe,"ScatterDice" };
-        PhotonNetwork.RaiseEvent(Global.CHANGE_DIMENSION_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
-    }
+    //private void RaiseTransitionEvent(string formerState, string presentStateToBe)
+    //{
+    //    object[] datas = new object[] { formerState, presentStateToBe,"ScatterDice" };
+    //    PhotonNetwork.RaiseEvent(Global.CHANGE_DIMENSION_EVENT, datas, RaiseEventOptions.Default, SendOptions.SendReliable);
+    //}
 
     private void ThreeDimentionToFatProtein()
     {

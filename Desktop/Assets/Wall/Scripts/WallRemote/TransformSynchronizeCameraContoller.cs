@@ -43,19 +43,20 @@ public class TransformSynchronizeCameraContoller : MonoBehaviourPun,IPunObservab
         transform.localRotation = Quaternion.Lerp(transform.localRotation, smoothRotate, Time.deltaTime * 5);
     }
 
-    private void ProcessInput()
-    {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        //Get the value of the Horizontal input axis.
+    //private void ProcessInput()
+    //{
+    //    float horizontalInput = Input.GetAxis("Horizontal");
+    //    //Get the value of the Horizontal input axis.
 
-        float verticalInput = Input.GetAxis("Vertical");
-        //Get the value of the Vertical input axis.
+    //    float verticalInput = Input.GetAxis("Vertical");
+    //    //Get the value of the Vertical input axis.
 
-        transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * moveSpeed * Time.deltaTime);
-    }
+    //    transform.Translate(new Vector3(horizontalInput, 0, verticalInput) * moveSpeed * Time.deltaTime);
+    //}
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
+        //Transfer the absolute transforms to a local transform.
         Vector3 cameraWorldPos = transform.position;
         Vector3 cameraControllerPos = Controller.transform.InverseTransformPoint(cameraWorldPos);
 

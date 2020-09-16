@@ -11,12 +11,29 @@ public class photonviewController : MonoBehaviourPun
     private Dictionary<string, GameObject> visualizationCollectionDictionary;
     private GameObject currentVisualization;
 
-    void Start()
+    private void Start()
     {
+
+        AddVisualizations2ObservedComponents();
+        //Set up visualizations
         visualizationCollectionDictionary = new Dictionary<string, GameObject>();
 
-        for(int i = 0; i < transform.parent.childCount; i++)
+        foreach (GameObject visualization in visualizationCollection)
         {
+            visualizationCollectionDictionary.Add(visualization.name, visualization);
+            visualization.SetActive(false);
+        }
+        visualizationCollectionDictionary[visualizationName].SetActive(true);
+        currentVisualization = visualizationCollectionDictionary[visualizationName];
+    }
+
+    private void AddVisualizations2ObservedComponents()
+    {
+        for (int i = 0; i < transform.parent.childCount; i++)
+        {
+            //Define visualizations: each visualization contains a photonSynChroManager component.
+            //This component is responsible for synchronize game object positions using Photon
+            //The sequence of the visualization needs to be the same with the one in HoloLens project and in Monitor project.
             PhotonSynChroManager photonSynChroManager = transform.parent.GetChild(i).GetComponentInChildren<PhotonSynChroManager>();
             if (photonSynChroManager)
             {
@@ -31,24 +48,12 @@ public class photonviewController : MonoBehaviourPun
                 }
             }
         }
-
-        foreach (GameObject visualization in visualizationCollection)
-        {
-            visualizationCollectionDictionary.Add(visualization.name, visualization);
-            visualization.SetActive(false);
-        }
-        visualizationCollectionDictionary[visualizationName].SetActive(true);
-        currentVisualization = visualizationCollectionDictionary[visualizationName];
     }
 
     public void setVisualization(int i)
     {
         GameObject visualizationTobeSet = visualizationCollection[i];
-        if (visualizationTobeSet == currentVisualization)
-        {
-            
-        }
-        else
+        if (visualizationTobeSet != currentVisualization)
         {
             currentVisualization.SetActive(false);
             visualizationTobeSet.SetActive(true);
@@ -71,12 +76,6 @@ public class photonviewController : MonoBehaviourPun
             currentVisualization = visualizationTobeSet;
             visualizationName = visualizationTobeSet.name;
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
 
     }
 }

@@ -19,10 +19,10 @@ public class ThirdPersonCamerController : MonoBehaviour
     public float m_sensitivityX = 10f;
     public float m_sensitivityY = 10f;
 
-    // 水平方向的 镜头转向
+    // horizontal rotations
     public float m_minimumX = -360f;
     public float m_maximumX = 360f;
-    // 垂直方向的 镜头转向 (这里给个限度 最大仰角为45°)
+    // vertical rotations
     public float m_minimumY = -45f;
     public float m_maximumY = 45f;
 

@@ -8,18 +8,6 @@ namespace WallRemote
 {
     public class UIHandler : MonoBehaviourPunCallbacks
     {
-        //[Tooltip("To Creat a Room in Photon for PC testing Purpose")]
-        //public bool UItest;
-
-        //private void Start()
-        //{
-        //    if (UItest)
-        //    {
-        //        OnClick_CreateRoom();
-        //    }
-        //}
-        //public string LoadScene;
-
         public void OnClick_JoinRoom()
         {
             PhotonNetwork.JoinRoom("DefaultRoom", null);
@@ -29,8 +17,9 @@ namespace WallRemote
 
         public void OnClick_CreateRoom()
         {
-            PhotonNetwork.CreateRoom("DefaultRoom", new RoomOptions { MaxPlayers = 4 }, null);
-            Debug.Log("Create");
+            // Here is only on room created, multiple rooms can be also implemented
+            PhotonNetwork.CreateRoom("DefaultRoom", new RoomOptions { MaxPlayers = 10 }, null);
+            Debug.Log("Create Room!");
         }
 
 

@@ -9,6 +9,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
 
     public List<GameObject> syncronizeObjs;
     public PhotonView pv;
+    //only useful in the hierarchy example
     public GameObject gameObjectTobedestroy;
 
     private List<Vector3> syncronizeObjLocalpositionList = new List<Vector3>();
@@ -27,6 +28,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
     void Awake()
     {
         syncronizeObjsDictionary = new Dictionary<string, GameObject>();
+        //initiate the local position list
         syncronizeObjLocalpositionList = new List<Vector3>();
         for (int i = 0; i < syncronizeObjs.Count; i++)
         {
@@ -34,13 +36,14 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
             syncronizeObjLocalpositionList.Add(syncronizeObjs[i].transform.localPosition);
         }
 
-
+        //initiate the local rotation list
         syncronizeObjLocalrotationList = new List<Quaternion>();
         for (int i = 0; i < syncronizeObjs.Count; i++)
         {
             syncronizeObjLocalrotationList.Add(syncronizeObjs[i].transform.localRotation);
         }
-
+        
+        //initiate the local scale list
         syncronizeObjLocalscaleList = new List<Vector3>();
         for (int i = 0; i < syncronizeObjs.Count; i++)
         {
@@ -60,6 +63,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         return obj;
     }
 
+    //Add new syncronizable Gameobject at runtime
     public void AddsyncronizeObj(string name, GameObject obj)
     {
         syncronizeObjsDictionary.Add(name, obj);
@@ -70,6 +74,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         }
     }
 
+    //Remove syncronizable Gameobject  in the syncronizable list at runtime
     public void RemovesyncronizeObj(string name)
     {
         gameObjectTobedestroy = syncronizeObjsDictionary[name];
@@ -90,6 +95,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         }
         else
         {
+            //use lerp to move smoothly
             smoothMovement();
             smoothRotation();
             smoothScale();
@@ -97,32 +103,32 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
     }
 
     //serialize Vetor3 Array which I didn't use
-    public static string SerializeVector3Array(Vector3[] aVectors)
-    {
-        StringBuilder sb = new StringBuilder();
-        foreach (Vector3 v in aVectors)
-        {
-            sb.Append(v.x).Append(" ").Append(v.y).Append(" ").Append(v.z).Append("|");
-        }
-        if (sb.Length > 0) // remove last "|"
-            sb.Remove(sb.Length - 1, 1);
-        return sb.ToString();
-    }
+    //public static string SerializeVector3Array(Vector3[] aVectors)
+    //{
+    //    StringBuilder sb = new StringBuilder();
+    //    foreach (Vector3 v in aVectors)
+    //    {
+    //        sb.Append(v.x).Append(" ").Append(v.y).Append(" ").Append(v.z).Append("|");
+    //    }
+    //    if (sb.Length > 0) // remove last "|"
+    //        sb.Remove(sb.Length - 1, 1);
+    //    return sb.ToString();
+    //}
 
     //deserialize Vetor3 Array which I didn't use
-    public static Vector3[] DeserializeVector3Array(string aData)
-    {
-        string[] vectors = aData.Split('|');
-        Vector3[] result = new Vector3[vectors.Length];
-        for (int i = 0; i < vectors.Length; i++)
-        {
-            string[] values = vectors[i].Split(' ');
-            if (values.Length != 3)
-                throw new System.FormatException("component count mismatch. Expected 3 components but got " + values.Length);
-            result[i] = new Vector3(float.Parse(values[0]), float.Parse(values[1]), float.Parse(values[2]));
-        }
-        return result;
-    }
+    //public static Vector3[] DeserializeVector3Array(string aData)
+    //{
+    //    string[] vectors = aData.Split('|');
+    //    Vector3[] result = new Vector3[vectors.Length];
+    //    for (int i = 0; i < vectors.Length; i++)
+    //    {
+    //        string[] values = vectors[i].Split(' ');
+    //        if (values.Length != 3)
+    //            throw new System.FormatException("component count mismatch. Expected 3 components but got " + values.Length);
+    //        result[i] = new Vector3(float.Parse(values[0]), float.Parse(values[1]), float.Parse(values[2]));
+    //    }
+    //    return result;
+    //}
 
 
 
@@ -155,6 +161,7 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         if (stream.IsWriting)
         {
             //send transform information
+            //each of them can be discard in order to skip syncronization for that property.
             stream.SendNext(syncronizeObjLocalpositionArray);
             stream.SendNext(syncronizeObjLocalrotationArray);
             stream.SendNext(syncronizeObjLocalscaleArray);
@@ -163,6 +170,8 @@ public class PhotonSynChroManager : MonoBehaviourPun, IPunObservable
         else if (stream.IsReading)
         {
             //receive transform information
+            //each of them can be discard in order to skip syncronization for that property.
+            //the order should be same as the writing one.
             StreamObjLocalpositionArray = (Vector3[])stream.ReceiveNext();
             StreamObjLocalrotationArray = (Quaternion[])stream.ReceiveNext();
             StreamObjLocalscaleArray = (Vector3[])stream.ReceiveNext();

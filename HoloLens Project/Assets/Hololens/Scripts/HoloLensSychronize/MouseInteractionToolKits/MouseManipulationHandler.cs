@@ -146,6 +146,7 @@ public class MouseManipulationHandler : MonoBehaviour
 
     private Vector3[] GetBoxColliderVertexPositions(BoxCollider boxcollider)
     {
+        //get eight point of the box collider;
         var vertices = new Vector3[8];
         //Lower four points
         vertices[0] = boxcollider.transform.TransformPoint(boxcollider.center + new Vector3(boxcollider.size.x, -boxcollider.size.y, boxcollider.size.z) * 0.5f);
