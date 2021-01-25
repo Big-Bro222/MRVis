@@ -6,10 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a>
-
+    <img src="Documentation/MR%20Vis%20Cover.png" alt="Logo" width="80" height="80">
   <h3 align="center">MRVis Documentation</h3>
 
   <p align="center">
@@ -18,11 +15,10 @@
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
+    <a href="https://youtu.be/5i0EqaLv56Q">View Demo</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
+    <a href="https://github.com/Big-Bro222/MRvis/issues">Report Bug</a>
+    
   </p>
 </p>
 
@@ -56,8 +52,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-![Mixed Reality Toolkit](Documentation/HoloLens.png)
+![Demo Video](Documentation/DemoCover.png)
 
 This project is done in 2020 from March to September as a research result at Inria. The project includes two unity projects. One for the monitor application and remote room. The other is for the HoloLens application.
 
@@ -98,14 +93,18 @@ To get start, first remember to install Unity later than version 2018.4.26f. Ver
 ## Usage
 
 1.Build the HoloLens project folder. Add the starting scene and visualization scene in the Unity's build settings.
+![Build HoloLens application](Documentation/HoloLens.png)
 
 2.Follow the instruction of build and deployment on [Mircosoft website.](https://docs.microsoft.com/en-us/windows/mixed-reality/develop/unity/tutorials/holograms-100)
 
 3.To build the monitor application and virtual room, first open the Desktop Folder
 
 4.To build the monitor application, add the starting scene and MonitorView scene in the Unity's build settings.
+![Build Monitor application](Documentation/Monitor.png)
 
 5.Similar approach for the virtual room application.  <b>Note: there should be at least one virtual room, but can have multiple virtual rooms for different users</b>
+![Build Virtual room application](Documentation/VirtualRoom.png)
+
 
 For further usage of the applications, please refer to the [Instruction](https://github.com/Big-Bro222/MRvis/blob/master/Documentation/Instruction.pdf) document.
 For documentation and better understanding the software struture, please refer to the [documentation](https://github.com/Big-Bro222/MRvis/blob/master/Documentation/MRVisDocumentation.pdf) document.
@@ -124,6 +123,8 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Ze Qi - Ze.Qi@outlook.com
 
+Portfolio - [qi-uxportfolio.com](https://qi-uxportfolio.com)
+
 Project Link: [https://github.com/Big-Bro222/MRvis](https://github.com/Big-Bro222/MRvis)
 
 
@@ -133,17 +134,3 @@ Project Link: [https://github.com/Big-Bro222/MRvis](https://github.com/Big-Bro22
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
