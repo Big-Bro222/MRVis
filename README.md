@@ -6,7 +6,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-    <img src="Documentation/MR%20Vis%20Cover.png" alt="Logo" width="80" height="80">
+    <img src="Documentation/MR%20Vis%20Cover.png" alt="Logo" width="160" height="160">
   <h3 align="center">MRVis Documentation</h3>
 
   <p align="center">
