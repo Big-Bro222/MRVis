@@ -46,11 +46,8 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -60,6 +57,7 @@
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
+![Mixed Reality Toolkit](Documentation/HoloLens.png)
 
 This project is done in 2020 from March to September as a research result at Inria. The project includes two unity projects. One for the monitor application and remote room. The other is for the HoloLens application.
 
@@ -109,8 +107,8 @@ To get start, first remember to install Unity later than version 2018.4.26f. Ver
 
 5.Similar approach for the virtual room application.  <b>Note: there should be at least one virtual room, but can have multiple virtual rooms for different users</b>
 
-For further usage of the applications, please refer to the user study guide.
-For documentation and better understanding the software struture, please refer to the documentation document.
+For further usage of the applications, please refer to the [Instruction](https://github.com/Big-Bro222/MRvis/blob/master/Documentation/Instruction.pdf) document.
+For documentation and better understanding the software struture, please refer to the [documentation](https://github.com/Big-Bro222/MRvis/blob/master/Documentation/MRVisDocumentation.pdf) document.
 
 
 
