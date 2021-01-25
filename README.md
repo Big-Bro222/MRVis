@@ -52,7 +52,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Demo Video](Documentation/DemoCover.png)
+[<img src="https://github.com/Big-Bro222/MRvis/blob/master/Documentation/DemoCover.png">](https://youtu.be/5i0EqaLv56Q)
+
 
 This project is done in 2020 from March to September as a research result at Inria. The project includes two unity projects. One for the monitor application and remote room. The other is for the HoloLens application.
 
