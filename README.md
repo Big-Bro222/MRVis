@@ -12,7 +12,7 @@
   <p align="center">
     External AR for Digital display and Remote AR collaborative system
     <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/Big-Bro222/MRvis"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://youtu.be/5i0EqaLv56Q">View Demo</a>
